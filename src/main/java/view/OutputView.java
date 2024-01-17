@@ -16,5 +16,6 @@ public class OutputView {
     }
 
     public static void showPersonCard(Person person) {
+
     }
 }

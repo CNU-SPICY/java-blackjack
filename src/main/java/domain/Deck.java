@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class Cards {
+public class Deck {
 
-    private List<Card> cardList;
-    private final Random random = new Random();
+    private static List<Card> cardList;
+    private static final Random random = new Random();
 
-    public Cards() {
+    public Deck() {
         initializeDeck();
     }
 
@@ -24,7 +24,7 @@ public class Cards {
                 .forEach(cardList::add);
     }
 
-    public Card getRandomCard() {
-        return cardList.get(random.nextInt(cardList.size()));
+    public static Card getRandomCard() {
+        return cardList.remove(random.nextInt(cardList.size()));
     }
 }
