@@ -16,7 +16,7 @@ public class Deck {
 
     private void initializeDeck() {
         cardList = new ArrayList<>();
-        String[] suits = {"Diamonds", "Hearts", "Spades", "Clubs"};
+        String[] suits = {"다이아몬드", "하트", "스페이드", "클로버"};
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
         Stream.of(suits)
