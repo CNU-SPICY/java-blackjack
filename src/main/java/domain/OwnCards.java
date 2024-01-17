@@ -11,7 +11,16 @@ public class OwnCards {
         ownCards = new ArrayList<>();
     }
 
+    public void getRandomTwoCards(Deck deck) {
+        addCard(deck.getRandomCard());
+        addCard(deck.getRandomCard());
+    }
+
     public void addCard(Card card) {
         ownCards.add(card);
+    }
+
+    public List<Card> getOwnCards() {
+        return ownCards;
     }
 }

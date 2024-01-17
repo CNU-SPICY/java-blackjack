@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 
 public class Deck {
 
-    private static List<Card> cardList;
-    private static final Random random = new Random();
+    private List<Card> cardList;
+    private final Random random = new Random();
 
     public Deck() {
         initializeDeck();
@@ -24,7 +24,7 @@ public class Deck {
                 .forEach(cardList::add);
     }
 
-    public static Card getRandomCard() {
+    public Card getRandomCard() {
         return cardList.remove(random.nextInt(cardList.size()));
     }
 }
