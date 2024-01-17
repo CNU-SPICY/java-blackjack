@@ -5,12 +5,13 @@ import domain.Players;
 
 public class BlackjackController {
 
+    private static final String DEALER_NAME = "딜러";
     private final Players players;
     private final Dealer dealer;
 
     public BlackjackController(String[] playerNames) {
         players = new Players(playerNames);
-        dealer = new Dealer();
+        dealer = new Dealer(DEALER_NAME);
     }
 
     public void start() {
