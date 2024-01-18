@@ -6,8 +6,8 @@ public class Dealer {
 
     private final OwnCards ownCards = new OwnCards();
     private final WinLogic winLogic = new WinLogic();
+    private final Score score = new Score();
     private String name;
-    private Score score;
 
     public Dealer(String name) {
         this.name = name;
@@ -49,5 +49,17 @@ public class Dealer {
 
     public void increaseLoseCount() {
         score.increaseLoseCout();
+    }
+
+    public int getWinCount() {
+        return score.getWinCount();
+    }
+
+    public int getDrawCount() {
+        return score.getDrawCount();
+    }
+
+    public int getLoseCount() {
+        return score.getLoseCount();
     }
 }

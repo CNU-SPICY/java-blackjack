@@ -23,4 +23,16 @@ public class Score {
     public void increaseLoseCout() {
         loseCount++;
     }
+
+    public int getWinCount() {
+        return winCount;
+    }
+
+    public int getDrawCount() {
+        return drawCount;
+    }
+
+    public int getLoseCount() {
+        return loseCount;
+    }
 }

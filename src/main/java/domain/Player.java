@@ -5,8 +5,8 @@ import java.util.List;
 public class Player {
 
     private final OwnCards ownCards = new OwnCards();
+    private final Score score = new Score();
     private String name;
-    private Score score;
 
     public Player(String name) {
         this.name = name;
@@ -42,5 +42,15 @@ public class Player {
 
     public void increaseLoseCount() {
         score.increaseLoseCout();
+    }
+
+    public String getBattleResult() {
+        if (score.getWinCount() == 1) {
+            return "승";
+        }
+        if (score.getLoseCount() == 1) {
+            return "패";
+        }
+        return "무";
     }
 }

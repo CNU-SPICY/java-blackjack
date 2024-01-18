@@ -31,6 +31,7 @@ public class BlackjackController {
 
         OutputView.showTotalScore(dealer, players);
         dealer.fightEveryPlayer(players);
+        OutputView.showWinAndLoseResult(dealer, players);
     }
 
     private void divideFirstCards() {
@@ -47,14 +48,16 @@ public class BlackjackController {
             player.pickCard(deck);
             OutputView.showPlayerCard(player);
         }
+        OutputView.showPlayerCard(player);
     }
 
     private void checkDealerCard() {
         int sumOfDealerCards = dealer.getSumOfCards();
         if (sumOfDealerCards <= GET_MORE_CARD_CONDITION) {
             dealer.pickCard(deck);
+            OutputView.confirmDealerRecivedCard();
+            return;
         }
-        OutputView.confirmDealerRecivedCard();
     }
 
     private List<Player> getPlayers() {

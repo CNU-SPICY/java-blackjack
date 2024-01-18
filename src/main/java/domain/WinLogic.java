@@ -23,6 +23,7 @@ public class WinLogic {
     private void handleDealerSmallerThenStandardNumber(Dealer dealer, Player player) {
         if (player.getSumOfCards() > STANDARD_NUMBER) {
             dealerWin(dealer, player);
+            return;
         }
         compareDealerAndHandler(dealer, player);
     }

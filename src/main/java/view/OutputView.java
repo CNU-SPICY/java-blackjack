@@ -9,9 +9,10 @@ import java.util.List;
 public class OutputView {
 
     public static void showDividePlayerCards(Dealer dealer, Players players) {
-        System.out.println(dealer.getName() + "와 " + getPlayersName(players) + "에게 2장을 나누었습니다.");
+        System.out.println("\n" + dealer.getName() + "와 " + getPlayersName(players) + "에게 2장을 나누었습니다.");
         showDealerCard(dealer);
         showPlayersCards(players);
+        System.out.println();
     }
 
     private static String getPlayersName(Players players) {
@@ -84,5 +85,22 @@ public class OutputView {
 
     private static void showPlayerCardWithResult(Player player) {
         System.out.println(getPlayerCard(player) + " - 결과: " + player.getSumOfCards());
+    }
+
+    public static void showWinAndLoseResult(Dealer dealer, Players players) {
+        System.out.println();
+        showDealerWinAndLoseResult(dealer);
+        for (Player player : players.getPlayers()) {
+            showPlayerWinAndLoseResult(player);
+        }
+    }
+
+    private static void showDealerWinAndLoseResult(Dealer dealer) {
+        System.out.println(
+                "딜러: " + dealer.getWinCount() + "승 " + dealer.getLoseCount() + "패 " + dealer.getDrawCount() + "무");
+    }
+
+    private static void showPlayerWinAndLoseResult(Player player) {
+        System.out.println(player.getName() + ": " + player.getBattleResult());
     }
 }
