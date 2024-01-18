@@ -20,7 +20,7 @@ public class BlackjackController {
 
     public void start() {
         firstDivideCards();
-        OutputView.showPlayersCards(dealer, players);
+        OutputView.showDividePlayerCards(dealer, players);
     }
 
     private void firstDivideCards() {
