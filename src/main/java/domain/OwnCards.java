@@ -12,12 +12,12 @@ public class OwnCards {
     }
 
     public void getRandomTwoCards(Deck deck) {
-        addCard(deck.getRandomCard());
-        addCard(deck.getRandomCard());
+        addCard(deck);
+        addCard(deck);
     }
 
-    public void addCard(Card card) {
-        ownCards.add(card);
+    public void addCard(Deck deck) {
+        ownCards.add(deck.getRandomCard());
     }
 
     public List<Card> getOwnCards() {

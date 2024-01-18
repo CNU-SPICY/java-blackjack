@@ -18,9 +18,6 @@
     - Output View
         - Dealer와 Player가 가진 카드 출력
 - Domain
-    - Person
-        - 이름과 가지고 있는 카드에 대한 정보를 지닌다.
-        - 책임 : 초기 셋팅, 카드 추가
     - Dealer
         - 책임 : Player와 맞짱 떠야 한다.
     - Player

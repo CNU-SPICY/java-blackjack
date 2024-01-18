@@ -11,12 +11,16 @@ public class Player {
         this.name = name;
     }
 
-    public void firstCardSetting(Deck deck) {
+    public void setFirstCards(Deck deck) {
         ownCards.getRandomTwoCards(deck);
     }
 
     public String getName() {
         return name;
+    }
+
+    public void pickCard(Deck deck) {
+        ownCards.addCard(deck);
     }
 
     public List<Card> getOwnCards() {

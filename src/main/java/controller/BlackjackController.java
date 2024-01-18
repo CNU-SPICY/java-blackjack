@@ -2,7 +2,9 @@ package controller;
 
 import domain.Dealer;
 import domain.Deck;
+import domain.Player;
 import domain.Players;
+import view.InputView;
 import view.OutputView;
 
 public class BlackjackController {
@@ -19,13 +21,25 @@ public class BlackjackController {
     }
 
     public void start() {
-        firstDivideCards();
+        divideFirstCards();
         OutputView.showDividePlayerCards(dealer, players);
+
+        distributeCardsToPlayers();
     }
 
-    private void firstDivideCards() {
-        dealer.firstCardSetting(deck);
-        players.getPlayers().forEach(player -> player.firstCardSetting(deck));
+    private void divideFirstCards() {
+        dealer.setFirstCards(deck);
+        players.getPlayers().forEach(player -> player.setFirstCards(deck));
     }
 
+    private void distributeCardsToPlayers() {
+        players.getPlayers().forEach(this::distributeCardsToPlayer);
+    }
+
+    private void distributeCardsToPlayer(Player player) {
+        while (InputView.getCardCondition(player)) {
+            player.pickCard(deck);
+            OutputView.showPlayerCard(player);
+        }
+    }
 }

@@ -11,7 +11,7 @@ public class Dealer {
         this.name = name;
     }
 
-    public void firstCardSetting(Deck deck) {
+    public void setFirstCards(Deck deck) {
         ownCards.getRandomTwoCards(deck);
     }
 

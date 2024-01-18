@@ -9,8 +9,15 @@ import java.util.List;
 public class OutputView {
 
     public static void showDividePlayerCards(Dealer dealer, Players players) {
-        System.out.println("딜러와 pobi, jason에게 2장을 나누었습니다.");
+        System.out.println(dealer.getName() + "와 " + getPlayersName(players) + "에게 2장을 나누었습니다.");
         showPlayersCards(dealer, players, true);
+    }
+
+    private static String getPlayersName(Players players) {
+        StringBuilder playerNames = new StringBuilder();
+        players.getPlayers().forEach(player -> playerNames.append(player.getName()).append(", "));
+        playerNames.deleteCharAt(playerNames.length() - 2);
+        return playerNames.toString();
     }
 
     public static void showPlayersCards(Dealer dealer, Players players, boolean hideOption) {
