@@ -30,6 +30,7 @@ public class BlackjackController {
         checkDealerCard();
 
         OutputView.showTotalScore(dealer, players);
+        dealer.fightEveryPlayer(players);
     }
 
     private void divideFirstCards() {

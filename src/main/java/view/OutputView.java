@@ -10,7 +10,7 @@ public class OutputView {
 
     public static void showDividePlayerCards(Dealer dealer, Players players) {
         System.out.println(dealer.getName() + "와 " + getPlayersName(players) + "에게 2장을 나누었습니다.");
-        showDealerCard(dealer, true);
+        showDealerCard(dealer);
         showPlayersCards(players);
     }
 
@@ -21,18 +21,8 @@ public class OutputView {
         return playerNames.toString();
     }
 
-    public static void showPlayersCards(Players players) {
-        for (Player player : players.getPlayers()) {
-            showPlayerCard(player);
-        }
-    }
-
-    public static void showPlayerCard(Player player) {
-        System.out.println(getPlayerCard(player));
-    }
-
-    private static void showDealerCard(Dealer dealer, boolean hideOption) {
-        System.out.println(getDealerCard(dealer, hideOption));
+    private static void showDealerCard(Dealer dealer) {
+        System.out.println(getDealerCard(dealer, true));
     }
 
     private static StringBuilder getDealerCard(Dealer dealer, boolean hideOption) {
@@ -55,6 +45,16 @@ public class OutputView {
         return dealerCards;
     }
 
+    public static void showPlayersCards(Players players) {
+        for (Player player : players.getPlayers()) {
+            showPlayerCard(player);
+        }
+    }
+
+    public static void showPlayerCard(Player player) {
+        System.out.println(getPlayerCard(player));
+    }
+
     public static StringBuilder getPlayerCard(Player player) {
         StringBuilder playerCards = new StringBuilder();
         playerCards.append(player.getName()).append(": ");
@@ -73,6 +73,16 @@ public class OutputView {
     }
 
     public static void showTotalScore(Dealer dealer, Players players) {
-        showDealerCard(dealer, false);
+        System.out.println();
+        StringBuilder sumOfDealerCard = getDealerCard(dealer, false).append(" - 결과: ").append(dealer.getSumOfCards());
+        System.out.println(sumOfDealerCard);
+
+        for (Player player : players.getPlayers()) {
+            showPlayerCardWithResult(player);
+        }
+    }
+
+    private static void showPlayerCardWithResult(Player player) {
+        System.out.println(getPlayerCard(player) + " - 결과: " + player.getSumOfCards());
     }
 }

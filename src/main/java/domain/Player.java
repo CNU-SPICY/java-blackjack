@@ -6,6 +6,7 @@ public class Player {
 
     private final OwnCards ownCards = new OwnCards();
     private String name;
+    private Score score;
 
     public Player(String name) {
         this.name = name;
@@ -29,5 +30,17 @@ public class Player {
 
     public int getSumOfCards() {
         return ownCards.getSumOfCards();
+    }
+
+    public void increaseWinCount() {
+        score.increaseWinCount();
+    }
+
+    public void increaseDrawCount() {
+        score.increaseDrawCount();
+    }
+
+    public void increaseLoseCount() {
+        score.increaseLoseCout();
     }
 }
