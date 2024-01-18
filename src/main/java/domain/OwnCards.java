@@ -25,6 +25,7 @@ public class OwnCards {
     }
 
     public int getSumOfCards() {
-        return ownCards.stream().mapToInt(Card::getCardRank).sum();
+        SumLogic sumLogic = new SumLogic();
+        return sumLogic.applyLogic(ownCards);
     }
 }

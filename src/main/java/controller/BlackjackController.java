@@ -28,6 +28,8 @@ public class BlackjackController {
 
         distributeCardsToPlayers();
         checkDealerCard();
+
+        OutputView.showTotalScore(dealer, players);
     }
 
     private void divideFirstCards() {

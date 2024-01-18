@@ -14,7 +14,7 @@ public class Card {
         return this.cardRank + this.cardShape;
     }
 
-    public int getCardRank() {
-        return Integer.parseInt(cardRank);
+    public String getCardRank() {
+        return cardRank;
     }
 }
