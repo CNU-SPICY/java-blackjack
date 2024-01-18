@@ -22,4 +22,12 @@ public class Dealer {
     public List<Card> getOwnCards() {
         return ownCards.getOwnCards();
     }
+
+    public int getSumOfCards() {
+        return ownCards.getSumOfCards();
+    }
+
+    public void pickCard(Deck deck) {
+        ownCards.addCard(deck);
+    }
 }

@@ -23,4 +23,8 @@ public class OwnCards {
     public List<Card> getOwnCards() {
         return ownCards;
     }
+
+    public int getSumOfCards() {
+        return ownCards.stream().mapToInt(Card::getCardRank).sum();
+    }
 }

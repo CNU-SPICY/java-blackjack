@@ -26,4 +26,8 @@ public class Player {
     public List<Card> getOwnCards() {
         return ownCards.getOwnCards();
     }
+
+    public int getSumOfCards() {
+        return ownCards.getSumOfCards();
+    }
 }

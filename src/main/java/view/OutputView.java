@@ -22,7 +22,6 @@ public class OutputView {
 
     public static void showPlayersCards(Dealer dealer, Players players, boolean hideOption) {
         showDealerCard(dealer, hideOption);
-
         for (Player player : players.getPlayers()) {
             showPlayerCard(player);
         }
@@ -32,7 +31,6 @@ public class OutputView {
         StringBuilder dealerCards = new StringBuilder();
         dealerCards.append(dealer.getName()).append(": ");
         List<Card> ownCards = dealer.getOwnCards();
-
         System.out.println(dealerOutputFormatGenerator(ownCards, dealerCards, hideOption));
     }
 
@@ -52,7 +50,6 @@ public class OutputView {
         StringBuilder playerCards = new StringBuilder();
         playerCards.append(player.getName()).append(": ");
         List<Card> ownCards = player.getOwnCards();
-
         System.out.println(playerOutputFormatGenerator(ownCards, playerCards));
     }
 
@@ -60,5 +57,9 @@ public class OutputView {
         cards.forEach(card -> playerCards.append(card.getCardFullName()).append(", "));
         playerCards.deleteCharAt(playerCards.length() - 2);
         return playerCards.toString();
+    }
+
+    public static void confirmDealerRecivedCard() {
+        System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 }

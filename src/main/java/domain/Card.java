@@ -13,4 +13,8 @@ public class Card {
     public String getCardFullName() {
         return this.cardRank + this.cardShape;
     }
+
+    public int getCardRank() {
+        return Integer.parseInt(cardRank);
+    }
 }
