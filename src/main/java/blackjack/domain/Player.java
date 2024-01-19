@@ -3,32 +3,61 @@ package blackjack.domain;
 import java.util.ArrayList;
 
 public class Player {
+    private static final int BUST_SCORE = 22;
     private final String name;
-    private ArrayList<String> hand;
-    private int score;
+    private final ArrayList<Card> hand;
+    private RandomCardGenerator randomCardGenerator = new RandomCardGenerator();
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
-        this.score = 0;
     }
 
-    public String getPlayerName() {
+    public String getName() {
         return name;
     }
 
-    public ArrayList<String> getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
     }
 
-    public int getScoreSum() {
-        return score;
+    public void initDeal() {
+        drawCard();
+        drawCard();
+    }
+
+    public void drawCard() {
+        addCardToHand(randomCardGenerator.drawRandomCard());
     }
 
     public void addCardToHand(Card card) {
-        String cardSuit = card.getSuit();
-        int cardScore = card.getScore();
-        hand.add(cardSuit);
-        score += cardScore;
+        hand.add(card);
+    }
+
+    public boolean isHitPossible() {
+        return (calculateTotalScore() < BUST_SCORE);
+    }
+
+    public int calculateTotalScore() {
+        int totalScore = hand.stream()
+                .mapToInt(Card::getScore)
+                .sum();
+        long aceCount = countAce();
+        while(aceCount > 0 && totalScore >= BUST_SCORE ) {
+            totalScore -= 10;
+            aceCount --;
+        }
+        return totalScore;
+    }
+
+    private long countAce() {
+        return hand.stream()
+                .filter(this::isAce)
+                .count();
+    }
+
+    private boolean isAce(Card card) {
+        String cardInfo = card.getInfo();
+        return cardInfo.contains("A");
     }
 }

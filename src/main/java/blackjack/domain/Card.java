@@ -1,16 +1,16 @@
 package blackjack.domain;
 
 public class Card {
-    private final String suit;
+    private final String info;
     private final int score;
 
-    public Card(String suit, int score) {
-        this.suit = suit;
+    public Card(String info, int score) {
+        this.info = info;
         this.score = score;
     }
 
-    public String getSuit() {
-        return suit;
+    public String getInfo() {
+        return info;
     }
 
     public int getScore() {
