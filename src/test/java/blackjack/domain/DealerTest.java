@@ -1,8 +1,9 @@
 package blackjack.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
+import blackjack.domain.card.Deck;
+import blackjack.domain.enums.GameResult;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +41,7 @@ class DealerTest {
         // given
         dealer.pickCard(deck, 11); // QUEEN CLOVER
         dealer.pickCard(deck, 1); // ACE CLOVER
-        players.getPlayers().forEach(player->dealer.giveCardToPlayer(player));
+        players.getPlayers().forEach(player -> dealer.giveCardToPlayer(player));
 
         // when
         dealer.decideResultOfAll(players);

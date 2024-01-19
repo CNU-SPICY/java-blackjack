@@ -1,8 +1,8 @@
 package blackjack.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
+import blackjack.domain.card.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class PlayerTest {
         player.pickCard(deck, 10); // JACK CLOVER
 
         // when
-        int result = player.calcScore();
+        int result = player.getScore();
 
         // then
         assertThat(result).isEqualTo(20);
@@ -41,7 +41,7 @@ class PlayerTest {
         player.pickCard(deck, 0); // ACE CLOVER
 
         // when
-        int result = player.calcScore();
+        int result = player.getScore();
 
         // then
         assertThat(result).isEqualTo(21);
@@ -55,7 +55,7 @@ class PlayerTest {
         player.pickCard(deck, 0); // ACE CLOVER
 
         // when
-        int result = player.calcScore();
+        int result = player.getScore();
 
         // then
         assertThat(result).isEqualTo(21);

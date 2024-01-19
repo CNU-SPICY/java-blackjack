@@ -1,64 +1,40 @@
 package blackjack.domain;
 
-import blackjack.domain.carddata.CardNumber;
-import java.util.ArrayList;
+import blackjack.domain.card.Card;
+import blackjack.domain.card.Deck;
+import blackjack.domain.card.PlayerCards;
+import blackjack.domain.enums.GameResult;
 import java.util.List;
 
 public class Player implements Comparable<Player> {
 
-    private static final int DEAD_LINE = 21;
-
     private final String name;
-    private final List<Card> cards;
+    private final PlayerCards cards;
     private GameResult gameResult;
 
     public Player(String name) {
         this.name = name;
-        this.cards = new ArrayList<>();
+        this.cards = new PlayerCards();
     }
 
     public boolean pickCard(Deck deck, int random) {
         if (canPickCard()) {
-            cards.add(deck.popCard(random));
+            cards.pickCard(deck.popCard(random));
             return true;
         }
         return false;
     }
 
     public boolean canPickCard() {
-        return calcScore() < DEAD_LINE;
+        return getScore() < PlayerCards.DEAD_LINE;
     }
 
     public boolean isDead() {
-        return calcScore() > DEAD_LINE;
+        return getScore() > PlayerCards.DEAD_LINE;
     }
 
-    public int calcScore() {
-        final int score = cards.stream().mapToInt(Card::getNumber).sum();
-        final int extra = extraScoreFromAce(score);
-        return score + extra;
-    }
-
-    private int extraScoreFromAce(int score) {
-        return AmountOfAceWithExtraScore(score) * CardNumber.DIFF_ACE_SCORE;
-    }
-
-    private int AmountOfAceWithExtraScore(int score) {
-        int upperAmountOfAce = AmountOfAce();
-        int extraAmountOfAce = (DEAD_LINE - score) / CardNumber.DIFF_ACE_SCORE;
-        return Math.min(upperAmountOfAce, extraAmountOfAce);
-    }
-
-    private int AmountOfAce() {
-        return (int) cards.stream().filter(card -> card.getCardNumber() == CardNumber.ACE).count();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Card> getCards() {
-        return cards;
+    public int getScore() {
+        return cards.calcScore();
     }
 
     public void setResultToWin() {
@@ -71,6 +47,14 @@ public class Player implements Comparable<Player> {
 
     public void setResultToDraw() {
         gameResult = GameResult.DRAW;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return cards.getCards();
     }
 
     public String getGameResult() {
@@ -88,6 +72,6 @@ public class Player implements Comparable<Player> {
         if (other.isDead()) {
             return 1;
         }
-        return this.calcScore() - other.calcScore();
+        return this.getScore() - other.getScore();
     }
 }

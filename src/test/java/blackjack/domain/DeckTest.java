@@ -2,8 +2,10 @@ package blackjack.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import blackjack.domain.carddata.CardNumber;
-import blackjack.domain.carddata.CardType;
+import blackjack.domain.card.Card;
+import blackjack.domain.card.Deck;
+import blackjack.domain.enums.CardNumber;
+import blackjack.domain.enums.CardType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

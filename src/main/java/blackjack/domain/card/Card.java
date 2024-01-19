@@ -1,7 +1,7 @@
-package blackjack.domain;
+package blackjack.domain.card;
 
-import blackjack.domain.carddata.CardNumber;
-import blackjack.domain.carddata.CardType;
+import blackjack.domain.enums.CardNumber;
+import blackjack.domain.enums.CardType;
 
 public class Card {
 

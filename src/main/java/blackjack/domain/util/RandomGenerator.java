@@ -1,6 +1,6 @@
 package blackjack.domain.util;
 
-import blackjack.domain.Deck;
+import blackjack.domain.card.Deck;
 import java.util.Random;
 
 public class RandomGenerator {

@@ -1,5 +1,7 @@
 package blackjack.domain;
 
+import blackjack.domain.card.Deck;
+import blackjack.domain.enums.GameResult;
 import blackjack.domain.util.RandomGenerator;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.stream.IntStream;
 public class Dealer extends Player {
 
     public static final int INITIAL_CARD_AMOUNT = 2;
-    private static final int PICKUP_BOUND = 16;
+    public static final int PICKUP_BOUND = 16;
     private static final String DEALER_NAME = "딜러";
 
     private final RandomGenerator randomGenerator;
@@ -59,6 +61,6 @@ public class Dealer extends Player {
 
     @Override
     public boolean canPickCard() {
-        return calcScore() <= PICKUP_BOUND;
+        return getScore() <= PICKUP_BOUND;
     }
 }

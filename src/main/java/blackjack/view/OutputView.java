@@ -1,10 +1,10 @@
 package blackjack.view;
 
-import blackjack.domain.Card;
+import blackjack.domain.card.Card;
 import blackjack.domain.Dealer;
-import blackjack.domain.GameResult;
 import blackjack.domain.Player;
 import blackjack.domain.Players;
+import blackjack.domain.enums.GameResult;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +18,7 @@ public class OutputView {
 
     public void dealerReceivedCard(Dealer dealer) {
         System.out.println();
-        System.out.println(dealer.getName() + "는 16이하라 한장의 카드를 더 받았습니다.");
+        System.out.println(dealer.getName() + "는 " + Dealer.PICKUP_BOUND + "이하라 한장의 카드를 더 받았습니다.");
     }
 
     public void printStatusOfAll(Dealer dealer, Players players) {
@@ -38,7 +38,7 @@ public class OutputView {
     }
 
     public void printFinalStatus(Player player) {
-        System.out.println(getStatus(player) + " - 결과: " + player.calcScore());
+        System.out.println(getStatus(player) + " - 결과: " + player.getScore());
     }
 
     private String getStatus(Player player) {
@@ -54,8 +54,10 @@ public class OutputView {
     public void printResult(Dealer dealer, Players players) {
         System.out.println();
         System.out.println("## 최종 승패");
-        int dealerWin = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.WIN).count();
-        int dealerLose = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.LOSE).count();
+        int dealerWin = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.WIN)
+                .count();
+        int dealerLose = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.LOSE)
+                .count();
         int dealerDraw = dealer.getGameResults().size() - dealerWin - dealerLose;
         System.out.println(dealer.getName() + ": " + dealerWin + "승 " + dealerLose + "패 " + dealerDraw + "무");
         players.getPlayers().forEach(player -> System.out.println(player.getName() + ": " + player.getGameResult()));
