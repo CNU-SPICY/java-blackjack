@@ -1,6 +1,6 @@
 package view;
 
-import domain.Player;
+import domain.person.Player;
 import java.util.Scanner;
 
 public class InputView {

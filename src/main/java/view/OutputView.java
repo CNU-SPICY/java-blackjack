@@ -1,9 +1,9 @@
 package view;
 
-import domain.Card;
-import domain.Dealer;
-import domain.Player;
-import domain.Players;
+import domain.cards.Card;
+import domain.person.Dealer;
+import domain.person.Player;
+import domain.person.Players;
 import java.util.List;
 
 public class OutputView {

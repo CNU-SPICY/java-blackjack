@@ -1,9 +1,9 @@
 package controller;
 
-import domain.Dealer;
-import domain.Deck;
-import domain.Player;
-import domain.Players;
+import domain.cards.Deck;
+import domain.person.Dealer;
+import domain.person.Player;
+import domain.person.Players;
 import java.util.List;
 import view.InputView;
 import view.OutputView;

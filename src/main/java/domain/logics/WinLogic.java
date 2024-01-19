@@ -1,4 +1,7 @@
-package domain;
+package domain.logics;
+
+import domain.person.Dealer;
+import domain.person.Player;
 
 public class WinLogic {
 

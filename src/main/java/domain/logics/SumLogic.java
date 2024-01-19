@@ -1,5 +1,6 @@
-package domain;
+package domain.logics;
 
+import domain.cards.Card;
 import java.util.List;
 
 public class SumLogic {

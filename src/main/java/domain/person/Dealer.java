@@ -1,5 +1,10 @@
-package domain;
+package domain.person;
 
+import domain.cards.Card;
+import domain.cards.Deck;
+import domain.cards.OwnCards;
+import domain.logics.Score;
+import domain.logics.WinLogic;
 import java.util.List;
 
 public class Dealer {

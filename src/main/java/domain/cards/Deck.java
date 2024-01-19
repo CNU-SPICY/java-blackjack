@@ -1,5 +1,7 @@
-package domain;
+package domain.cards;
 
+import domain.cards.constant.CardEnums.CardRank;
+import domain.cards.constant.CardEnums.CardSuit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,8 +18,8 @@ public class Deck {
 
     private void initializeDeck() {
         cardList = new ArrayList<>();
-        String[] suits = {"다이아몬드", "하트", "스페이드", "클로버"};
-        String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+        CardSuit[] suits = CardSuit.values();
+        CardRank[] ranks = CardRank.values();
 
         Stream.of(suits)
                 .flatMap(suit -> Stream.of(ranks).map(rank -> new Card(suit, rank)))
