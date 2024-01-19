@@ -4,6 +4,7 @@ import domain.cards.Deck;
 import domain.person.Dealer;
 import domain.person.Player;
 import domain.person.Players;
+import domain.person.wrapper.NameWrapper;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
@@ -16,10 +17,10 @@ public class BlackjackController {
     private final Dealer dealer;
     private final Deck deck;
 
-    public BlackjackController(String[] playerNames) {
+    public BlackjackController(List<String> playerNames) {
         deck = new Deck();
         players = new Players(playerNames);
-        dealer = new Dealer(DEALER_NAME);
+        dealer = new Dealer(new NameWrapper(DEALER_NAME));
     }
 
     public void start() {
@@ -56,7 +57,6 @@ public class BlackjackController {
         if (sumOfDealerCards <= GET_MORE_CARD_CONDITION) {
             dealer.pickCard(deck);
             OutputView.confirmDealerRecivedCard();
-            return;
         }
     }
 

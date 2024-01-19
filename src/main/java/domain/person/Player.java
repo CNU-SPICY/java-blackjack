@@ -4,15 +4,16 @@ import domain.cards.Card;
 import domain.cards.Deck;
 import domain.cards.OwnCards;
 import domain.logics.Score;
+import domain.person.wrapper.NameWrapper;
 import java.util.List;
 
 public class Player {
 
     private final OwnCards ownCards = new OwnCards();
     private final Score score = new Score();
-    private String name;
+    private final NameWrapper name;
 
-    public Player(String name) {
+    public Player(NameWrapper name) {
         this.name = name;
     }
 
@@ -21,7 +22,7 @@ public class Player {
     }
 
     public String getName() {
-        return name;
+        return name.getName();
     }
 
     public void pickCard(Deck deck) {

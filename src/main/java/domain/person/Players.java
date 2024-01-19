@@ -1,6 +1,6 @@
 package domain.person;
 
-import java.util.Arrays;
+import domain.person.wrapper.NameWrapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +8,9 @@ public class Players {
 
     private final List<Player> players;
 
-    public Players(String[] playerNames) {
-        players = Arrays.stream(playerNames)
-                .map(Player::new)
+    public Players(List<String> playerNames) {
+        players = playerNames.stream()
+                .map(playerName -> new Player(new NameWrapper(playerName)))
                 .collect(Collectors.toList());
     }
 

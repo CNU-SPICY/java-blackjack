@@ -5,6 +5,7 @@ import domain.cards.Deck;
 import domain.cards.OwnCards;
 import domain.logics.Score;
 import domain.logics.WinLogic;
+import domain.person.wrapper.NameWrapper;
 import java.util.List;
 
 public class Dealer {
@@ -12,9 +13,9 @@ public class Dealer {
     private final OwnCards ownCards = new OwnCards();
     private final WinLogic winLogic = new WinLogic();
     private final Score score = new Score();
-    private String name;
+    private final NameWrapper name;
 
-    public Dealer(String name) {
+    public Dealer(NameWrapper name) {
         this.name = name;
     }
 
@@ -23,7 +24,7 @@ public class Dealer {
     }
 
     public String getName() {
-        return name;
+        return name.getName();
     }
 
     public List<Card> getOwnCards() {

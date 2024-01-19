@@ -11,15 +11,25 @@ public class SumLogic {
 
     public int applyLogic(List<Card> ownCards) {
         int sum = 0;
+        int numberOfAces = 0;
         for (Card card : ownCards) {
-            sum += handleAllCase(card, sum);
+            numberOfAces = checkIfAceCard(card, numberOfAces);
+            sum += handleAllCase(card);
         }
+        sum = handleRemainAceCards(numberOfAces, sum);
         return sum;
     }
 
-    public int handleAllCase(Card card, int sum) {
+    private int checkIfAceCard(Card card, int numberOfAces) {
         if (card.getCardRank().equals("A")) {
-            return aceCheck(card, sum);
+            return ++numberOfAces;
+        }
+        return numberOfAces;
+    }
+
+    public int handleAllCase(Card card) {
+        if (card.getCardRank().equals("A")) {
+            return 0;
         }
         if (card.getCardRank().equals("J") || card.getCardRank().equals("Q") || card.getCardRank().equals("K")) {
             return 10;
@@ -27,10 +37,33 @@ public class SumLogic {
         return Integer.parseInt(card.getCardRank());
     }
 
-    private int aceCheck(Card card, int sum) {
-        if (MAX_ACE_VALUE + sum > STANDARD_NUMBER) {
-            return MIN_ACE_VALUE;
+    private int handleRemainAceCards(int numberOfAces, int sum) {
+        int remainNumber = STANDARD_NUMBER - sum;
+        int aceIsOne = numberOfAces * MIN_ACE_VALUE;
+        int aceIsEleven = 0;
+        if (remainNumber < 0) {
+            return sum + aceIsOne + aceIsEleven;
         }
-        return MAX_ACE_VALUE;
+        while (remainNumber > 0) {
+            remainNumber = STANDARD_NUMBER - sum;
+            remainNumber -= (aceIsOne + aceIsEleven);
+            if (remainNumber == 0) {
+                continue;
+            }
+            if (remainNumber <= 0 && aceIsOne != numberOfAces * MIN_ACE_VALUE) {
+                aceIsOne += MIN_ACE_VALUE;
+                aceIsEleven -= MAX_ACE_VALUE;
+                continue;
+            }
+            if (remainNumber <= 0) {
+                continue;
+            }
+            if (aceIsOne == 0) {
+                break;
+            }
+            aceIsOne -= MIN_ACE_VALUE;
+            aceIsEleven += MAX_ACE_VALUE;
+        }
+        return sum + aceIsOne + aceIsEleven;
     }
 }

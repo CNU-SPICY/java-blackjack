@@ -1,7 +1,9 @@
 package domain.cards.constant;
 
 public class CardEnums {
+
     public enum CardSuit {
+
         DIAMOND("다이아몬드"),
         HEART("하트"),
         SPADE("스페이드"),
@@ -19,6 +21,7 @@ public class CardEnums {
     }
 
     public enum CardRank {
+
         A("A"),
         TWO("2"),
         THREE("3"),
