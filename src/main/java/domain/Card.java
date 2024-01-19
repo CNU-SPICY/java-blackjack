@@ -25,7 +25,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return rank + suit.name().charAt(0);
+        return rank + suit.getName();
     }
 
     static List<Card> initializeDeck() {
