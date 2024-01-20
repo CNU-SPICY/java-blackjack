@@ -14,12 +14,12 @@ public class PlayerCards {
         this.cards = new ArrayList<>();
     }
 
-    public void pickCard(Card card) {
+    public void addCard(Card card) {
         cards.add(card);
     }
 
     public int calcScore() {
-        final int score = cards.stream().mapToInt(Card::getNumber).sum();
+        final int score = cards.stream().mapToInt(Card::getScore).sum();
         final int extra = extraScoreFromAce(score);
         return score + extra;
     }

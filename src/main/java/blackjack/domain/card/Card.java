@@ -25,7 +25,7 @@ public class Card {
         return cardNumber.getName();
     }
 
-    public int getNumber() {
-        return cardNumber.getNumber();
+    public int getScore() {
+        return cardNumber.getScore();
     }
 }

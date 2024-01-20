@@ -6,7 +6,7 @@ import blackjack.domain.card.PlayerCards;
 import blackjack.domain.enums.GameResult;
 import java.util.List;
 
-public class Player implements Comparable<Player> {
+public class Player {
 
     private final String name;
     private final PlayerCards cards;
@@ -18,18 +18,18 @@ public class Player implements Comparable<Player> {
     }
 
     public boolean pickCard(Deck deck, int random) {
-        if (canPickCard()) {
-            cards.pickCard(deck.popCard(random));
+        if (isHittable()) {
+            cards.addCard(deck.popCard(random));
             return true;
         }
         return false;
     }
 
-    public boolean canPickCard() {
+    public boolean isHittable() {
         return getScore() < PlayerCards.DEAD_LINE;
     }
 
-    public boolean isDead() {
+    public boolean isBust() {
         return getScore() > PlayerCards.DEAD_LINE;
     }
 
@@ -59,19 +59,5 @@ public class Player implements Comparable<Player> {
 
     public String getGameResult() {
         return gameResult.getResult();
-    }
-
-    @Override
-    public int compareTo(Player other) {
-        if (this.isDead() && other.isDead()) {
-            return 0;
-        }
-        if (this.isDead()) {
-            return -1;
-        }
-        if (other.isDead()) {
-            return 1;
-        }
-        return this.getScore() - other.getScore();
     }
 }

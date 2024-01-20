@@ -44,7 +44,7 @@ class DealerTest {
         players.getPlayers().forEach(player -> dealer.giveCardToPlayer(player));
 
         // when
-        dealer.decideResultOfAll(players);
+        dealer.decideResult(players);
         int result = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.WIN).count();
 
         // then

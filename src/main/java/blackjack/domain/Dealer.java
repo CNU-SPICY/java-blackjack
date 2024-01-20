@@ -3,7 +3,6 @@ package blackjack.domain;
 import blackjack.domain.card.Deck;
 import blackjack.domain.enums.GameResult;
 import blackjack.domain.util.RandomGenerator;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -15,13 +14,13 @@ public class Dealer extends Player {
 
     private final RandomGenerator randomGenerator;
     private final Deck deck;
-    private final List<GameResult> gameResults;
+    private final GameResults gameResults;
 
     public Dealer(Deck deck) {
         super(DEALER_NAME);
         this.randomGenerator = new RandomGenerator(deck);
         this.deck = deck;
-        this.gameResults = new ArrayList<>();
+        this.gameResults = new GameResults();
     }
 
     public void giveInitialCard(Players players) {
@@ -35,32 +34,28 @@ public class Dealer extends Player {
         return player.pickCard(deck, randomGenerator.generate());
     }
 
-    public void decideResultOfAll(Players players) {
-        players.getPlayers().forEach(this::decideResult);
+    public void decideResult(Players players) {
+        gameResults.decideResultOfAll(this, players);
     }
 
-    private void decideResult(Player player) {
-        int result = this.compareTo(player);
-        if (result > 0) {
-            gameResults.add(GameResult.WIN);
-            player.setResultToLose();
-            return;
-        }
-        if (result < 0) {
-            gameResults.add(GameResult.LOSE);
-            player.setResultToWin();
-            return;
-        }
-        gameResults.add(GameResult.DRAW);
-        player.setResultToDraw();
+    public int getWinCount() {
+        return gameResults.getWinCount();
+    }
+
+    public int getLoseCount() {
+        return gameResults.getLoseCount();
+    }
+
+    public int getDrawCount() {
+        return gameResults.getDrawCount();
     }
 
     public List<GameResult> getGameResults() {
-        return gameResults;
+        return gameResults.getGameResults();
     }
 
     @Override
-    public boolean canPickCard() {
+    public boolean isHittable() {
         return getScore() <= PICKUP_BOUND;
     }
 }

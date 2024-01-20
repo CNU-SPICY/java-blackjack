@@ -70,7 +70,7 @@ class PlayerTest {
         player.pickCard(deck, 1); // 2 CLOVER
 
         // when
-        boolean result = player.isDead();
+        boolean result = player.isBust();
 
         // then
         assertThat(result).isEqualTo(true);
@@ -84,7 +84,7 @@ class PlayerTest {
         player.pickCard(deck, 0); // ACE CLOVER
 
         // when
-        boolean result = player.isDead();
+        boolean result = player.isBust();
 
         // then
         assertThat(result).isEqualTo(false);
@@ -98,7 +98,7 @@ class PlayerTest {
         player.pickCard(deck, 0); // ACE CLOVER
 
         // when
-        boolean result = player.canPickCard();
+        boolean result = player.isHittable();
 
         // then
         assertThat(result).isEqualTo(false);
@@ -112,7 +112,7 @@ class PlayerTest {
         player.pickCard(deck, 10); // JACK CLOVER
 
         // when
-        boolean result = player.canPickCard();
+        boolean result = player.isHittable();
 
         // then
         assertThat(result).isEqualTo(true);

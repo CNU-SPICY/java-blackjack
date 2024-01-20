@@ -13,11 +13,11 @@ public class OutputView {
     public void allReceivedCard(Dealer dealer, Players players) {
         List<String> playerNames = players.getPlayers().stream().map(Player::getName).collect(Collectors.toList());
         System.out.println();
-        System.out.println(dealer.getName() + "와 " + String.join(", ", playerNames) + "에게 " + Dealer.INITIAL_CARD_AMOUNT + "장을 나누었습니다.");
+        System.out.println(dealer.getName() + "와 " + String.join(", ", playerNames) + "에게 " + Dealer.INITIAL_CARD_AMOUNT
+                + "장을 나누었습니다.");
     }
 
     public void dealerReceivedCard(Dealer dealer) {
-        System.out.println();
         System.out.println(dealer.getName() + "는 " + Dealer.PICKUP_BOUND + "이하라 한장의 카드를 더 받았습니다.");
     }
 
@@ -54,12 +54,12 @@ public class OutputView {
     public void printResult(Dealer dealer, Players players) {
         System.out.println();
         System.out.println("## 최종 승패");
-        int dealerWin = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.WIN)
-                .count();
-        int dealerLose = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.LOSE)
-                .count();
-        int dealerDraw = dealer.getGameResults().size() - dealerWin - dealerLose;
-        System.out.println(dealer.getName() + ": " + dealerWin + "승 " + dealerLose + "패 " + dealerDraw + "무");
+        System.out.println(dealer.getName() + ": " + dealer.getWinCount() + "승 " + dealer.getLoseCount() + "패 "
+                + dealer.getDrawCount() + "무");
         players.getPlayers().forEach(player -> System.out.println(player.getName() + ": " + player.getGameResult()));
+    }
+
+    public void printLine() {
+        System.out.println();
     }
 }

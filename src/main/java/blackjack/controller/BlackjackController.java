@@ -10,25 +10,21 @@ import java.util.List;
 
 public class BlackjackController {
 
-    InputView inputView;
-    OutputView outputView;
-    Deck deck;
-    Dealer dealer;
+    InputView inputView = new InputView();
+    OutputView outputView = new OutputView();
+    Deck deck = new Deck();
+    Dealer dealer = new Dealer(deck);
     Players players;
 
     public void run() {
-        inputView = new InputView();
-        outputView = new OutputView();
-        deck = new Deck();
-        dealer = new Dealer(deck);
-
         List<String> playerNames = inputView.getPlayerNames();
         players = new Players(playerNames);
 
         allReceivedCard();
         outputView.printStatusOfAll(dealer, players);
-        players.getPlayers().forEach(this::askPickCard);
+        players.getPlayers().forEach(this::askHitCard);
         inputView.close();
+        outputView.printLine();
         handleDealerCard();
 
         outputView.printFinalStatusOfAll(dealer, players);
@@ -40,9 +36,9 @@ public class BlackjackController {
         outputView.allReceivedCard(dealer, players);
     }
 
-    private void askPickCard(Player player) {
+    private void askHitCard(Player player) {
         boolean response = true;
-        while (player.canPickCard() && response) {
+        while (player.isHittable() && response) {
             response = processAskPickCard(player);
             outputView.printStatus(player);
         }
@@ -57,13 +53,13 @@ public class BlackjackController {
     }
 
     private void handleDealerCard() {
-        if (dealer.giveCardToPlayer(dealer)) {
+        while (dealer.giveCardToPlayer(dealer)) {
             outputView.dealerReceivedCard(dealer);
         }
     }
 
     private void decideResultOfAll() {
-        dealer.decideResultOfAll(players);
+        dealer.decideResult(players);
         outputView.printResult(dealer, players);
     }
 }

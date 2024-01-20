@@ -17,21 +17,21 @@ public enum CardNumber {
     KING("K", 10);
 
     public static final int EXTRA_ACE_SCORE = 11;
-    public static final int DIFF_ACE_SCORE = EXTRA_ACE_SCORE - ACE.getNumber();
+    public static final int DIFF_ACE_SCORE = EXTRA_ACE_SCORE - ACE.getScore();
 
     private final String name;
-    private final int number;
+    private final int score;
 
     CardNumber(String name, int number) {
         this.name = name;
-        this.number = number;
+        this.score = number;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getNumber() {
-        return number;
+    public int getScore() {
+        return score;
     }
 }
