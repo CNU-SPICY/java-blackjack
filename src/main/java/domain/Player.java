@@ -6,13 +6,16 @@ import java.util.List;
 public class Player {
     private String name;
     private List<Card> hand;
-    private int wins;
-    private int losses;
-    private int draws;
+    private WinCount wins;
+    private LossCount losses;
+    private DrawCount draws;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
+        this.wins = new WinCount();
+        this.losses = new LossCount();
+        this.draws = new DrawCount();
     }
 
     public void receiveCard(Card card) {
@@ -52,27 +55,27 @@ public class Player {
         return name;
     }
 
-    public int getWins() {
-        return wins;
-    }
-
-    public int getLosses() {
-        return losses;
-    }
-
-    public int getDraws() {
-        return draws;
-    }
-
     public void incrementWins() {
-        wins++;
+        wins.increment();
     }
 
     public void incrementLosses() {
-        losses++;
+        losses.increment();
     }
 
     public void incrementDraws() {
-        draws++;
+        draws.increment();
+    }
+
+    public int getWins() {
+        return wins.getCount();
+    }
+
+    public int getLosses() {
+        return losses.getCount();
+    }
+
+    public int getDraws() {
+        return draws.getCount();
     }
 }
