@@ -71,6 +71,82 @@ class PlayerTest {
     }
 
     @Test
+    void testCalculateScoreWithTwoAces() {
+        // Given
+        player.receiveCard(new Card(Suit.DIAMOND, "A"));
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "8"));
+
+        // When
+        int score = player.calculateScore();
+
+        // Then
+        assertEquals(20, score, "A, A, 8 일 경우 20이 되어야 함.");
+    }
+
+    @Test
+    void testCalculateScoreWithThreeAces() {
+        // Given
+        player.receiveCard(new Card(Suit.DIAMOND, "A"));
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "K"));
+        player.receiveCard(new Card(Suit.CLUB, "8"));
+
+        // When
+        int score = player.calculateScore();
+
+        // Then
+        assertEquals(21, score, "A, A, A, K, 8 일 경우 21이 되어야 함");
+    }
+
+    @Test
+    void testCalculateScoreWithOnlyThreeAces() {
+        // Given
+        player.receiveCard(new Card(Suit.DIAMOND, "A"));
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "A"));
+
+        // When
+        int score = player.calculateScore();
+
+        // Then
+        assertEquals(13, score, "A, A, A 일 경우 13이 되어야 함");
+    }
+
+    @Test
+    void testCalculateScoreWithFourAces() {
+        // Given
+        player.receiveCard(new Card(Suit.DIAMOND, "A"));
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "A"));
+        player.receiveCard(new Card(Suit.HEART, "A"));
+        player.receiveCard(new Card(Suit.HEART, "J"));
+        player.receiveCard(new Card(Suit.SPADE, "7"));
+
+        // When
+        int score = player.calculateScore();
+
+        // Then
+        assertEquals(21, score, "A, A, A, A, J, 7 일 경우 21이 되어야 함");
+    }
+
+    @Test
+    void testCalculateScoreWithOnlyFourAces() {
+        // Given
+        player.receiveCard(new Card(Suit.DIAMOND, "A"));
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "A"));
+        player.receiveCard(new Card(Suit.HEART, "A"));
+
+        // When
+        int score = player.calculateScore();
+
+        // Then
+        assertEquals(14, score, "A, A, A, A 일 경우 14가 되어야 함");
+    }
+
+    @Test
     void testIncrementWinsAndLossesAndDraws() {
         // When
         player.incrementWins();
