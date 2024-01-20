@@ -1,6 +1,9 @@
 package src.main.java.domain.player;
 
 import src.main.java.domain.card.Card;
+import src.main.java.domain.player.result.DrawCount;
+import src.main.java.domain.player.result.LossCount;
+import src.main.java.domain.player.result.WinCount;
 
 import java.util.ArrayList;
 import java.util.List;

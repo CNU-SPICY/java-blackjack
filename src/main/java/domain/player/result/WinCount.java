@@ -1,4 +1,4 @@
-package src.main.java.domain.player;
+package src.main.java.domain.player.result;
 
 public class WinCount {
     private int count;
