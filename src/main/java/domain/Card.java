@@ -6,26 +6,27 @@ import java.util.List;
 
 public class Card {
     private Suit suit;
-    private String rank;
+    private Rank rank;
 
     public Card(Suit suit, String rank) {
         this.suit = suit;
-        this.rank = rank;
+        this.rank = new Rank(rank);
     }
 
     public int getValue() {
-        if ("A".equals(rank)) {
+        String rankValue = rank.toString();
+        if ("A".equals(rankValue)) {
             return 1; // 에이스의 디폹트값을 1로 설정
         }
-        if ("K".equals(rank) || "Q".equals(rank) || "J".equals(rank)) {
+        if ("K".equals(rankValue) || "Q".equals(rankValue) || "J".equals(rankValue)) {
             return 10;
         }
-        return Integer.parseInt(rank);
+        return Integer.parseInt(rankValue);
     }
 
     @Override
     public String toString() {
-        return rank + suit.getName();
+        return rank.toString() + suit.getName();
     }
 
     static List<Card> initializeDeck() {
