@@ -1,4 +1,4 @@
-package src.main.java.view;
+package src.main.java.view.validation;
 
 import java.util.HashSet;
 import java.util.Set;

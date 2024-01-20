@@ -10,10 +10,10 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import src.main.java.domain.Card;
-import src.main.java.domain.Dealer;
-import src.main.java.domain.Player;
-import src.main.java.domain.Players;
+import src.main.java.domain.card.Card;
+import src.main.java.domain.player.Dealer;
+import src.main.java.domain.player.Player;
+import src.main.java.domain.players.Players;
 
 class PlayersTest {
 

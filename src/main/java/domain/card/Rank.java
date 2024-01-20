@@ -1,4 +1,4 @@
-package src.main.java.domain;
+package src.main.java.domain.card;
 
 public class Rank {
     private final String rank;

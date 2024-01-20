@@ -1,4 +1,9 @@
-package src.main.java.domain;
+package src.main.java.domain.players;
+
+import src.main.java.domain.card.Card;
+import src.main.java.domain.player.Dealer;
+import src.main.java.domain.player.Player;
+import src.main.java.domain.players.WinLogic;
 
 import java.util.ArrayList;
 import java.util.HashMap;

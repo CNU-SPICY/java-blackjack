@@ -1,4 +1,7 @@
-package src.main.java.domain;
+package src.main.java.domain.players;
+
+import src.main.java.domain.player.Dealer;
+import src.main.java.domain.player.Player;
 
 public class WinLogic {
 

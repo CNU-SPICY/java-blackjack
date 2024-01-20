@@ -1,5 +1,8 @@
 package src.main.java.view;
 
+import src.main.java.view.validation.AskGetMoreValidation;
+import src.main.java.view.validation.GetPlayersNamesValidation;
+
 import java.util.Scanner;
 
 public class InputView {

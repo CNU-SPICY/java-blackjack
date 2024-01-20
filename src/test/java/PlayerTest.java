@@ -4,9 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import src.main.java.domain.Player;
-import src.main.java.domain.Card;
-import src.main.java.domain.Suit;
+import src.main.java.domain.player.Player;
+import src.main.java.domain.card.Card;
+import src.main.java.domain.card.Suit;
 
 class PlayerTest {
 

@@ -1,9 +1,9 @@
-package src.main.java.domain;
+package src.main.java.domain.player;
 
-public class WinCount {
+public class DrawCount {
     private int count;
 
-    public WinCount() {
+    public DrawCount() {
         this.count = 0;
     }
 

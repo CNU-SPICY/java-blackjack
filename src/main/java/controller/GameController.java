@@ -1,8 +1,8 @@
 package src.main.java.controller;
 
-import src.main.java.domain.Dealer;
-import src.main.java.domain.Player;
-import src.main.java.domain.Players;
+import src.main.java.domain.player.Dealer;
+import src.main.java.domain.player.Player;
+import src.main.java.domain.players.Players;
 import src.main.java.view.InputView;
 import src.main.java.view.OutputView;
 

@@ -1,4 +1,4 @@
-package src.main.java.domain;
+package src.main.java.domain.card;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +29,7 @@ public class Card {
         return rank.toString() + suit.getName();
     }
 
-    static List<Card> initializeDeck() {
+    public static List<Card> initializeDeck() {
         List<Card> newDeck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
             for (int i = 2; i <= 10; i++) {

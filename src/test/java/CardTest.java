@@ -3,8 +3,8 @@ package src.test.java;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.java.domain.Card;
-import src.main.java.domain.Suit;
+import src.main.java.domain.card.Card;
+import src.main.java.domain.card.Suit;
 
 class CardTest {
 

@@ -1,4 +1,4 @@
-package src.main.java.view;
+package src.main.java.view.validation;
 
 public class AskGetMoreValidation {
     public static void validate(String response) {

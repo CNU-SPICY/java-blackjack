@@ -1,4 +1,6 @@
-package src.main.java.domain;
+package src.main.java.domain.player;
+
+import src.main.java.domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
