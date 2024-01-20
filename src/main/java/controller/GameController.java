@@ -61,9 +61,7 @@ public class GameController {
     }
 
     private void determineWinners(Players players, Dealer dealer) {
-        for (Player player : players.getPlayers()) {
-            players.determineWinners(player, dealer);
-        }
+        players.determineWinners(dealer);
     }
 
     private void displayFinalWins(Players players, Dealer dealer) {

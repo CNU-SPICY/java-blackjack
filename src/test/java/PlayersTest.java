@@ -94,7 +94,7 @@ class PlayersTest {
         Player player = players.getPlayers().get(0);
 
         // When
-        players.determineWinners(player, dealer);
+        players.determineWinners(dealer);
 
         // Then
         assertTrue(player.getWins() >= 0 && player.getLosses() >= 0 && player.getDraws() >= 0);

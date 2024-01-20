@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Players {
 
+    private final WinLogic winLogic = new WinLogic();
     private List<Player> players;
     private List<Card> deck;
 
@@ -57,22 +58,9 @@ public class Players {
         }
     }
 
-    public void determineWinners(Player player, Dealer dealer) {
-        int dealerScore = dealer.calculateScore();
-        int playerScore = player.calculateScore();
-
-        if (dealerScore > 21 || playerScore <= 21 && playerScore > dealerScore) {
-            dealer.incrementLosses();
-            player.incrementWins();
+    public void determineWinners(Dealer dealer) {
+        for (Player player : players) {
+            winLogic.determineWinner(player, dealer);
         }
-        if (playerScore > 21 || (dealerScore <= 21 && dealerScore > playerScore)) {
-            dealer.incrementWins();
-            player.incrementLosses();
-        }
-        if (playerScore <= 21 && playerScore == dealerScore) {
-            dealer.incrementDraws();
-            player.incrementDraws();
-        }
-
     }
 }
