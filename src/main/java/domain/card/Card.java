@@ -24,11 +24,6 @@ public class Card {
         return Integer.parseInt(rankValue);
     }
 
-    @Override
-    public String toString() {
-        return rank.toString() + suit.getName();
-    }
-
     public static List<Card> initializeDeck() {
         List<Card> newDeck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
@@ -42,5 +37,13 @@ public class Card {
         }
         Collections.shuffle(newDeck);
         return newDeck;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
     }
 }

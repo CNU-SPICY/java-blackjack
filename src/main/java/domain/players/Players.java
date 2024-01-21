@@ -28,6 +28,14 @@ public class Players {
         return players;
     }
 
+    public List<String> getPlayersNames() {
+        List<String> playersNames = new ArrayList<>();
+        for (Player player : players) {
+            playersNames.add(player.getName());
+        }
+        return playersNames;
+    }
+
     public Card drawCard() {
         return deck.remove(0);
     }
@@ -41,15 +49,6 @@ public class Players {
         for (int i = 0; i < 2; i++) {
             dealer.receiveCard(drawCard());
         }
-    }
-
-    public Map<String, String> getPlayersHands() {
-        Map<String, String> playerHands = new HashMap<>();
-        for (Player player : this.players) {
-            String hand = player.handToString();
-            playerHands.put(player.getName(), hand);
-        }
-        return playerHands;
     }
 
     public void playPlayerTurn(Player player) {

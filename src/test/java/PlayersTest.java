@@ -50,19 +50,6 @@ class PlayersTest {
     }
 
     @Test
-    void testGetPlayersHands() {
-        // Given
-        players.startGame(dealer);
-
-        // When
-        Map<String, String> playerHands = players.getPlayersHands();
-
-        // Then
-        assertFalse(playerHands.isEmpty());
-        assertEquals(2, playerHands.size());
-    }
-
-    @Test
     void testPlayPlayerTurn() {
         // Given
         players.startGame(dealer);

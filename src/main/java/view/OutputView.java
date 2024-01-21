@@ -1,18 +1,31 @@
 package src.main.java.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OutputView {
-    public static void displayInitialHands(Map<String, String> playerHands, String dealerHand) {
-        System.out.println("\n딜러와 " + String.join(", ", playerHands.keySet()) + "에게 2장을 나누었습니다.");
-        System.out.println("딜러 : " + dealerHand);
-        for (Map.Entry<String, String> entry : playerHands.entrySet()) {
-            System.out.println(entry.getKey() + "의 카드: " + entry.getValue());
-        }
+    public static void displaySharedTwoCards(List<String> playerNames) {
+        System.out.println("\n딜러와 " + String.join(", ", playerNames) + "에게 2장을 나누었습니다.");
     }
 
-    public static void displayPlayerHand(String playerName, String hand) {
-        System.out.println(playerName + "카드: " + hand);
+
+    public static String formatCards(Map<String, List<String>> handDetails) {
+        String cardsInHand = handDetails.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream().map(rank -> rank + entry.getKey()))
+                .collect(Collectors.joining(", "));
+        return cardsInHand;
+    }
+
+    public static void displayDealerHand(Map<String, String> faceUpCard) {
+        Map.Entry<String, String> entry = faceUpCard.entrySet().iterator().next();
+        System.out.println("딜러 카드: " + entry.getValue() + entry.getKey());
+    }
+
+    public static void displayPlayerHand(String playerName, String cardsInHand) {
+        System.out.println(playerName + "카드: " + cardsInHand);
     }
 
     public static void displayDealerReceivedCard() {

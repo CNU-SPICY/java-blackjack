@@ -8,6 +8,8 @@ import src.main.java.domain.player.Dealer;
 import src.main.java.domain.card.Card;
 import src.main.java.domain.card.Suit;
 
+import java.util.Map;
+
 class DealerTest {
 
     private Dealer dealer;
@@ -29,10 +31,10 @@ class DealerTest {
         dealer.receiveCard(new Card(Suit.DIAMOND, "7"));
 
         // When
-        String faceUpCard = dealer.getFaceUpCard();
+        Map<String, String> faceUpCardInfo = dealer.getFaceUpCard();
 
         // Then
-        assertEquals("10하트", faceUpCard, "딜러가 가장 첫 번째로 받은 카드를 반환해야 함");
+        assertEquals("10", faceUpCardInfo.get("하트"));
     }
 
     @Test

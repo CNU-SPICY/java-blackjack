@@ -31,19 +31,6 @@ class PlayerTest {
     }
 
     @Test
-    void testHandToString() {
-        // Given
-        player.receiveCard(new Card(Suit.CLUB, "5"));
-        player.receiveCard(new Card(Suit.HEART, "A"));
-
-        // When
-        String handString = player.handToString();
-
-        // Then
-        assertEquals("5클로버, A하트", handString);
-    }
-
-    @Test
     void testCalculateScoreWithAceAsEleven() {
         // Given
         player.receiveCard(new Card(Suit.HEART, "A"));

@@ -1,6 +1,11 @@
 package src.main.java.domain.player;
 
 import src.main.java.domain.card.Card;
+import src.main.java.domain.card.Rank;
+import src.main.java.domain.card.Suit;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Dealer extends Player {
 
@@ -10,10 +15,14 @@ public class Dealer extends Player {
         super("딜러");
     }
 
-    public String getFaceUpCard() {
+    public Map<String, String> getFaceUpCard() {
         if (getHand().size() != 0) {
             Card faceUpCard = getHand().get(0);
-            return faceUpCard.toString();
+            Map<String, String> faceUpCardInfo = new HashMap<>();
+            Suit faceUpCardSuit = faceUpCard.getSuit();
+            Rank faceUpCardRank = faceUpCard.getRank();
+            faceUpCardInfo.put(faceUpCardSuit.getName(), faceUpCardRank.toString());
+            return faceUpCardInfo;
         } return null;
     }
 

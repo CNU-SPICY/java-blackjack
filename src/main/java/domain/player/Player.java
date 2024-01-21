@@ -1,12 +1,16 @@
 package src.main.java.domain.player;
 
 import src.main.java.domain.card.Card;
+import src.main.java.domain.card.Rank;
+import src.main.java.domain.card.Suit;
 import src.main.java.domain.player.result.DrawCount;
 import src.main.java.domain.player.result.LossCount;
 import src.main.java.domain.player.result.WinCount;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
     private String name;
@@ -31,12 +35,14 @@ public class Player {
         return hand;
     }
 
-    public String handToString() {
-        List<String> cardStrings = new ArrayList<>();
+    public Map<String, List<String>> getHandDetails() {
+        Map<String, List<String>> handDetails = new LinkedHashMap<>();
         for (Card card : hand) {
-            cardStrings.add(card.toString());
+            String suitName = card.getSuit().getName();
+            handDetails.computeIfAbsent(suitName, k -> new ArrayList<>())
+                    .add(card.getRank().toString());
         }
-        return String.join(", ", cardStrings);
+        return handDetails;
     }
 
     public int calculateScore() {

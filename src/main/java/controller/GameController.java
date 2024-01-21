@@ -21,7 +21,12 @@ public class GameController {
 
     private void startGame(Players players, Dealer dealer) {
         players.startGame(dealer);
-        OutputView.displayInitialHands(players.getPlayersHands(), dealer.getFaceUpCard());
+        OutputView.displaySharedTwoCards(players.getPlayersNames());
+        OutputView.displayDealerHand(dealer.getFaceUpCard());
+        for (Player player : players.getPlayers()) {
+            String cardsOfPlayer = OutputView.formatCards(player.getHandDetails());
+            OutputView.displayPlayerHand(player.getName(), cardsOfPlayer);
+        }
     }
 
     private void playPlayersRounds(Players players) {
@@ -42,7 +47,8 @@ public class GameController {
 
     private void playSingleTurn(Player player, Players players) {
         players.playPlayerTurn(player);
-        OutputView.displayPlayerHand(player.getName(), player.handToString());
+        String cardsInHand = OutputView.formatCards(player.getHandDetails());
+        OutputView.displayPlayerHand(player.getName(), cardsInHand);
     }
 
     private void playDealerTurn(Players players, Dealer dealer) {
@@ -53,9 +59,11 @@ public class GameController {
     }
 
     private void displayResults(Players players, Dealer dealer) {
-        OutputView.displayDealerResult(dealer.handToString(), dealer.calculateScore());
+        String cardsOfDealer = OutputView.formatCards(dealer.getHandDetails());
+        OutputView.displayDealerResult(cardsOfDealer, dealer.calculateScore());
         for (Player player : players.getPlayers()) {
-            OutputView.displayPlayerResult(player.getName(), player.handToString(), player.calculateScore());
+            String cardsOfPlayer = OutputView.formatCards(player.getHandDetails());
+            OutputView.displayPlayerResult(player.getName(), cardsOfPlayer, player.calculateScore());
         }
         displayFinalWins(players, dealer);
     }
