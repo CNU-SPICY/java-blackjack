@@ -9,15 +9,39 @@ public class WinLogic {
         int dealerScore = dealer.calculateScore();
         int playerScore = player.calculateScore();
 
-        if (dealerScore > 21 || playerScore <= 21 && playerScore > dealerScore) {
-            dealer.incrementLosses();
-            player.incrementWins();
-        } else if (playerScore > 21 || (dealerScore <= 21 && dealerScore > playerScore)) {
-            dealer.incrementWins();
-            player.incrementLosses();
-        } else if (playerScore <= 21 && playerScore == dealerScore) {
-            dealer.incrementDraws();
-            player.incrementDraws();
+        if (isPlayerWin(playerScore, dealerScore)) {
+            processPlayerWin(player, dealer);
+        } else if (isDealerWin(playerScore, dealerScore)) {
+            processDealerWin(player, dealer);
+        } else if (isDraw(playerScore, dealerScore)) {
+            processDraw(player, dealer);
         }
+    }
+
+    private boolean isPlayerWin(int playerScore, int dealerScore) {
+        return playerScore <= 21 && (playerScore > dealerScore || dealerScore > 21);
+    }
+
+    private boolean isDealerWin(int playerScore, int dealerScore) {
+        return dealerScore <= 21 && (dealerScore > playerScore || playerScore > 21);
+    }
+
+    private boolean isDraw(int playerScore, int dealerScore) {
+        return playerScore <= 21 && playerScore == dealerScore;
+    }
+
+    private void processPlayerWin(Player player, Dealer dealer) {
+        dealer.incrementLosses();
+        player.incrementWins();
+    }
+
+    private void processDealerWin(Player player, Dealer dealer) {
+        dealer.incrementWins();
+        player.incrementLosses();
+    }
+
+    private void processDraw(Player player, Dealer dealer) {
+        dealer.incrementDraws();
+        player.incrementDraws();
     }
 }
