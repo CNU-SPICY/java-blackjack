@@ -3,7 +3,7 @@ package blackjack.domain;
 import blackjack.domain.card.Card;
 import blackjack.domain.card.Deck;
 import blackjack.domain.card.PlayerCards;
-import blackjack.domain.enums.GameResult;
+import blackjack.domain.result.GameResult;
 import java.util.List;
 
 public class Player {

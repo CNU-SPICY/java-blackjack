@@ -3,7 +3,7 @@ package blackjack.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import blackjack.domain.card.Deck;
-import blackjack.domain.enums.GameResult;
+import blackjack.domain.result.GameResult;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,7 @@ class DealerTest {
     }
 
     @Test
-    @DisplayName("딜러의 최종 승패 확인")
+    @DisplayName("21점 딜러와 카드 한 장인 플레이어와의 결과 확인")
     void decideResultOfAllTest() {
         // given
         dealer.pickCard(deck, 11); // QUEEN CLOVER
@@ -44,7 +44,7 @@ class DealerTest {
         players.getPlayers().forEach(player -> dealer.giveCardToPlayer(player));
 
         // when
-        dealer.decideResult(players);
+        dealer.decideResultAll(players);
         int result = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.WIN).count();
 
         // then

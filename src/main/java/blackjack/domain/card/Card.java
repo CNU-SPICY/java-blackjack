@@ -1,8 +1,5 @@
 package blackjack.domain.card;
 
-import blackjack.domain.enums.CardNumber;
-import blackjack.domain.enums.CardType;
-
 public class Card {
 
     private final CardType cardType;

@@ -1,6 +1,5 @@
 package blackjack.domain.card;
 
-import blackjack.domain.enums.CardNumber;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +24,16 @@ public class PlayerCards {
     }
 
     private int extraScoreFromAce(int score) {
-        return AmountOfAceWithExtraScore(score) * CardNumber.DIFF_ACE_SCORE;
+        return amountOfAceWithExtraScore(score) * CardNumber.DIFF_ACE_SCORE;
     }
 
-    private int AmountOfAceWithExtraScore(int score) {
-        int upperAmountOfAce = AmountOfAce();
+    private int amountOfAceWithExtraScore(int score) {
+        int upperAmountOfAce = amountOfAce();
         int extraAmountOfAce = (DEAD_LINE - score) / CardNumber.DIFF_ACE_SCORE;
         return Math.min(upperAmountOfAce, extraAmountOfAce);
     }
 
-    private int AmountOfAce() {
+    private int amountOfAce() {
         return (int) cards.stream().filter(card -> card.getCardNumber() == CardNumber.ACE).count();
     }
 

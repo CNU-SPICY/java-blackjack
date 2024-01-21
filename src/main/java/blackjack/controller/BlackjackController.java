@@ -59,7 +59,7 @@ public class BlackjackController {
     }
 
     private void decideResultOfAll() {
-        dealer.decideResult(players);
+        dealer.decideResultAll(players);
         outputView.printResult(dealer, players);
     }
 }
