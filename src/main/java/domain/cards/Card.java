@@ -20,4 +20,8 @@ public class Card {
     public String getCardRank() {
         return cardRank.getRankName();
     }
+
+    public String getCardSuit() {
+        return cardSuit.getSuitName();
+    }
 }

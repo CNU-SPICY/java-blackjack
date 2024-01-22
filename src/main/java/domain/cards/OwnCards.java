@@ -1,6 +1,7 @@
 package domain.cards;
 
 import domain.logics.SumLogic;
+import dto.CardInfo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,14 @@ public class OwnCards {
 
     public List<Card> getOwnCards() {
         return ownCards;
+    }
+
+    public List<CardInfo> getRankAndSuit() {
+        List<CardInfo> cardInfos = new ArrayList<>();
+        for (Card card : ownCards) {
+            cardInfos.add(new CardInfo(card.getCardRank(), card.getCardSuit()));
+        }
+        return cardInfos;
     }
 
     public int getSumOfCards() {

@@ -1,6 +1,8 @@
 package domain.person;
 
 import domain.person.wrapper.NameWrapper;
+import dto.PlayerInfo;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,5 +18,13 @@ public class Players {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public List<PlayerInfo> getPlayersInfo() {
+        List<PlayerInfo> allPlayersInfo = new ArrayList<>();
+        for (Player player : players) {
+            allPlayersInfo.add(player.getPlayerInfo());
+        }
+        return allPlayersInfo;
     }
 }

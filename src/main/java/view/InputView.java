@@ -1,6 +1,5 @@
 package view;
 
-import domain.person.Player;
 import domain.validator.InputCardConditionValidator;
 import domain.validator.InputPlayerNameValidator;
 import java.util.List;
@@ -16,8 +15,8 @@ public class InputView {
         return names;
     }
 
-    public static boolean getCardCondition(Player player) {
-        System.out.println(player.getName() + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+    public static boolean getCardCondition(String playerName) {
+        System.out.println(playerName + "는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine().trim().toLowerCase();
         InputCardConditionValidator.validate(input);

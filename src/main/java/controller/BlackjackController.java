@@ -25,14 +25,11 @@ public class BlackjackController {
 
     public void start() {
         divideFirstCards();
-        OutputView.showDividePlayerCards(dealer, players);
-
         distributeCardsToPlayers();
         checkDealerCard();
-
-        OutputView.showTotalScore(dealer, players);
+        OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
         dealer.fightEveryPlayer(players);
-        OutputView.showWinAndLoseResult(dealer, players);
+        showWinAndLoseResult();
     }
 
     private void divideFirstCards() {
@@ -41,15 +38,16 @@ public class BlackjackController {
     }
 
     private void distributeCardsToPlayers() {
+        OutputView.showDividePlayerCards(dealer.getDealerInfo(), players.getPlayersInfo());
         getPlayers().forEach(this::distributeCardsToPlayer);
     }
 
     private void distributeCardsToPlayer(Player player) {
-        while (InputView.getCardCondition(player)) {
+        while (InputView.getCardCondition(player.getPlayerInfo().getPlayerName())) {
             player.pickCard(deck);
-            OutputView.showPlayerCard(player);
+            OutputView.showPlayerCard(player.getPlayerInfo());
         }
-        OutputView.showPlayerCard(player);
+        OutputView.showPlayerCard(player.getPlayerInfo());
     }
 
     private void checkDealerCard() {
@@ -62,5 +60,12 @@ public class BlackjackController {
 
     private List<Player> getPlayers() {
         return players.getPlayers();
+    }
+
+    private void showWinAndLoseResult() {
+        OutputView.showDealerWinAndLoseResult(dealer.getWinCount(), dealer.getLoseCount(), dealer.getDrawCount());
+        for (Player player : players.getPlayers()) {
+            OutputView.showPlayerWinAndLoseResult(player.getName(), player.getBattleResult());
+        }
     }
 }

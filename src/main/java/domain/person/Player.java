@@ -1,10 +1,11 @@
 package domain.person;
 
-import domain.cards.Card;
 import domain.cards.Deck;
 import domain.cards.OwnCards;
 import domain.logics.Score;
 import domain.person.wrapper.NameWrapper;
+import dto.CardInfo;
+import dto.PlayerInfo;
 import java.util.List;
 
 public class Player {
@@ -29,8 +30,8 @@ public class Player {
         ownCards.addCard(deck);
     }
 
-    public List<Card> getOwnCards() {
-        return ownCards.getOwnCards();
+    public List<CardInfo> getOwnCardsRankAndSuit() {
+        return ownCards.getRankAndSuit();
     }
 
     public int getSumOfCards() {
@@ -49,13 +50,17 @@ public class Player {
         score.increaseLoseCout();
     }
 
-    public String getBattleResult() {
+    public int getBattleResult() {
         if (score.getWinCount() == 1) {
-            return "승";
+            return 1;
         }
         if (score.getLoseCount() == 1) {
-            return "패";
+            return -1;
         }
-        return "무";
+        return 0;
+    }
+
+    public PlayerInfo getPlayerInfo() {
+        return new PlayerInfo(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
     }
 }

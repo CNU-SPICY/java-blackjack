@@ -1,106 +1,84 @@
 package view;
 
-import domain.cards.Card;
-import domain.person.Dealer;
-import domain.person.Player;
-import domain.person.Players;
+import dto.CardInfo;
+import dto.DealerInfo;
+import dto.PlayerInfo;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OutputView {
 
-    public static void showDividePlayerCards(Dealer dealer, Players players) {
-        System.out.println("\n" + dealer.getName() + "와 " + getPlayersName(players) + "에게 2장을 나누었습니다.");
-        showDealerCard(dealer);
-        showPlayersCards(players);
+    public static void showDividePlayerCards(DealerInfo dealerInfo, List<PlayerInfo> playerInfos) {
+        System.out.println("\n" + dealerInfo.getDealerName() + "와 " + getPlayersName(playerInfos) + "에게 2장을 나누었습니다.");
+        showDealerCard(dealerInfo.getDealerName(), dealerInfo.getDealerCards());
+        showPlayersCards(playerInfos);
         System.out.println();
     }
 
-    private static String getPlayersName(Players players) {
-        StringBuilder playerNames = new StringBuilder();
-        players.getPlayers().forEach(player -> playerNames.append(player.getName()).append(", "));
-        playerNames.deleteCharAt(playerNames.length() - 2);
-        return playerNames.toString();
-    }
-
-    private static void showDealerCard(Dealer dealer) {
-        System.out.println(getDealerCard(dealer, true));
-    }
-
-    private static StringBuilder getDealerCard(Dealer dealer, boolean hideOption) {
-        StringBuilder dealerCards = new StringBuilder();
-        dealerCards.append(dealer.getName()).append(": ");
-        List<Card> ownCards = dealer.getOwnCards();
-        return dealerOutputFormatGenerator(ownCards, dealerCards, hideOption);
-    }
-
-    private static StringBuilder dealerOutputFormatGenerator(List<Card> cards, StringBuilder dealerCards,
-                                                             Boolean hideOption) {
-        if (hideOption) {
-            cards.stream().limit(cards.size() - 1)
-                    .forEach(card -> dealerCards.append(card.getCardFullName()).append(", "));
-            dealerCards.deleteCharAt(dealerCards.length() - 2);
-            return dealerCards;
+    private static String getPlayersName(List<PlayerInfo> playerInfos) {
+        List<String> playerNames = new ArrayList<>();
+        for (PlayerInfo playerInfo : playerInfos) {
+            playerNames.add(playerInfo.getPlayerName());
         }
-        cards.forEach(card -> dealerCards.append(card.getCardFullName()).append(", "));
-        dealerCards.deleteCharAt(dealerCards.length() - 2);
-        return dealerCards;
+        return String.join(",", playerNames);
     }
 
-    public static void showPlayersCards(Players players) {
-        for (Player player : players.getPlayers()) {
-            showPlayerCard(player);
+    private static String cardSpliter(List<CardInfo> cards) {
+        List<String> resultFormat = new ArrayList<>();
+        for (CardInfo card : cards) {
+            resultFormat.add(card.getCardRank() + card.getCardSuit());
+        }
+        return String.join(", ", resultFormat);
+    }
+
+    private static void showDealerCard(String dealerName, List<CardInfo> dealerOwnCards) {
+        String hideDealerCard = cardSpliter(dealerOwnCards).split(",")[0].trim();
+        System.out.println(dealerName + ": " + hideDealerCard);
+    }
+
+    public static void showPlayersCards(List<PlayerInfo> playerInfos) {
+        for (PlayerInfo playerInfo : playerInfos) {
+            showPlayerCard(playerInfo);
         }
     }
 
-    public static void showPlayerCard(Player player) {
-        System.out.println(getPlayerCard(player));
-    }
-
-    public static StringBuilder getPlayerCard(Player player) {
-        StringBuilder playerCards = new StringBuilder();
-        playerCards.append(player.getName()).append(": ");
-        List<Card> ownCards = player.getOwnCards();
-        return playerOutputFormatGenerator(ownCards, playerCards);
-    }
-
-    private static StringBuilder playerOutputFormatGenerator(List<Card> cards, StringBuilder playerCards) {
-        cards.forEach(card -> playerCards.append(card.getCardFullName()).append(", "));
-        playerCards.deleteCharAt(playerCards.length() - 2);
-        return playerCards;
+    public static void showPlayerCard(PlayerInfo playerInfo) {
+        System.out.println(playerInfo.getPlayerName() + ": " + cardSpliter(playerInfo.getPlayerCards()));
     }
 
     public static void confirmDealerRecivedCard() {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 
-    public static void showTotalScore(Dealer dealer, Players players) {
+    public static void showTotalScore(DealerInfo dealerInfo, List<PlayerInfo> playerInfos) {
         System.out.println();
-        StringBuilder sumOfDealerCard = getDealerCard(dealer, false).append(" - 결과: ").append(dealer.getSumOfCards());
-        System.out.println(sumOfDealerCard);
+        System.out.println(dealerInfo.getDealerName() + ": " + cardSpliter(dealerInfo.getDealerCards()) + " - 결과: "
+                + dealerInfo.getSumOfCards());
 
-        for (Player player : players.getPlayers()) {
-            showPlayerCardWithResult(player);
+        for (PlayerInfo playerInfo : playerInfos) {
+            showPlayerCardWithResult(playerInfo);
         }
     }
 
-    private static void showPlayerCardWithResult(Player player) {
-        System.out.println(getPlayerCard(player) + " - 결과: " + player.getSumOfCards());
+    private static void showPlayerCardWithResult(PlayerInfo playerInfo) {
+        System.out.println(playerInfo.getPlayerName() + ": " + cardSpliter(playerInfo.getPlayerCards()) + " - 결과: "
+                + playerInfo.getSumOfCards());
     }
 
-    public static void showWinAndLoseResult(Dealer dealer, Players players) {
-        System.out.println();
-        showDealerWinAndLoseResult(dealer);
-        for (Player player : players.getPlayers()) {
-            showPlayerWinAndLoseResult(player);
-        }
-    }
-
-    private static void showDealerWinAndLoseResult(Dealer dealer) {
+    public static void showDealerWinAndLoseResult(int winCount, int loseCount, int drawCount) {
         System.out.println(
-                "딜러: " + dealer.getWinCount() + "승 " + dealer.getLoseCount() + "패 " + dealer.getDrawCount() + "무");
+                "딜러: " + winCount + "승 " + loseCount + "패 " + drawCount + "무");
     }
 
-    private static void showPlayerWinAndLoseResult(Player player) {
-        System.out.println(player.getName() + ": " + player.getBattleResult());
+    public static void showPlayerWinAndLoseResult(String playerName, int battleResult) {
+        if (battleResult == 1) {
+            System.out.println(playerName + ": " + "승");
+            return;
+        }
+        if (battleResult == -1) {
+            System.out.println(playerName + ": " + "패");
+            return;
+        }
+        System.out.println(playerName + ": " + "무");
     }
 }

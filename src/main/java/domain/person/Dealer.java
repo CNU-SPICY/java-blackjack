@@ -1,11 +1,12 @@
 package domain.person;
 
-import domain.cards.Card;
 import domain.cards.Deck;
 import domain.cards.OwnCards;
 import domain.logics.Score;
 import domain.logics.WinLogic;
 import domain.person.wrapper.NameWrapper;
+import dto.CardInfo;
+import dto.DealerInfo;
 import java.util.List;
 
 public class Dealer {
@@ -27,10 +28,6 @@ public class Dealer {
         return name.getName();
     }
 
-    public List<Card> getOwnCards() {
-        return ownCards.getOwnCards();
-    }
-
     public int getSumOfCards() {
         return ownCards.getSumOfCards();
     }
@@ -39,10 +36,18 @@ public class Dealer {
         ownCards.addCard(deck);
     }
 
+    public List<CardInfo> getOwnCardsRankAndSuit() {
+        return ownCards.getRankAndSuit();
+    }
+
     public void fightEveryPlayer(Players players) {
         for (Player player : players.getPlayers()) {
             winLogic.battle(this, player);
         }
+    }
+
+    public DealerInfo getDealerInfo() {
+        return new DealerInfo(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
     }
 
     public void increaseWinCount() {
