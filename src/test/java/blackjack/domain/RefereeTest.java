@@ -21,7 +21,7 @@ class RefereeTest {
     }
 
     @Test
-    @DisplayName("딜러 26점과 플레이어 2점의 결과 확인")
+    @DisplayName("딜러 26점과 플레이어  2점의 결과 확인")
     void decideResultTest() {
         // given
         dealer.pickCard(deck, 11); // QUEEN CLOVER
@@ -38,7 +38,7 @@ class RefereeTest {
     }
 
     @Test
-    @DisplayName("딜러 2점과 플레이어 11점의 결과 확인")
+    @DisplayName("딜러  2점과 플레이어 11점의 결과 확인")
     void decideResultTest2() {
         // given
         dealer.pickCard(deck, 1); // 2 CLOVER
@@ -69,5 +69,20 @@ class RefereeTest {
 
         // then
         assertThat(dealer.getWinCount()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("딜러 10점과 플레이어 10점의 결과 확인")
+    void decideResultTest4() {
+        // given
+        dealer.pickCard(deck, 12); // QUEEN CLOVER
+        player.pickCard(deck, 11); // JACK CLOVER
+
+        // when
+        Referee referee = new Referee();
+        referee.decideResult(dealer, player);
+
+        // then
+        assertThat(dealer.getDrawCount()).isEqualTo(1);
     }
 }
