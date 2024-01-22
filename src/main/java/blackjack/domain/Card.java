@@ -1,19 +1,23 @@
 package blackjack.domain;
 
 public class Card {
-    private final String info;
-    private final int score;
+    private final CardData.Suit suit;
+    private final CardData.Denomination denomination;
 
-    public Card(String info, int score) {
-        this.info = info;
-        this.score = score;
+    public Card(CardData.Suit suit, CardData.Denomination denomination) {
+        this.suit = suit;
+        this.denomination = denomination;
     }
 
-    public String getInfo() {
-        return info;
+    public String getSuit() {
+        return suit.getSuit();
+    }
+
+    public String getDenomination() {
+        return denomination.getDenomination();
     }
 
     public int getScore() {
-        return score;
+        return denomination.getScore();
     }
 }

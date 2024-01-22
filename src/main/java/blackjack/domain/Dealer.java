@@ -3,22 +3,19 @@ package blackjack.domain;
 import java.util.ArrayList;
 
 public class Dealer {
-    private static final int STAND_SCORE = 17;
-    private static final int BUST_SCORE = 22;
     private final ArrayList<Card> hand = new ArrayList<>();
-    private RandomCardGenerator randomCardGenerator = new RandomCardGenerator();
 
     public ArrayList<Card> getHand() {
         return hand;
     }
 
-    public void initDeal() {
-        drawCard();
-        drawCard();
+    public void initDeal(Deck deck) {
+        drawCard(deck);
+        drawCard(deck);
     }
 
-    public void drawCard() {
-        addCardToHand(randomCardGenerator.drawRandomCard());
+    public void drawCard(Deck deck) {
+        addCardToHand(deck.drawRandomCard());
     }
 
     public void addCardToHand(Card card) {
@@ -26,7 +23,7 @@ public class Dealer {
     }
 
     public boolean isHitPossible() {
-        return (calculateTotalScore() < STAND_SCORE);
+        return (calculateTotalScore() < GameConstant.DEALER_STAND_SCORE);
     }
 
     public int calculateTotalScore() {
@@ -34,8 +31,8 @@ public class Dealer {
                 .mapToInt(Card::getScore)
                 .sum();
         long aceCount = countAce();
-        while(aceCount > 0 && totalScore >= BUST_SCORE) {
-            totalScore -= 10;
+        while(aceCount > 0 && totalScore >= GameConstant.BUST_SCORE) {
+            totalScore -= GameConstant.ACE_EXTRA_SCORE;
             aceCount --;
         }
         return totalScore;
@@ -48,7 +45,6 @@ public class Dealer {
     }
 
     private boolean isAce(Card card) {
-        String cardInfo = card.getInfo();
-        return cardInfo.contains("A");
+        return card.getDenomination().equals("A");
     }
 }

@@ -1,18 +1,18 @@
 package blackjack.view;
 
 import blackjack.domain.*;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OutputView {
     public void initDeal(ArrayList<Player> players) {
-        String comment = "\n딜러와 ";
-        for(Player player : players) {
-            comment += (player.getName() + ", ");
-        }
-        comment = comment.substring(0, comment.length() - 2) + "에게 2장을 나누었습니다.";
+        StringBuilder comment = new StringBuilder("\n딜러와 ");
+        String playerNames = String.join(", ", players.stream()
+                                                                .map(Player::getName)
+                                                                .toArray(String[]::new));
+        comment.append(playerNames);
+        comment.append("에게 2장을 나누었습니다.");
         System.out.println(comment);
     }
 
@@ -27,20 +27,20 @@ public class OutputView {
     }
 
     public void printPlayerHand(Player player) {
-        String result = player.getName() + "카드: ";
-        for(Card card : player.getHand()) {
-            result += card.getInfo() + ", ";
-        }
-        result = result.substring(0, result.length() - 2);
+        StringBuilder result = new StringBuilder(player.getName() + "카드: ");
+        String cardInfo = player.getHand().stream()
+                                        .map(card -> card.getDenomination() + card.getSuit())
+                                        .collect(Collectors.joining(", "));
+        result.append(cardInfo);
         System.out.print(result);
     }
 
-    public void printDealerHand(Dealer dealerer) {
-        String result = "딜러: ";
-        for(Card card : dealerer.getHand()) {
-            result += card.getInfo() + ", ";
-        }
-        result = result.substring(0, result.length() - 2);
+    public void printDealerHand(Dealer dealer) {
+        StringBuilder result = new StringBuilder("딜러 카드: ");
+        String cardInfo = dealer.getHand().stream()
+                                        .map(card -> card.getDenomination() + card.getSuit())
+                                        .collect(Collectors.joining(", "));
+        result.append(cardInfo);
         System.out.print(result);
     }
 

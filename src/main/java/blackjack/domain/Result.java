@@ -7,7 +7,7 @@ public class Result {
     private int dealerWinCount = 0;
     private int dealerPushCount = 0;
     private int dealerLoseCount = 0;
-    private Map<String, String> playerResults = new HashMap<>();
+    private final Map<String, String> playerResults = new HashMap<>();
     public int getDealerWinCount() {
         return dealerWinCount;
     }
@@ -36,6 +36,4 @@ public class Result {
         }
         dealerPushCount ++;
     }
-
-
 }

@@ -1,25 +1,52 @@
 package blackjack.domain;
 
 public class CardData {
-    private final String[] cardDenomination = {"A", "2", "3", "4", "5",
-            "6", "7", "8", "9", "10", "J", "Q", "K"};
-    private final String[] cardSuit = {"스페이드", "다이아몬드", "하트", "클로버"};
+    public static enum Denomination {
+        ACE("A", 11),
+        TWO("2", 2),
+        THREE("3", 3),
+        FOUR("4", 4),
+        FIVE("5", 5),
+        SIX("6", 6),
+        SEVEN("7", 7),
+        EIGHT("8", 8),
+        NINE("9", 9),
+        TEN("10", 10),
+        JACK("J", 10),
+        QUEEN("Q", 10),
+        KING("K", 10);
 
-    public String indexToDenomination(int index) {
-        return cardDenomination[index];
+        private final String denomination;
+        private final int score;
+
+        Denomination(String denomination, int score) {
+            this.denomination = denomination;
+            this.score = score;
+        }
+
+        public String getDenomination() {
+            return denomination;
+        }
+
+        public int getScore() {
+            return score;
+        }
     }
 
-    public String indexToSuit(int index) {
-        return cardSuit[index];
-    }
+    public enum Suit {
+        SPADE("스페이드"),
+        HEART("하트"),
+        DIAMOND("다이아몬드"),
+        CLUB("클로버");
 
-    public int indexToScore(int index) {
-        if(index == 0) {
-            return 11;
+        private final String suit;
+
+        Suit(String suit) {
+            this.suit = suit;
         }
-        if(index <= 9) {
-            return (index) + 1;
+
+        public String getSuit() {
+            return suit;
         }
-        return 10;
     }
 }
