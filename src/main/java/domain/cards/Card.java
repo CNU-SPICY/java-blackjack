@@ -14,7 +14,7 @@ public class Card {
     }
 
     public String getCardFullName() {
-        return this.cardRank.getRankName() + this.cardSuit.getSuitName();
+        return cardRank.getRankName() + cardSuit.getSuitName();
     }
 
     public String getCardRank() {
