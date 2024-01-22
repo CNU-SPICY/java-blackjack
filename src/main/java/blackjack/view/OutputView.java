@@ -4,6 +4,7 @@ import blackjack.domain.card.Card;
 import blackjack.domain.Dealer;
 import blackjack.domain.Player;
 import blackjack.domain.Players;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,10 +52,12 @@ public class OutputView {
     }
 
     public void printResult(Dealer dealer, Players players) {
+        DecimalFormat decFormat = new DecimalFormat("###,###");
         System.out.println();
         System.out.println("## 최종 수익");
-        System.out.println(dealer.getName() + ": " + dealer.getMoney());
-        players.getPlayers().forEach(player -> System.out.println(player.getName() + ": " + player.getMoney()));
+        System.out.println(dealer.getName() + ": " + decFormat.format(dealer.getMoney()));
+        players.getPlayers()
+                .forEach(player -> System.out.println(player.getName() + ": " + decFormat.format(player.getMoney())));
     }
 
     public void printLine() {
