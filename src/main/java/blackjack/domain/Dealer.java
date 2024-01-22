@@ -1,10 +1,7 @@
 package blackjack.domain;
 
 import blackjack.domain.card.Deck;
-import blackjack.domain.result.GameResult;
-import blackjack.domain.result.GameResults;
 import blackjack.domain.util.RandomGenerator;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class Dealer extends Player {
@@ -14,12 +11,10 @@ public class Dealer extends Player {
     private static final String DEALER_NAME = "딜러";
 
     private final Deck deck;
-    private final GameResults gameResults;
 
     public Dealer(Deck deck) {
         super(DEALER_NAME);
         this.deck = deck;
-        this.gameResults = new GameResults();
     }
 
     public void giveInitialCard(Players players) {
@@ -37,34 +32,6 @@ public class Dealer extends Player {
     public void decideResultAll(Players players) {
         Referee referee = new Referee();
         players.getPlayers().forEach(player -> referee.decideResult(this, player));
-    }
-
-    public void addWinToResults() {
-        gameResults.addWin();
-    }
-
-    public void addLoseToResults() {
-        gameResults.addLose();
-    }
-
-    public void addDrawToResults() {
-        gameResults.addDraw();
-    }
-
-    public int getWinCount() {
-        return gameResults.getWinCount();
-    }
-
-    public int getLoseCount() {
-        return gameResults.getLoseCount();
-    }
-
-    public int getDrawCount() {
-        return gameResults.getDrawCount();
-    }
-
-    public List<GameResult> getGameResults() {
-        return gameResults.getGameResults();
     }
 
     @Override

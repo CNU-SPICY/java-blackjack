@@ -52,10 +52,9 @@ public class OutputView {
 
     public void printResult(Dealer dealer, Players players) {
         System.out.println();
-        System.out.println("## 최종 승패");
-        System.out.println(dealer.getName() + ": " + dealer.getWinCount() + "승 " + dealer.getLoseCount() + "패 "
-                + dealer.getDrawCount() + "무");
-        players.getPlayers().forEach(player -> System.out.println(player.getName() + ": " + player.getGameResult()));
+        System.out.println("## 최종 수익");
+        System.out.println(dealer.getName() + ": " + dealer.getMoney());
+        players.getPlayers().forEach(player -> System.out.println(player.getName() + ": " + player.getMoney()));
     }
 
     public void printLine() {

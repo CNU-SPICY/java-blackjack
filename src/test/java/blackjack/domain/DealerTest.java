@@ -3,7 +3,6 @@ package blackjack.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import blackjack.domain.card.Deck;
-import blackjack.domain.result.GameResult;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +20,7 @@ class DealerTest {
         dealer = new Dealer(deck);
         List<String> playerNames = List.of(new String[]{"pobi", "crong"});
         players = new Players(playerNames);
+        players.getPlayers().forEach(player -> player.addBetting(10));
     }
 
     @Test
@@ -45,9 +45,8 @@ class DealerTest {
 
         // when
         dealer.decideResultAll(players);
-        int result = (int) dealer.getGameResults().stream().filter(gameResult -> gameResult == GameResult.WIN).count();
 
         // then
-        assertThat(result).isEqualTo(2);
+        assertThat(dealer.getMoney()).isEqualTo(20);
     }
 }

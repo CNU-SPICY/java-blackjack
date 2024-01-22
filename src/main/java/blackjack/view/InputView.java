@@ -1,6 +1,7 @@
 package blackjack.view;
 
 import blackjack.domain.Player;
+import blackjack.domain.validator.BettingValueValidator;
 import blackjack.domain.validator.PlayerNamesValidator;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +16,14 @@ public class InputView {
         List<String> playerNames = List.of(inputNames.split(","));
         PlayerNamesValidator.validate(playerNames);
         return playerNames;
+    }
+
+    public int getBettingValue(Player player) {
+        System.out.println();
+        System.out.println(player.getName() + "의 배팅 금액은?");
+        String input = scanner.nextLine();
+        BettingValueValidator.validate(input);
+        return Integer.parseInt(input);
     }
 
     public boolean getResponseWantCard(Player player) {

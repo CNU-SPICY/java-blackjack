@@ -37,6 +37,10 @@ public class PlayerCards {
         return (int) cards.stream().filter(card -> card.getCardNumber() == CardNumber.ACE).count();
     }
 
+    public int getCardsAmount() {
+        return cards.size();
+    }
+
     public List<Card> getCards() {
         return cards;
     }

@@ -18,6 +18,7 @@ class RefereeTest {
         deck = new Deck();
         dealer = new Dealer(deck);
         player = new Player("pobi");
+        player.addBetting(10);
     }
 
     @Test
@@ -34,7 +35,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getLoseCount()).isEqualTo(1);
+        assertThat(dealer.getMoney()).isEqualTo(-10);
     }
 
     @Test
@@ -49,7 +50,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getLoseCount()).isEqualTo(1);
+        assertThat(dealer.getMoney()).isEqualTo(-10);
     }
 
     @Test
@@ -68,7 +69,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getWinCount()).isEqualTo(1);
+        assertThat(dealer.getMoney()).isEqualTo(10);
     }
 
     @Test
@@ -83,6 +84,22 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getDrawCount()).isEqualTo(1);
+        assertThat(dealer.getMoney()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("딜러 10점과 플레이어 21점의 결과 확인")
+    void decideResultTest5() {
+        // given
+        dealer.pickCard(deck, 12); // QUEEN CLOVER
+        player.pickCard(deck, 11); // JACK CLOVER
+        player.pickCard(deck, 0); // ACE CLOVER
+
+        // when
+        Referee referee = new Referee();
+        referee.decideResult(dealer, player);
+
+        // then
+        assertThat(dealer.getMoney()).isEqualTo(-15);
     }
 }

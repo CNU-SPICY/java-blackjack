@@ -3,18 +3,18 @@ package blackjack.domain;
 import blackjack.domain.card.Card;
 import blackjack.domain.card.Deck;
 import blackjack.domain.card.PlayerCards;
-import blackjack.domain.result.GameResult;
 import java.util.List;
 
 public class Player {
 
     private final String name;
     private final PlayerCards cards;
-    private GameResult gameResult;
+    private final Account account;
 
     public Player(String name) {
         this.name = name;
         this.cards = new PlayerCards();
+        this.account = new Account();
     }
 
     public boolean pickCard(Deck deck, int random) {
@@ -37,27 +37,31 @@ public class Player {
         return cards.calcScore();
     }
 
-    public void setResultToWin() {
-        gameResult = GameResult.WIN;
-    }
-
-    public void setResultToLose() {
-        gameResult = GameResult.LOSE;
-    }
-
-    public void setResultToDraw() {
-        gameResult = GameResult.DRAW;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public int getCardsAmount() {
+        return cards.getCardsAmount();
     }
 
     public List<Card> getCards() {
         return cards.getCards();
     }
 
-    public String getGameResult() {
-        return gameResult.getResult();
+    public void addBetting(int betting) {
+        account.addBetting(betting);
+    }
+
+    public int getBetting() {
+        return account.getBetting();
+    }
+
+    public void addMoney(int money) {
+        account.addMoney(money);
+    }
+
+    public int getMoney() {
+        return account.getMoney();
     }
 }

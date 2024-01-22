@@ -19,6 +19,7 @@ public class BlackjackController {
     public void run() {
         List<String> playerNames = inputView.getPlayerNames();
         players = new Players(playerNames);
+        players.getPlayers().forEach(this::doBetting);
 
         allReceivedCard();
         outputView.printStatusOfAll(dealer, players);
@@ -29,6 +30,11 @@ public class BlackjackController {
 
         outputView.printFinalStatusOfAll(dealer, players);
         decideResultOfAll();
+    }
+
+    private void doBetting(Player player) {
+        int betting = inputView.getBettingValue(player);
+        player.addBetting(betting);
     }
 
     private void allReceivedCard() {

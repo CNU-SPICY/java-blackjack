@@ -2,20 +2,24 @@ package blackjack.domain;
 
 public class Referee {
 
+    private static final float BLACKJACK_MONEY_RATE = 1.5f;
+
     public void decideResult(Dealer dealer, Player player) {
         int result = compareScore(dealer, player);
-        if (result > 0) {
-            dealer.addWinToResults();
-            player.setResultToLose();
+        if (isDealerWin(result)) {
+            dealer.addMoney( player.getBetting());
+            player.addMoney(-player.getBetting());
             return;
         }
-        if (result < 0) {
-            dealer.addLoseToResults();
-            player.setResultToWin();
+        if(isBlackjack(result, player)) {
+            dealer.addMoney((int) (-player.getBetting() * BLACKJACK_MONEY_RATE));
+            player.addMoney((int) ( player.getBetting() * BLACKJACK_MONEY_RATE));
             return;
         }
-        dealer.addDrawToResults();
-        player.setResultToDraw();
+        if (isPlayerWin(result)) {
+            dealer.addMoney(-player.getBetting());
+            player.addMoney( player.getBetting());
+        }
     }
 
     private int compareScore(Dealer dealer, Player player) {
@@ -26,5 +30,17 @@ public class Referee {
             return -1;
         }
         return dealer.getScore() - player.getScore();
+    }
+
+    private boolean isDealerWin(int result) {
+        return result > 0;
+    }
+
+    private boolean isBlackjack(int result, Player player) {
+        return isPlayerWin(result) && player.getScore() == 21 && player.getCardsAmount() == 2;
+    }
+
+    private boolean isPlayerWin(int result) {
+        return result < 0;
     }
 }
