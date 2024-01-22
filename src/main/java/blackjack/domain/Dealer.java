@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 public class Dealer extends Player {
 
     public static final int INITIAL_CARD_AMOUNT = 2;
-    public static final int PICKUP_BOUND = 16;
+    public static final int HIT_BOUND = 16;
     private static final String DEALER_NAME = "딜러";
 
     private final Deck deck;
@@ -69,6 +69,6 @@ public class Dealer extends Player {
 
     @Override
     public boolean isHittable() {
-        return getScore() <= PICKUP_BOUND;
+        return super.getScore() <= HIT_BOUND;
     }
 }

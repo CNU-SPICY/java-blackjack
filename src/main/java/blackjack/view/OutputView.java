@@ -17,7 +17,7 @@ public class OutputView {
     }
 
     public void dealerReceivedCard(Dealer dealer) {
-        System.out.println(dealer.getName() + "는 " + Dealer.PICKUP_BOUND + "이하라 한장의 카드를 더 받았습니다.");
+        System.out.println(dealer.getName() + "는 " + Dealer.HIT_BOUND + "이하라 한장의 카드를 더 받았습니다.");
     }
 
     public void printStatusOfAll(Dealer dealer, Players players) {
