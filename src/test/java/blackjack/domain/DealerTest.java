@@ -47,6 +47,6 @@ class DealerTest {
         dealer.decideResultAll(players);
 
         // then
-        assertThat(dealer.getMoney()).isEqualTo(20);
+        assertThat(dealer.getProfit()).isEqualTo(20);
     }
 }

@@ -55,9 +55,9 @@ public class OutputView {
         DecimalFormat decFormat = new DecimalFormat("###,###");
         System.out.println();
         System.out.println("## 최종 수익");
-        System.out.println(dealer.getName() + ": " + decFormat.format(dealer.getMoney()));
+        System.out.println(dealer.getName() + ": " + decFormat.format(dealer.getProfit()));
         players.getPlayers()
-                .forEach(player -> System.out.println(player.getName() + ": " + decFormat.format(player.getMoney())));
+                .forEach(player -> System.out.println(player.getName() + ": " + decFormat.format(player.getProfit())));
     }
 
     public void printLine() {

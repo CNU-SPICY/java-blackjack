@@ -35,7 +35,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getMoney()).isEqualTo(-10);
+        assertThat(dealer.getProfit()).isEqualTo(-10);
     }
 
     @Test
@@ -50,7 +50,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getMoney()).isEqualTo(-10);
+        assertThat(dealer.getProfit()).isEqualTo(-10);
     }
 
     @Test
@@ -69,7 +69,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getMoney()).isEqualTo(10);
+        assertThat(dealer.getProfit()).isEqualTo(10);
     }
 
     @Test
@@ -84,7 +84,7 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getMoney()).isEqualTo(0);
+        assertThat(dealer.getProfit()).isEqualTo(0);
     }
 
     @Test
@@ -100,6 +100,6 @@ class RefereeTest {
         referee.decideResult(dealer, player);
 
         // then
-        assertThat(dealer.getMoney()).isEqualTo(-15);
+        assertThat(dealer.getProfit()).isEqualTo(-15);
     }
 }

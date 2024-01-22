@@ -57,11 +57,11 @@ public class Player {
         return account.getBetting();
     }
 
-    public void addMoney(int money) {
-        account.addMoney(money);
+    public void addProfit(int money) {
+        account.addProfit(money);
     }
 
-    public int getMoney() {
-        return account.getMoney();
+    public int getProfit() {
+        return account.getProfit();
     }
 }

@@ -7,18 +7,18 @@ public class Referee {
     public void decideResult(Dealer dealer, Player player) {
         int result = compareScore(dealer, player);
         if (isDealerWin(result)) {
-            dealer.addMoney( player.getBetting());
-            player.addMoney(-player.getBetting());
+            dealer.addProfit( player.getBetting());
+            player.addProfit(-player.getBetting());
             return;
         }
         if(isBlackjack(result, player)) {
-            dealer.addMoney((int) (-player.getBetting() * BLACKJACK_MONEY_RATE));
-            player.addMoney((int) ( player.getBetting() * BLACKJACK_MONEY_RATE));
+            dealer.addProfit((int) (-player.getBetting() * BLACKJACK_MONEY_RATE));
+            player.addProfit((int) ( player.getBetting() * BLACKJACK_MONEY_RATE));
             return;
         }
         if (isPlayerWin(result)) {
-            dealer.addMoney(-player.getBetting());
-            player.addMoney( player.getBetting());
+            dealer.addProfit(-player.getBetting());
+            player.addProfit( player.getBetting());
         }
     }
 

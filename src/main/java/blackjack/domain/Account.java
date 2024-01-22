@@ -3,7 +3,7 @@ package blackjack.domain;
 public class Account {
 
     private int betting = 0;
-    private int money = 0;
+    private int profit = 0;
 
     public void addBetting(int betting) {
         this.betting += betting;
@@ -13,11 +13,11 @@ public class Account {
         return betting;
     }
 
-    public void addMoney(int money) {
-        this.money += money;
+    public void addProfit(int money) {
+        this.profit += money;
     }
 
-    public int getMoney() {
-        return money;
+    public int getProfit() {
+        return profit;
     }
 }
