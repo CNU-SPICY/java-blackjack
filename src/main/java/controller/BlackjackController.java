@@ -5,7 +5,6 @@ import domain.person.Dealer;
 import domain.person.Money;
 import domain.person.Player;
 import domain.person.Players;
-import domain.person.wrapper.ParticipantName;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,17 +22,22 @@ public class BlackjackController {
     public BlackjackController(List<String> playerNames) {
         deck = new Deck();
         players = Players.create(playerNames);
-        dealer = Dealer.create(ParticipantName.create(DEALER_NAME));
+        dealer = Dealer.create(DEALER_NAME);
     }
 
     public void start() {
         var initPlayersBettingInfo = initPlayersBettingInfo();
         divideFirstCards();
+        bettleBeforeDistribution();
         distributeCardsToPlayers();
         checkDealerCard();
         OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
         dealer.fightEveryPlayer(players);
         showFinalProfit(initPlayersBettingInfo);
+    }
+
+    private void bettleBeforeDistribution() {
+        dealer.fightBeforeDistribution(players);
     }
 
     private Map<Player, Money> initPlayersBettingInfo() {

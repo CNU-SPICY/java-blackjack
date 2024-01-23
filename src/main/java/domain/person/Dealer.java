@@ -2,7 +2,6 @@ package domain.person;
 
 import domain.cards.Deck;
 import domain.logics.BettingLogic;
-import domain.logics.EarnMoneyLogic;
 import dto.CardDto;
 import dto.DealerDto;
 import java.util.List;
@@ -67,22 +66,24 @@ public class Dealer {
         return participant.isBlackJack();
     }
 
+    public void fightBeforeDistribution(Players players) {
+        for (Player player : players.getPlayers()) {
+            bettingLogic.battleBeforeDistribution(this, player);
+        }
+    }
+
     public void fightEveryPlayer(Players players) {
         for (Player player : players.getPlayers()) {
             bettingLogic.battle(this, player);
         }
     }
 
-    public void earnMoney() {
-        money = EarnMoneyLogic.WIN.calculateMoney(money);
+    public void earnMoney(Money money) {
+        money = money.add(money);
     }
 
-    public void loseMoney() {
-        money = EarnMoneyLogic.LOSE.calculateMoney(money);
-    }
-
-    public void bonusMoney() {
-        money = EarnMoneyLogic.BONUS.calculateMoney(money);
+    public void loseMoney(Money money) {
+        money = money.subtract(money);
     }
 
     public DealerDto getDealerInfo() {

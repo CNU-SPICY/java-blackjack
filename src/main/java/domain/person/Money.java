@@ -27,4 +27,8 @@ public class Money {
     public Money Multifly(final double multiplier) {
         return new Money(this.money * multiplier);
     }
+
+    public double getMoney() {
+        return money;
+    }
 }

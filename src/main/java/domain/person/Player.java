@@ -83,4 +83,8 @@ public class Player {
     public PlayerDto getPlayerInfo() {
         return new PlayerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
     }
+
+    public double getMoney() {
+        return money.getMoney();
+    }
 }

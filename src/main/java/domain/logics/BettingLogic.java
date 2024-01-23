@@ -1,14 +1,22 @@
 package domain.logics;
 
 import domain.person.Dealer;
+import domain.person.Money;
 import domain.person.Player;
 
 public class BettingLogic {
 
-    private static final int STANDARD_NUMBER = 21;
+    public void battleBeforeDistribution(Dealer dealer, Player player) {
+        if (dealer.isBlackJack() && !player.isBlackJack()) {
+            dealerWin(dealer, player);
+        }
+        if (!dealer.isBlackJack() && player.isBlackJack()) {
+            playerWin(dealer, player);
+        }
+    }
 
     public void battle(Dealer dealer, Player player) {
-        if (dealer.getSumOfCards() > STANDARD_NUMBER) {
+        if (dealer.isBust()) {
             handleDealerBiggerThenStandardNumber(dealer, player);
             return;
         }
@@ -16,7 +24,7 @@ public class BettingLogic {
     }
 
     private void handleDealerBiggerThenStandardNumber(Dealer dealer, Player player) {
-        if (player.getSumOfCards() <= STANDARD_NUMBER) {
+        if (!player.isBust()) {
             playerWin(dealer, player);
             return;
         }
@@ -24,14 +32,14 @@ public class BettingLogic {
     }
 
     private void handleDealerSmallerThenStandardNumber(Dealer dealer, Player player) {
-        if (player.getSumOfCards() > STANDARD_NUMBER) {
+        if (player.isBust()) {
             dealerWin(dealer, player);
             return;
         }
-        compareDealerAndHandler(dealer, player);
+        compareDealerAndPlayer(dealer, player);
     }
 
-    private void compareDealerAndHandler(Dealer dealer, Player player) {
+    private void compareDealerAndPlayer(Dealer dealer, Player player) {
         if (dealer.getSumOfCards() > player.getSumOfCards()) {
             dealerWin(dealer, player);
             return;
@@ -47,13 +55,16 @@ public class BettingLogic {
 
     private void dealerWin(Dealer dealer, Player player) {
         player.increaseLoseCount();
-        player.loseMoney();
         dealer.increaseWinCount();
+        player.loseMoney();
+        dealer.earnMoney(Money.create(player.getMoney()));
     }
 
     private void playerWin(Dealer dealer, Player player) {
         player.increaseWinCount();
         dealer.increaseLoseCount();
+        player.earnMoney();
+        dealer.loseMoney(Money.create(player.getMoney()));
     }
 
     private void draw(Dealer dealer, Player player) {
