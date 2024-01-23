@@ -3,31 +3,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import domain.cards.Card;
 import domain.cards.constant.CardEnums.CardRank;
 import domain.cards.constant.CardEnums.CardSuit;
-import domain.logics.Score;
 import domain.logics.ScoreLogic;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class LogicTest {
-
-    @DisplayName("Score가 올바르게 증가하는 지 테스트")
-    @Test
-    void properIncreaseScoreTest() {
-        // given
-        Score score = Score.create();
-
-        // when
-        score.increaseWinCount();
-        score.increaseLoseCout();
-        score.increaseDrawCount();
-
-        // then
-        assertThat(score.getWinCount()).isEqualTo(1);
-        assertThat(score.getDrawCount()).isEqualTo(1);
-        assertThat(score.getLoseCount()).isEqualTo(1);
-    }
+public class ScoreLogicTest {
 
     @DisplayName("ACE가 포함된, 값을 더하는 로직 테스트")
     @Test
@@ -163,5 +145,36 @@ public class LogicTest {
 
         // then
         assertThat(sum).isEqualTo(15);
+    }
+
+    @DisplayName("Bust 메서드 테스트")
+    @Test
+    void bustTest() {
+        // given
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sumOfCards = 23;
+        int sumOfCards2 = 20;
+
+        // when
+        boolean result = scoreLogic.isBust(sumOfCards);
+        boolean result2 = scoreLogic.isBust(sumOfCards2);
+
+        // then
+        assertThat(result).isEqualTo(true);
+        assertThat(result2).isEqualTo(false);
+    }
+
+    @DisplayName("BlackJack 메서드 테스트")
+    @Test
+    void blackJackTest() {
+        // given
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sumOfCards = 21;
+
+        // when
+        boolean result = scoreLogic.isBlackJack(sumOfCards);
+
+        // then
+        assertThat(result).isEqualTo(true);
     }
 }

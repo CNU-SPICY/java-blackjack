@@ -6,43 +6,30 @@ import domain.person.Money;
 import domain.person.Player;
 import domain.person.Players;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
 public class BlackjackController {
 
-    private static final String DEALER_NAME = "딜러";
-    private static final int GET_MORE_CARD_CONDITION = 16;
-    private final Players players;
-    private final Dealer dealer;
-    private final Deck deck;
-
-    public BlackjackController(List<String> playerNames) {
-        deck = new Deck();
-        players = Players.create(playerNames);
-        dealer = Dealer.create(DEALER_NAME);
-    }
-
     public void start() {
-        var initPlayersBettingInfo = initPlayersBettingInfo();
-        divideFirstCards();
-        bettleBeforeDistribution();
-        distributeCardsToPlayers();
-        checkDealerCard();
+        final var playerNames = InputView.inputPlayerNames();
+        Deck deck = new Deck();
+        Players players = Players.create(playerNames);
+        Dealer dealer = Dealer.create();
+        var initPlayersBettingInfo = initPlayersBettingInfo(players);
+        divideFirstCards(deck, dealer, players);
+        bettleBeforeDistribution(dealer, players);
+        distributeCardsToPlayers(deck, dealer, players);
+        checkDealerCard(deck, dealer);
         OutputView.showTotalScore(dealer.getDealerDto(), players.getPlayersDto());
         dealer.fightEveryPlayer(players, initPlayersBettingInfo);
         showFinalProfit(players, dealer);
     }
 
-    private void bettleBeforeDistribution() {
-        dealer.fightBeforeDistribution(players);
-    }
-
-    private Map<Player, Money> initPlayersBettingInfo() {
+    private Map<Player, Money> initPlayersBettingInfo(Players players) {
         Map<Player, Money> initBettingInfo = new HashMap<>();
-        for (Player player : getPlayers()) {
+        for (Player player : players.getPlayers()) {
             Money bettingMoney = Money.create(InputView.askPlayerBetAmount(player.getName()));
             player.betting(bettingMoney);
             initBettingInfo.put(player, bettingMoney);
@@ -50,17 +37,21 @@ public class BlackjackController {
         return initBettingInfo;
     }
 
-    private void divideFirstCards() {
+    private void divideFirstCards(Deck deck, Dealer dealer, Players players) {
         dealer.setFirstCards(deck);
-        getPlayers().forEach(player -> player.setFirstCards(deck));
+        players.getPlayers().forEach(player -> player.setFirstCards(deck));
     }
 
-    private void distributeCardsToPlayers() {
+    private void bettleBeforeDistribution(Dealer dealer, Players players) {
+        dealer.fightBeforeDistribution(players);
+    }
+
+    private void distributeCardsToPlayers(Deck deck, Dealer dealer, Players players) {
         OutputView.showDividePlayerCards(dealer.getDealerDto(), players.getPlayersDto());
-        getPlayers().forEach(this::distributeCardsToPlayer);
+        players.getPlayers().forEach(player -> distributeCardsToPlayer(deck, player));
     }
 
-    private void distributeCardsToPlayer(Player player) {
+    private void distributeCardsToPlayer(Deck deck, Player player) {
         while (InputView.getCardCondition(player.getPlayerInfo().getPlayerName())) {
             player.pickCard(deck);
             OutputView.showPlayerCard(player.getPlayerInfo());
@@ -68,16 +59,11 @@ public class BlackjackController {
         OutputView.showPlayerCard(player.getPlayerInfo());
     }
 
-    private void checkDealerCard() {
-        int sumOfDealerCards = dealer.getSumOfCards();
-        if (sumOfDealerCards <= GET_MORE_CARD_CONDITION) {
+    private void checkDealerCard(Deck deck, Dealer dealer) {
+        if (dealer.canPickCard()) {
             dealer.pickCard(deck);
             OutputView.confirmDealerRecivedCard();
         }
-    }
-
-    private List<Player> getPlayers() {
-        return players.getPlayers();
     }
 
     private void showFinalProfit(Players players, Dealer dealer) {

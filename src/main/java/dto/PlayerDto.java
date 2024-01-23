@@ -28,7 +28,7 @@ public class PlayerDto {
         return sumOfCards;
     }
 
-    public double getMoney() {
+    public int getMoney() {
         return money;
     }
 }

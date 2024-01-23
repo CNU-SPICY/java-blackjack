@@ -29,7 +29,7 @@ public class DealerDto {
         return sumOfCards;
     }
 
-    public double getMoney() {
+    public int getMoney() {
         return money;
     }
 }

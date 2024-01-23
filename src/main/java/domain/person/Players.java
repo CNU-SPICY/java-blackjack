@@ -9,7 +9,7 @@ public class Players {
 
     private final List<Player> players;
 
-    private Players(List<String> playerNames) {
+    private Players(final List<String> playerNames) {
         players = playerNames.stream()
                 .map(Player::create)
                 .collect(Collectors.toList());

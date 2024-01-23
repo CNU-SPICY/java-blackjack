@@ -4,12 +4,25 @@ public class Money {
 
     private final double money;
 
-    private Money(double money) {
+    private Money(final double money) {
         this.money = money;
     }
 
-    public static Money create(double money) {
+    public static Money create(final String money) {
+        int castedMoney = typeCast(money);
+        return new Money(castedMoney);
+    }
+
+    public static Money create(final double money) {
         return new Money(money);
+    }
+
+    private static int typeCast(String money) {
+        try {
+            return Integer.parseInt(money);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("정수를 입력해주세요.");
+        }
     }
 
     public static Money zero() {
