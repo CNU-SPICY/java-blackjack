@@ -33,16 +33,16 @@ public class Player {
         return cards.isBust();
     }
 
+    public boolean isBlackjack() {
+        return cards.isBlackjack();
+    }
+
     public int getScore() {
         return cards.calcScore();
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getCardsAmount() {
-        return cards.getCardsAmount();
     }
 
     public List<Card> getCards() {

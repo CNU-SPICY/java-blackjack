@@ -46,7 +46,7 @@ public class Referee {
     }
 
     private boolean isBlackjack(int result, Player player) {
-        return isPlayerWin(result) && player.getScore() == 21 && player.getCardsAmount() == 2;
+        return isPlayerWin(result) && player.isBlackjack();
     }
 
     private boolean isPlayerWin(int result) {

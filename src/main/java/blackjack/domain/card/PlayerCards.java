@@ -25,6 +25,10 @@ public class PlayerCards {
         return calcScore() > DEAD_LINE;
     }
 
+    public boolean isBlackjack() {
+        return calcScore() == DEAD_LINE && cards.size() == 2;
+    }
+
     public int calcScore() {
         final int score = cards.stream().mapToInt(Card::getScore).sum();
         final int extra = extraScoreFromAce(score);
@@ -43,10 +47,6 @@ public class PlayerCards {
 
     private int amountOfAce() {
         return (int) cards.stream().filter(card -> card.getCardNumber() == CardNumber.ACE).count();
-    }
-
-    public int getCardsAmount() {
-        return cards.size();
     }
 
     public List<Card> getCards() {
