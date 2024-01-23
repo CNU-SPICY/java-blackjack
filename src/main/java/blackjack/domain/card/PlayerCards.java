@@ -17,6 +17,14 @@ public class PlayerCards {
         cards.add(card);
     }
 
+    public boolean isHittable() {
+        return calcScore() < DEAD_LINE;
+    }
+
+    public boolean isBust() {
+        return calcScore() > DEAD_LINE;
+    }
+
     public int calcScore() {
         final int score = cards.stream().mapToInt(Card::getScore).sum();
         final int extra = extraScoreFromAce(score);

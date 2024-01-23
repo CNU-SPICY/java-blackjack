@@ -26,11 +26,11 @@ public class Player {
     }
 
     public boolean isHittable() {
-        return getScore() < PlayerCards.DEAD_LINE;
+        return cards.isHittable();
     }
 
     public boolean isBust() {
-        return getScore() > PlayerCards.DEAD_LINE;
+        return cards.isBust();
     }
 
     public int getScore() {
