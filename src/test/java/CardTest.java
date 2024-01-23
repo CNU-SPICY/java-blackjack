@@ -27,7 +27,7 @@ public class CardTest {
     @Test
     void pickTwoCardTest() {
         // given
-        OwnCards ownCards = new OwnCards();
+        OwnCards ownCards = OwnCards.create();
         Deck deck = new Deck();
 
         // when
@@ -41,7 +41,7 @@ public class CardTest {
     @Test
     void addCardTest() {
         // given
-        OwnCards ownCards = new OwnCards();
+        OwnCards ownCards = OwnCards.create();
         Deck deck = new Deck();
 
         // when

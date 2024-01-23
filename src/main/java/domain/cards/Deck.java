@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 public class Deck {
 
-    private List<Card> cardList;
     private final Random random = new Random();
+    private List<Card> cardList;
 
     public Deck() {
         initializeDeck();

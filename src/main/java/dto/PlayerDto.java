@@ -2,14 +2,14 @@ package dto;
 
 import java.util.List;
 
-public class PlayerInfo {
+public class PlayerDto {
 
     private String playerName;
-    private List<CardInfo> playerCards;
+    private List<CardDto> playerCards;
     private int sumOfCards;
 
 
-    public PlayerInfo(String playerName, List<CardInfo> playerCards, int sumOfCards) {
+    public PlayerDto(String playerName, List<CardDto> playerCards, int sumOfCards) {
         this.playerName = playerName;
         this.playerCards = playerCards;
         this.sumOfCards = sumOfCards;
@@ -19,7 +19,7 @@ public class PlayerInfo {
         return playerName;
     }
 
-    public List<CardInfo> getPlayerCards() {
+    public List<CardDto> getPlayerCards() {
         return playerCards;
     }
 

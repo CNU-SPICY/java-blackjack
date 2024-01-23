@@ -2,13 +2,13 @@ package dto;
 
 import java.util.List;
 
-public class DealerInfo {
+public class DealerDto {
 
     private String dealerName;
-    private List<CardInfo> dealerCards;
+    private List<CardDto> dealerCards;
     private int sumOfCards;
 
-    public DealerInfo(String dealerName, List<CardInfo> dealerCards, int sumOfCards) {
+    public DealerDto(String dealerName, List<CardDto> dealerCards, int sumOfCards) {
         this.dealerName = dealerName;
         this.dealerCards = dealerCards;
         this.sumOfCards = sumOfCards;
@@ -18,7 +18,7 @@ public class DealerInfo {
         return dealerName;
     }
 
-    public List<CardInfo> getDealerCards() {
+    public List<CardDto> getDealerCards() {
         return dealerCards;
     }
 

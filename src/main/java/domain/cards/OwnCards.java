@@ -1,16 +1,22 @@
 package domain.cards;
 
-import domain.logics.SumLogic;
-import dto.CardInfo;
+import domain.logics.ScoreLogic;
+import dto.CardDto;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OwnCards {
 
     private final List<Card> ownCards;
+    private final ScoreLogic scoreLogic;
 
-    public OwnCards() {
+    private OwnCards() {
         ownCards = new ArrayList<>();
+        scoreLogic = new ScoreLogic();
+    }
+
+    public static OwnCards create() {
+        return new OwnCards();
     }
 
     public void getRandomTwoCards(Deck deck) {
@@ -26,16 +32,23 @@ public class OwnCards {
         return ownCards;
     }
 
-    public List<CardInfo> getRankAndSuit() {
-        List<CardInfo> cardInfos = new ArrayList<>();
+    public List<CardDto> getRankAndSuit() {
+        List<CardDto> cardDtos = new ArrayList<>();
         for (Card card : ownCards) {
-            cardInfos.add(new CardInfo(card.getCardRank(), card.getCardSuit()));
+            cardDtos.add(new CardDto(card.getCardRank(), card.getCardSuit()));
         }
-        return cardInfos;
+        return cardDtos;
     }
 
     public int getSumOfCards() {
-        SumLogic sumLogic = new SumLogic();
-        return sumLogic.applyLogic(ownCards);
+        return scoreLogic.applyLogic(ownCards);
+    }
+
+    public boolean isBust() {
+        return scoreLogic.isBust(getSumOfCards());
+    }
+
+    public boolean isBlackJack() {
+        return scoreLogic.isBlackJack(getSumOfCards());
     }
 }

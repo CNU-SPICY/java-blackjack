@@ -6,10 +6,14 @@ public class Score {
     private int drawCount;
     private int loseCount;
 
-    public Score() {
+    private Score() {
         this.winCount = 0;
         this.drawCount = 0;
         this.loseCount = 0;
+    }
+
+    public static Score create() {
+        return new Score();
     }
 
     public void increaseWinCount() {

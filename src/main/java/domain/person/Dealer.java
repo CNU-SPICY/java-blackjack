@@ -4,20 +4,26 @@ import domain.cards.Deck;
 import domain.cards.OwnCards;
 import domain.logics.Score;
 import domain.logics.WinLogic;
-import domain.person.wrapper.NameWrapper;
-import dto.CardInfo;
-import dto.DealerInfo;
+import domain.person.wrapper.ParticipantName;
+import dto.CardDto;
+import dto.DealerDto;
 import java.util.List;
 
 public class Dealer {
 
-    private final OwnCards ownCards = new OwnCards();
+    private final OwnCards ownCards;
     private final WinLogic winLogic = new WinLogic();
-    private final Score score = new Score();
-    private final NameWrapper name;
+    private final Score score;
+    private final ParticipantName name;
 
-    public Dealer(NameWrapper name) {
+    private Dealer(ParticipantName name) {
         this.name = name;
+        this.ownCards = OwnCards.create();
+        this.score = Score.create();
+    }
+
+    public static Dealer create(final ParticipantName name) {
+        return new Dealer(name);
     }
 
     public void setFirstCards(Deck deck) {
@@ -36,7 +42,7 @@ public class Dealer {
         ownCards.addCard(deck);
     }
 
-    public List<CardInfo> getOwnCardsRankAndSuit() {
+    public List<CardDto> getOwnCardsRankAndSuit() {
         return ownCards.getRankAndSuit();
     }
 
@@ -46,8 +52,8 @@ public class Dealer {
         }
     }
 
-    public DealerInfo getDealerInfo() {
-        return new DealerInfo(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
+    public DealerDto getDealerInfo() {
+        return new DealerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
     }
 
     public void increaseWinCount() {

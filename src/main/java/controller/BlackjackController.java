@@ -4,7 +4,7 @@ import domain.cards.Deck;
 import domain.person.Dealer;
 import domain.person.Player;
 import domain.person.Players;
-import domain.person.wrapper.NameWrapper;
+import domain.person.wrapper.ParticipantName;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
@@ -19,17 +19,24 @@ public class BlackjackController {
 
     public BlackjackController(List<String> playerNames) {
         deck = new Deck();
-        players = new Players(playerNames);
-        dealer = new Dealer(new NameWrapper(DEALER_NAME));
+        players = Players.create(playerNames);
+        dealer = Dealer.create(ParticipantName.create(DEALER_NAME));
     }
 
     public void start() {
+        askPlayersBetAmount();
         divideFirstCards();
         distributeCardsToPlayers();
         checkDealerCard();
         OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
         dealer.fightEveryPlayer(players);
         showWinAndLoseResult();
+    }
+
+    private void askPlayersBetAmount() {
+        for (Player player : getPlayers()) {
+            Integer bettingMoney = InputView.askPlayerBetAmount(player.getName());
+        }
     }
 
     private void divideFirstCards() {
