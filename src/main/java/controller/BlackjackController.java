@@ -2,10 +2,13 @@ package controller;
 
 import domain.cards.Deck;
 import domain.person.Dealer;
+import domain.person.Money;
 import domain.person.Player;
 import domain.person.Players;
 import domain.person.wrapper.ParticipantName;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
@@ -24,19 +27,23 @@ public class BlackjackController {
     }
 
     public void start() {
-        askPlayersBetAmount();
+        var initPlayersBettingInfo = initPlayersBettingInfo();
         divideFirstCards();
         distributeCardsToPlayers();
         checkDealerCard();
         OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
         dealer.fightEveryPlayer(players);
-        showWinAndLoseResult();
+        showFinalProfit(initPlayersBettingInfo);
     }
 
-    private void askPlayersBetAmount() {
+    private Map<Player, Money> initPlayersBettingInfo() {
+        Map<Player, Money> initBettingInfo = new HashMap<>();
         for (Player player : getPlayers()) {
-            Integer bettingMoney = InputView.askPlayerBetAmount(player.getName());
+            Money bettingMoney = Money.create(InputView.askPlayerBetAmount(player.getName()));
+            player.betting(bettingMoney);
+            initBettingInfo.put(player, bettingMoney);
         }
+        return initBettingInfo;
     }
 
     private void divideFirstCards() {
@@ -69,10 +76,7 @@ public class BlackjackController {
         return players.getPlayers();
     }
 
-    private void showWinAndLoseResult() {
-        OutputView.showDealerWinAndLoseResult(dealer.getWinCount(), dealer.getLoseCount(), dealer.getDrawCount());
-        for (Player player : players.getPlayers()) {
-            OutputView.showPlayerWinAndLoseResult(player.getName(), player.getBattleResult());
-        }
+    private void showFinalProfit(Map<Player, Money> initPlayersBettingInfo) {
+
     }
 }

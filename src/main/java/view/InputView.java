@@ -23,10 +23,10 @@ public class InputView {
         return input.equals("y");
     }
 
-    public static Integer askPlayerBetAmount(String playerName) {
+    public static double askPlayerBetAmount(String playerName) {
         System.out.println(playerName + "의 배팅 금액은?");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine().trim().toLowerCase();
-        return Integer.parseInt(input);
+        return Double.parseDouble(input);
     }
 }
