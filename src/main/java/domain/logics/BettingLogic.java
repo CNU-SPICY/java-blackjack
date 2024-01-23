@@ -3,7 +3,7 @@ package domain.logics;
 import domain.person.Dealer;
 import domain.person.Player;
 
-public class WinLogic {
+public class BettingLogic {
 
     private static final int STANDARD_NUMBER = 21;
 
@@ -47,6 +47,7 @@ public class WinLogic {
 
     private void dealerWin(Dealer dealer, Player player) {
         player.increaseLoseCount();
+        player.loseMoney();
         dealer.increaseWinCount();
     }
 

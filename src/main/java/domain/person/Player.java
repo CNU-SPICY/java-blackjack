@@ -1,6 +1,7 @@
 package domain.person;
 
 import domain.cards.Deck;
+import domain.logics.EarnMoneyLogic;
 import dto.CardDto;
 import dto.PlayerDto;
 import java.util.List;
@@ -65,6 +66,18 @@ public class Player {
 
     public boolean isBlackJack() {
         return participant.isBlackJack();
+    }
+
+    public void earnMoney() {
+        money = EarnMoneyLogic.WIN.calculateMoney(money);
+    }
+
+    public void loseMoney() {
+        money = EarnMoneyLogic.LOSE.calculateMoney(money);
+    }
+
+    public void bonusMoney() {
+        money = EarnMoneyLogic.BONUS.calculateMoney(money);
     }
 
     public PlayerDto getPlayerInfo() {
