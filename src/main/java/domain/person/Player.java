@@ -44,22 +44,6 @@ public class Player {
         return participant.getSumOfCards();
     }
 
-    public void increaseWinCount() {
-        participant.increaseWinCount();
-    }
-
-    public void increaseDrawCount() {
-        participant.increaseDrawCount();
-    }
-
-    public void increaseLoseCount() {
-        participant.increaseLoseCount();
-    }
-
-    public int getBattleResult() {
-        return participant.getBattleResult();
-    }
-
     public boolean isBust() {
         return participant.isBust();
     }
@@ -81,7 +65,7 @@ public class Player {
     }
 
     public PlayerDto getPlayerInfo() {
-        return new PlayerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
+        return new PlayerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards(), getMoney());
     }
 
     public void resetMoney(Money initMoney) {

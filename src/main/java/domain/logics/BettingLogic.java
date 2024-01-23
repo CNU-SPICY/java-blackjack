@@ -13,7 +13,8 @@ public class BettingLogic {
             dealerWin(dealer, player);
         }
         if (!dealer.isBlackJack() && player.isBlackJack()) {
-            playerWin(dealer, player);
+            player.bonusMoney();
+            dealer.loseMoney(Money.create(player.getMoney()));
         }
     }
 
@@ -68,8 +69,8 @@ public class BettingLogic {
     }
 
     private static void dealerWin(Dealer dealer, Player player) {
-        player.loseMoney();
         dealer.earnMoney(Money.create(player.getMoney()));
+        player.loseMoney();
     }
 
     private static void playerWin(Dealer dealer, Player player) {

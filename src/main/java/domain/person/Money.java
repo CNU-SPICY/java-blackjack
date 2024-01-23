@@ -17,11 +17,11 @@ public class Money {
     }
 
     public Money add(final Money money) {
-        return new Money(this.money + money.money);
+        return new Money(this.money + money.getMoney());
     }
 
     public Money subtract(final Money money) {
-        return new Money(this.money - money.money);
+        return new Money(this.money - money.getMoney());
     }
 
     public Money Multifly(final double multiplier) {

@@ -41,22 +41,6 @@ public class Dealer {
         return participant.getSumOfCards();
     }
 
-    public void increaseWinCount() {
-        participant.increaseWinCount();
-    }
-
-    public void increaseDrawCount() {
-        participant.increaseDrawCount();
-    }
-
-    public void increaseLoseCount() {
-        participant.increaseLoseCount();
-    }
-
-    public int getBattleResult() {
-        return participant.getBattleResult();
-    }
-
     public boolean isBust() {
         return participant.isBust();
     }
@@ -75,19 +59,23 @@ public class Dealer {
         BettingLogic.battle(this, players, initPlayersBettingInfo);
     }
 
-    public void earnMoney(Money money) {
-        money = money.add(money);
+    public void earnMoney(Money addedMoney) {
+        money = money.add(addedMoney);
     }
 
-    public void loseMoney(Money money) {
-        money = money.subtract(money);
+    public void loseMoney(Money subtractedMoney) {
+        money = money.subtract(subtractedMoney);
     }
 
     public void resetMoney(Money initMoney) {
         money = initMoney;
     }
 
-    public DealerDto getDealerInfo() {
-        return new DealerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
+    public DealerDto getDealerDto() {
+        return new DealerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards(), getMoney());
+    }
+
+    public double getMoney() {
+        return money.getMoney();
     }
 }

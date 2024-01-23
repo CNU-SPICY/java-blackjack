@@ -54,7 +54,6 @@ public class OutputView {
         System.out.println();
         System.out.println(dealerDto.getDealerName() + ": " + cardSpliter(dealerDto.getDealerCards()) + " - 결과: "
                 + dealerDto.getSumOfCards());
-
         for (PlayerDto playerDto : playerDtos) {
             showPlayerCardWithResult(playerDto);
         }
@@ -65,20 +64,16 @@ public class OutputView {
                 + playerDto.getSumOfCards());
     }
 
-    public static void showDealerWinAndLoseResult(int winCount, int loseCount, int drawCount) {
-        System.out.println(
-                "딜러: " + winCount + "승 " + loseCount + "패 " + drawCount + "무");
+
+    public static void showTotalMoney(List<PlayerDto> playersDto, DealerDto dealerDto) {
+        System.out.println("\n## 최종 수익");
+        System.out.println(dealerDto.getDealerName() + ": " + dealerDto.getMoney());
+        for (PlayerDto playerDto : playersDto) {
+            showPlayerToTalMoney(playerDto);
+        }
     }
 
-    public static void showPlayerWinAndLoseResult(String playerName, int battleResult) {
-        if (battleResult == 1) {
-            System.out.println(playerName + ": " + "승");
-            return;
-        }
-        if (battleResult == -1) {
-            System.out.println(playerName + ": " + "패");
-            return;
-        }
-        System.out.println(playerName + ": " + "무");
+    private static void showPlayerToTalMoney(PlayerDto playerDto) {
+        System.out.println(playerDto.getPlayerName() + ": " + playerDto.getMoney());
     }
 }

@@ -23,7 +23,7 @@ public class Players {
         return players;
     }
 
-    public List<PlayerDto> getPlayersInfo() {
+    public List<PlayerDto> getPlayersDto() {
         List<PlayerDto> allPlayersInfo = new ArrayList<>();
         for (Player player : players) {
             allPlayersInfo.add(player.getPlayerInfo());

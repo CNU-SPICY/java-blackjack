@@ -31,9 +31,9 @@ public class BlackjackController {
         bettleBeforeDistribution();
         distributeCardsToPlayers();
         checkDealerCard();
-        OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
+        OutputView.showTotalScore(dealer.getDealerDto(), players.getPlayersDto());
         dealer.fightEveryPlayer(players, initPlayersBettingInfo);
-        showFinalProfit(initPlayersBettingInfo);
+        showFinalProfit(players, dealer);
     }
 
     private void bettleBeforeDistribution() {
@@ -56,7 +56,7 @@ public class BlackjackController {
     }
 
     private void distributeCardsToPlayers() {
-        OutputView.showDividePlayerCards(dealer.getDealerInfo(), players.getPlayersInfo());
+        OutputView.showDividePlayerCards(dealer.getDealerDto(), players.getPlayersDto());
         getPlayers().forEach(this::distributeCardsToPlayer);
     }
 
@@ -80,6 +80,7 @@ public class BlackjackController {
         return players.getPlayers();
     }
 
-    private void showFinalProfit(Map<Player, Money> initPlayersBettingInfo) {
+    private void showFinalProfit(Players players, Dealer dealer) {
+        OutputView.showTotalMoney(players.getPlayersDto(), dealer.getDealerDto());
     }
 }
