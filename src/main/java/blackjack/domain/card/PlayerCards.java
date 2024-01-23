@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlayerCards {
 
-    public static final int DEAD_LINE = 21;
+    private static final int DEAD_LINE = 21;
 
     private final List<Card> cards;
 
