@@ -84,6 +84,10 @@ public class Player {
         return new PlayerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
     }
 
+    public void resetMoney(Money initMoney) {
+        money = initMoney;
+    }
+
     public double getMoney() {
         return money.getMoney();
     }

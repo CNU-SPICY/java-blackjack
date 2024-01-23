@@ -86,6 +86,10 @@ public class Dealer {
         money = money.subtract(money);
     }
 
+    public void resetMoney(Money initMoney) {
+        money = initMoney;
+    }
+
     public DealerDto getDealerInfo() {
         return new DealerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
     }
