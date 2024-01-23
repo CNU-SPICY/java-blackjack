@@ -26,6 +26,13 @@ public class BettingLogic {
         caculatePlayerMoney(dealer, players, initPlayersBettingInfo);
     }
 
+    private static void resetBettingMoney(Players players, Dealer dealer, Map<Player, Money> initPlayersBettingInfo) {
+        players.getPlayers().forEach((player -> {
+            dealer.loseMoney(initPlayersBettingInfo.get(player));
+            player.resetMoney(initPlayersBettingInfo.get(player));
+        }));
+    }
+
     private static void caculatePlayerMoney(Dealer dealer, Players players, Map<Player, Money> initPlayersBettingInfo) {
         for (Player player : players.getPlayers()) {
             handlePlayerBust(player, dealer);
@@ -44,13 +51,6 @@ public class BettingLogic {
         if (!player.isBust()) {
             compareDealerAndPlayer(dealer, player, players, initPlayersBettingInfo);
         }
-    }
-
-    private static void resetBettingMoney(Players players, Dealer dealer, Map<Player, Money> initPlayersBettingInfo) {
-        players.getPlayers().forEach((player -> {
-            dealer.loseMoney(initPlayersBettingInfo.get(player));
-            player.resetMoney(initPlayersBettingInfo.get(player));
-        }));
     }
 
     private static void compareDealerAndPlayer(Dealer dealer, Player player,
