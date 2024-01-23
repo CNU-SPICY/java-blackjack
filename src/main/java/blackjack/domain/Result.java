@@ -4,10 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Result {
+    private final Map<String, String> playerResults = new HashMap<>();
     private int dealerWinCount = 0;
     private int dealerPushCount = 0;
     private int dealerLoseCount = 0;
-    private final Map<String, String> playerResults = new HashMap<>();
+
+    public void addPlayerResult(String name, String result) {
+        playerResults.put(name, result);
+        if(result == GameConstant.WIN) {
+            dealerLoseCount ++;
+            return;
+        }
+        if(result == GameConstant.LOSE) {
+            dealerWinCount ++;
+            return;
+        }
+        dealerPushCount ++;
+    }
+
     public int getDealerWinCount() {
         return dealerWinCount;
     }
@@ -22,18 +36,5 @@ public class Result {
 
     public Map<String, String> getPlayerResults() {
         return playerResults;
-    }
-
-    public void addPlayerResult(String name, String result) {
-        playerResults.put(name, result);
-        if(result == "승") {
-            dealerLoseCount ++;
-            return;
-        }
-        if(result == "패") {
-            dealerWinCount ++;
-            return;
-        }
-        dealerPushCount ++;
     }
 }

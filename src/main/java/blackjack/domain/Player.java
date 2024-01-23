@@ -11,14 +11,6 @@ public class Player {
         this.hand = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
     public void initDeal(Deck deck) {
         drawCard(deck);
         drawCard(deck);
@@ -56,5 +48,13 @@ public class Player {
 
     private boolean isAce(Card card) {
         return card.getDenomination().equals("A");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
     }
 }

@@ -13,17 +13,23 @@ public class Game {
 
     public void startGame() {
         players = new Players(inputView.getPlayerNames());
+        initDeal();
+        repeatHit();
+        printResult();
+    }
+
+    public void initDeal() {
         deck.initDeck();
         dealer.initDeal(deck);
         players.initDeal(deck);
         outputView.initDeal(players.getPlayers());
         outputView.printAllHands(dealer, players.getPlayers());
+    }
+
+    public void repeatHit() {
         players.getPlayers().forEach(this::repeatPlayerHit);
         outputView.printNewLine();
         repeatDealerHit();
-        outputView.printScoreResult(dealer, players.getPlayers());
-        Result gameResult = players.getResult(dealer);
-        outputView.printGameResult(gameResult);
     }
 
     public void repeatPlayerHit(Player player) {
@@ -48,5 +54,11 @@ public class Game {
             dealer.drawCard(deck);
             outputView.dealerHitComment();
         }
+    }
+
+    public void printResult() {
+        outputView.printScoreResult(dealer, players.getPlayers());
+        Result gameResult = players.getResult(dealer);
+        outputView.printGameResult(gameResult);
     }
 }

@@ -5,10 +5,6 @@ import java.util.ArrayList;
 public class Dealer {
     private final ArrayList<Card> hand = new ArrayList<>();
 
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
     public void initDeal(Deck deck) {
         drawCard(deck);
         drawCard(deck);
@@ -46,5 +42,9 @@ public class Dealer {
 
     private boolean isAce(Card card) {
         return card.getDenomination().equals("A");
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
     }
 }

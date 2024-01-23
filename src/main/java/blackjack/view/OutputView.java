@@ -9,8 +9,8 @@ public class OutputView {
     public void initDeal(ArrayList<Player> players) {
         StringBuilder comment = new StringBuilder("\n딜러와 ");
         String playerNames = String.join(", ", players.stream()
-                                                                .map(Player::getName)
-                                                                .toArray(String[]::new));
+                .map(Player::getName)
+                .toArray(String[]::new));
         comment.append(playerNames);
         comment.append("에게 2장을 나누었습니다.");
         System.out.println(comment);
@@ -29,8 +29,8 @@ public class OutputView {
     public void printPlayerHand(Player player) {
         StringBuilder result = new StringBuilder(player.getName() + "카드: ");
         String cardInfo = player.getHand().stream()
-                                        .map(card -> card.getDenomination() + card.getSuit())
-                                        .collect(Collectors.joining(", "));
+                .map(card -> card.getDenomination() + card.getSuit())
+                .collect(Collectors.joining(", "));
         result.append(cardInfo);
         System.out.print(result);
     }
@@ -38,8 +38,8 @@ public class OutputView {
     public void printDealerHand(Dealer dealer) {
         StringBuilder result = new StringBuilder("딜러 카드: ");
         String cardInfo = dealer.getHand().stream()
-                                        .map(card -> card.getDenomination() + card.getSuit())
-                                        .collect(Collectors.joining(", "));
+                .map(card -> card.getDenomination() + card.getSuit())
+                .collect(Collectors.joining(", "));
         result.append(cardInfo);
         System.out.print(result);
     }

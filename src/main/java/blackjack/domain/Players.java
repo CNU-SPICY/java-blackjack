@@ -12,10 +12,6 @@ public class Players {
         }
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
     public void initDeal(Deck deck) {
         for (Player player : players) {
             player.initDeal(deck);
@@ -47,5 +43,9 @@ public class Players {
             return GameConstant.LOSE;
         }
         return GameConstant.PUSH;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 }

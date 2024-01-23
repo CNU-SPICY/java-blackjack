@@ -1,4 +1,5 @@
 package blackjack.domain;
+
 public class GameConstant {
     public static final int BUST_SCORE = 22;
     public static final int DEALER_STAND_SCORE = 17;

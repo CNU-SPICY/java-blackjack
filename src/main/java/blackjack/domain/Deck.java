@@ -15,6 +15,6 @@ public class Deck {
         Collections.shuffle(deck);
     }
     public Card drawRandomCard() {
-        return deck.remove(0);
+        return deck.remove(deck.size()-1);
     }
 }
