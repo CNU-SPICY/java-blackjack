@@ -5,13 +5,12 @@ import domain.logics.BettingLogic;
 import dto.CardDto;
 import dto.DealerDto;
 import java.util.List;
+import java.util.Map;
 
 public class Dealer {
 
     private final Participant participant;
-
     private Money money;
-    private final BettingLogic bettingLogic = new BettingLogic();
 
     private Dealer(final Participant participant) {
         this.participant = participant;
@@ -68,14 +67,12 @@ public class Dealer {
 
     public void fightBeforeDistribution(Players players) {
         for (Player player : players.getPlayers()) {
-            bettingLogic.battleBeforeDistribution(this, player);
+            BettingLogic.battleBeforeDistribution(this, player);
         }
     }
 
-    public void fightEveryPlayer(Players players) {
-        for (Player player : players.getPlayers()) {
-            bettingLogic.battle(this, player);
-        }
+    public void fightEveryPlayer(Players players, Map<Player, Money> initPlayersBettingInfo) {
+        BettingLogic.battle(this, players, initPlayersBettingInfo);
     }
 
     public void earnMoney(Money money) {

@@ -10,7 +10,15 @@ public class Participants {
         this.dealer = dealer;
     }
 
-    public Participants create(final Players players, final Dealer dealer) {
+    public static Participants create(final Players players, final Dealer dealer) {
         return new Participants(players, dealer);
+    }
+
+    public Players getPlayers() {
+        return players;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
     }
 }

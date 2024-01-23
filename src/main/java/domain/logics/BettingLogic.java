@@ -3,10 +3,12 @@ package domain.logics;
 import domain.person.Dealer;
 import domain.person.Money;
 import domain.person.Player;
+import domain.person.Players;
+import java.util.Map;
 
 public class BettingLogic {
 
-    public void battleBeforeDistribution(Dealer dealer, Player player) {
+    public static void battleBeforeDistribution(Dealer dealer, Player player) {
         if (dealer.isBlackJack() && !player.isBlackJack()) {
             dealerWin(dealer, player);
         }
@@ -15,60 +17,63 @@ public class BettingLogic {
         }
     }
 
-    public void battle(Dealer dealer, Player player) {
+    public static void battle(Dealer dealer, Players players, Map<Player, Money> initPlayersBettingInfo) {
         if (dealer.isBust()) {
-            handleDealerBiggerThenStandardNumber(dealer, player);
+            resetBettingMoney(players, dealer, initPlayersBettingInfo);
             return;
         }
-        handleDealerSmallerThenStandardNumber(dealer, player);
+        caculatePlayerMoney(dealer, players, initPlayersBettingInfo);
     }
 
-    private void handleDealerBiggerThenStandardNumber(Dealer dealer, Player player) {
-        if (!player.isBust()) {
-            playerWin(dealer, player);
-            return;
+    private static void caculatePlayerMoney(Dealer dealer, Players players, Map<Player, Money> initPlayersBettingInfo) {
+        for (Player player : players.getPlayers()) {
+            handlePlayerBust(player, dealer);
+            handlePlayerNotBust(players, player, dealer, initPlayersBettingInfo);
         }
-        draw(dealer, player);
     }
 
-    private void handleDealerSmallerThenStandardNumber(Dealer dealer, Player player) {
+    private static void handlePlayerBust(Player player, Dealer dealer) {
         if (player.isBust()) {
             dealerWin(dealer, player);
-            return;
         }
-        compareDealerAndPlayer(dealer, player);
     }
 
-    private void compareDealerAndPlayer(Dealer dealer, Player player) {
-        if (dealer.getSumOfCards() > player.getSumOfCards()) {
+    private static void handlePlayerNotBust(Players players, Player player, Dealer dealer,
+                                            Map<Player, Money> initPlayersBettingInfo) {
+        if (!player.isBust()) {
+            compareDealerAndPlayer(dealer, player, players, initPlayersBettingInfo);
+        }
+    }
+
+    private static void resetBettingMoney(Players players, Dealer dealer, Map<Player, Money> initPlayersBettingInfo) {
+        players.getPlayers().forEach((player -> {
+            dealer.loseMoney(initPlayersBettingInfo.get(player));
+            player.resetMoney(initPlayersBettingInfo.get(player));
+        }));
+    }
+
+    private static void compareDealerAndPlayer(Dealer dealer, Player player,
+                                               Players players, Map<Player, Money> initPlayersBettingInfo) {
+        if (dealer.isBlackJack() && player.isBlackJack()) {
+            resetBettingMoney(players, dealer, initPlayersBettingInfo);
+            return;
+        }
+        if (dealer.isBlackJack() || dealer.getSumOfCards() > player.getSumOfCards()) {
             dealerWin(dealer, player);
             return;
         }
-        if (dealer.getSumOfCards() == player.getSumOfCards()) {
-            draw(dealer, player);
-            return;
-        }
-        if (dealer.getSumOfCards() < player.getSumOfCards()) {
+        if (player.isBlackJack() || dealer.getSumOfCards() < player.getSumOfCards()) {
             playerWin(dealer, player);
         }
     }
 
-    private void dealerWin(Dealer dealer, Player player) {
-        player.increaseLoseCount();
-        dealer.increaseWinCount();
+    private static void dealerWin(Dealer dealer, Player player) {
         player.loseMoney();
         dealer.earnMoney(Money.create(player.getMoney()));
     }
 
-    private void playerWin(Dealer dealer, Player player) {
-        player.increaseWinCount();
-        dealer.increaseLoseCount();
+    private static void playerWin(Dealer dealer, Player player) {
         player.earnMoney();
         dealer.loseMoney(Money.create(player.getMoney()));
-    }
-
-    private void draw(Dealer dealer, Player player) {
-        dealer.increaseDrawCount();
-        player.increaseDrawCount();
     }
 }

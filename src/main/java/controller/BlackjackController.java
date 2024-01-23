@@ -32,7 +32,7 @@ public class BlackjackController {
         distributeCardsToPlayers();
         checkDealerCard();
         OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
-        dealer.fightEveryPlayer(players);
+        dealer.fightEveryPlayer(players, initPlayersBettingInfo);
         showFinalProfit(initPlayersBettingInfo);
     }
 
@@ -81,19 +81,5 @@ public class BlackjackController {
     }
 
     private void showFinalProfit(Map<Player, Money> initPlayersBettingInfo) {
-        caculateProfits(initPlayersBettingInfo);
-    }
-
-    private void caculateProfits(Map<Player, Money> initPlayersBettingInfo) {
-        if (dealer.isBust()) {
-            giveBackMoney(initPlayersBettingInfo);
-        }
-    }
-
-    private void giveBackMoney(Map<Player, Money> initPlayersBettingInfo) {
-        getPlayers().forEach(player -> {
-            dealer.loseMoney(initPlayersBettingInfo.get(player));
-            player.resetMoney(initPlayersBettingInfo.get(player));
-        });
     }
 }
