@@ -3,16 +3,14 @@ package blackjack.domain.person;
 import blackjack.domain.card.Card;
 import blackjack.domain.card.Deck;
 import blackjack.domain.GameConstant;
-
 import java.util.ArrayList;
 
 public class Player {
-    private final String name;
-
+    private final Name name;
     private final Person player;
 
     public Player(String name) {
-        this.name = name;
+        this.name = new Name(name);
         player = new Person();
     }
 
@@ -37,7 +35,7 @@ public class Player {
     }
 
     public String getName() {
-        return name;
+        return name.getName();
     }
 
     public ArrayList<Card> getHand() {
