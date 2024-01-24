@@ -22,12 +22,37 @@ public class Player {
         player.drawCard(deck);
     }
 
+    public void addCardToHand(Card card) {
+        player.addCardToHand(card);
+    }
+
     public boolean isHitPossible() {
         return player.isHitPossible(GameConstant.BUST_SCORE);
     }
 
     public int calculateTotalScore() {
         return player.calculateTotalScore();
+    }
+
+    public String decidePlayerResult(Dealer dealer) {
+        int dealerScore = dealer.calculateTotalScore();
+        int playerScore = player.calculateTotalScore();
+        if (player.isBlackjack() && !dealer.isBlackjack()) {
+            return GameConstant.BLACKJACK;
+        }
+        if (playerScore >= GameConstant.BUST_SCORE) {
+            return GameConstant.LOSE;
+        }
+        if (dealerScore >= GameConstant.BUST_SCORE) {
+            return GameConstant.WIN;
+        }
+        if (playerScore > dealerScore) {
+            return GameConstant.WIN;
+        }
+        if (dealerScore > playerScore) {
+            return GameConstant.LOSE;
+        }
+        return GameConstant.PUSH;
     }
 
     public boolean isBlackjack() {

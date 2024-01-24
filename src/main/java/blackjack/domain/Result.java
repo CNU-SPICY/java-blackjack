@@ -26,6 +26,7 @@ public class Result {
             int blackjackAmount =  (int) (amount * GameConstant.BLACKJACK_ODDS);
             dealerAmount -= blackjackAmount;
             playerAmounts.put(name, blackjackAmount);
+            return;
         }
         playerAmounts.put(name, 0);
     }

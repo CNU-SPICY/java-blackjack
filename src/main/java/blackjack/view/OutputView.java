@@ -3,7 +3,6 @@ package blackjack.view;
 import blackjack.domain.*;
 import blackjack.domain.person.Dealer;
 import blackjack.domain.person.Player;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;

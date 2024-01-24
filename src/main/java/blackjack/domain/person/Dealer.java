@@ -3,7 +3,6 @@ package blackjack.domain.person;
 import blackjack.domain.card.Card;
 import blackjack.domain.card.Deck;
 import blackjack.domain.GameConstant;
-
 import java.util.ArrayList;
 
 public class Dealer {
@@ -15,6 +14,10 @@ public class Dealer {
 
     public void drawCard(Deck deck) {
         dealer.drawCard(deck);
+    }
+
+    public void addCardToHand(Card card) {
+        dealer.addCardToHand(card);
     }
 
     public boolean isHitPossible() {

@@ -1,7 +1,6 @@
 package blackjack.domain.person;
 
 import blackjack.domain.card.Deck;
-import blackjack.domain.GameConstant;
 import blackjack.domain.Result;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,31 +22,10 @@ public class Players {
 
     public Result updateResult(Dealer dealer, Result result) {
         for (Player player : players) {
-            String playerResult = decidePlayerResult(dealer, player);
+            String playerResult = player.decidePlayerResult(dealer);
             result.updateBetAmount(player.getName(), playerResult);
         }
         return result;
-    }
-
-    public String decidePlayerResult(Dealer dealer, Player player) {
-        int dealerScore = dealer.calculateTotalScore();
-        int playerScore = player.calculateTotalScore();
-        if (player.isBlackjack() && !dealer.isBlackjack()) {
-            return GameConstant.BLACKJACK;
-        }
-        if (playerScore >= GameConstant.BUST_SCORE) {
-            return GameConstant.LOSE;
-        }
-        if (dealerScore >= GameConstant.BUST_SCORE) {
-            return GameConstant.WIN;
-        }
-        if (playerScore > dealerScore) {
-            return GameConstant.WIN;
-        }
-        if (dealerScore > playerScore) {
-            return GameConstant.LOSE;
-        }
-        return GameConstant.PUSH;
     }
 
     public ArrayList<Player> getPlayers() {

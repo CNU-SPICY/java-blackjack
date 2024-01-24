@@ -3,7 +3,6 @@ package blackjack.domain.person;
 import blackjack.domain.card.Card;
 import blackjack.domain.card.Deck;
 import blackjack.domain.GameConstant;
-
 import java.util.ArrayList;
 
 public class Person {
