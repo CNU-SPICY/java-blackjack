@@ -11,7 +11,6 @@ public class OutputView {
         System.out.println("\n딜러와 " + String.join(", ", playerNames) + "에게 2장을 나누었습니다.");
     }
 
-
     public static String formatCards(Map<String, List<String>> handDetails) {
         String cardsInHand = handDetails.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream().map(rank -> rank + entry.getKey()))

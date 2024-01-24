@@ -5,6 +5,8 @@ import src.main.java.domain.player.Player;
 
 public class WinLogic {
 
+    private static final int MAX_SCORE = 21;
+
     public void determineWinner(Player player, Dealer dealer) {
         int dealerScore = dealer.calculateScore();
         int playerScore = player.calculateScore();
@@ -19,15 +21,15 @@ public class WinLogic {
     }
 
     private boolean isPlayerWin(int playerScore, int dealerScore) {
-        return playerScore <= 21 && (playerScore > dealerScore || dealerScore > 21);
+        return playerScore <= MAX_SCORE && (playerScore > dealerScore || dealerScore > MAX_SCORE);
     }
 
     private boolean isDealerWin(int playerScore, int dealerScore) {
-        return dealerScore <= 21 && (dealerScore > playerScore || playerScore > 21);
+        return dealerScore <= MAX_SCORE && (dealerScore > playerScore || playerScore > MAX_SCORE);
     }
 
     private boolean isDraw(int playerScore, int dealerScore) {
-        return playerScore <= 21 && playerScore == dealerScore;
+        return playerScore <= MAX_SCORE && playerScore == dealerScore;
     }
 
     private void processPlayerWin(Player player, Dealer dealer) {
