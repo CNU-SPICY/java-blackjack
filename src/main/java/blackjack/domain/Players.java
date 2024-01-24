@@ -18,18 +18,20 @@ public class Players {
         }
     }
 
-    public Result getResult(Dealer dealer) {
-        Result result = new Result();
-        int dealerScore = dealer.calculateTotalScore();
+    public Result updateResult(Dealer dealer, Result result) {
         for (Player player : players) {
-            int playerScore = player.calculateTotalScore();
-            String playerResult = decidePlayerResult(dealerScore, playerScore);
-            result.addPlayerResult(player.getName(), playerResult);
+            String playerResult = decidePlayerResult(dealer, player);
+            result.updateBetAmount(player.getName(), playerResult);
         }
         return result;
     }
 
-    public String decidePlayerResult(int dealerScore, int playerScore) {
+    public String decidePlayerResult(Dealer dealer, Player player) {
+        int dealerScore = dealer.calculateTotalScore();
+        int playerScore = player.calculateTotalScore();
+        if (player.isBlackjack() && !dealer.isBlackjack()) {
+            return GameConstant.BLACKJACK;
+        }
         if (playerScore >= GameConstant.BUST_SCORE) {
             return GameConstant.LOSE;
         }

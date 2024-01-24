@@ -9,13 +9,20 @@ public class Game {
     private final OutputView outputView = new OutputView();
     private final Deck deck = new Deck();
     private final Dealer dealer = new Dealer();
+    private final Result result = new Result();
     private Players players;
 
     public void startGame() {
         players = new Players(inputView.getPlayerNames());
+        players.getPlayers().forEach(this::bet);
         initDeal();
         repeatHit();
         printResult();
+    }
+
+    public void bet(Player player) {
+        int betAmount = inputView.getBetAmount(player.getName());
+        result.addBetAmount(player.getName(), betAmount);
     }
 
     public void initDeal() {
@@ -45,7 +52,6 @@ public class Game {
             player.drawCard(deck);
         }
         outputView.printPlayerHand(player);
-        outputView.printNewLine();
         return hitDecision;
     }
 
@@ -58,7 +64,7 @@ public class Game {
 
     public void printResult() {
         outputView.printScoreResult(dealer, players.getPlayers());
-        Result gameResult = players.getResult(dealer);
+        Result gameResult = players.updateResult(dealer, result);
         outputView.printGameResult(gameResult);
     }
 }

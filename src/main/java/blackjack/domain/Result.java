@@ -4,37 +4,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Result {
-    private final Map<String, String> playerResults = new HashMap<>();
-    private int dealerWinCount = 0;
-    private int dealerPushCount = 0;
-    private int dealerLoseCount = 0;
+    private final Map<String, Integer> playerAmounts = new HashMap<>();
+    private int dealerAmount = 0;
 
-    public void addPlayerResult(String name, String result) {
-        playerResults.put(name, result);
+    public void addBetAmount(String name, int betAmount) {
+        playerAmounts.put(name, betAmount);
+    }
+
+    public void updateBetAmount(String name, String result) {
+        int amount = playerAmounts.get(name);
         if(result == GameConstant.WIN) {
-            dealerLoseCount ++;
+            dealerAmount -= amount;
             return;
         }
         if(result == GameConstant.LOSE) {
-            dealerWinCount ++;
+            dealerAmount += amount;
+            playerAmounts.put(name, -amount);
             return;
         }
-        dealerPushCount ++;
+        if(result == GameConstant.BLACKJACK) {
+            int blackjackAmount =  (int) (amount * GameConstant.BLACKJACK_ODDS);
+            dealerAmount -= blackjackAmount;
+            playerAmounts.put(name, blackjackAmount);
+        }
+        playerAmounts.put(name, 0);
     }
 
-    public int getDealerWinCount() {
-        return dealerWinCount;
+    public int getDealerAmount() {
+        return dealerAmount;
     }
 
-    public int getDealerPushCount() {
-        return dealerPushCount;
-    }
-
-    public int getDealerLoseCount() {
-        return dealerLoseCount;
-    }
-
-    public Map<String, String> getPlayerResults() {
-        return playerResults;
+    public Map<String, Integer> getPlayerResults() {
+        return playerAmounts;
     }
 }

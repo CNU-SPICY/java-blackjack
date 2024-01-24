@@ -4,50 +4,32 @@ import java.util.ArrayList;
 
 public class Player {
     private final String name;
-    private final ArrayList<Card> hand;
+
+    private final Person player;
 
     public Player(String name) {
         this.name = name;
-        this.hand = new ArrayList<>();
+        player = new Person();
     }
 
     public void initDeal(Deck deck) {
-        drawCard(deck);
-        drawCard(deck);
+        player.initDeal(deck);
     }
 
     public void drawCard(Deck deck) {
-        addCardToHand(deck.drawRandomCard());
-    }
-
-    public void addCardToHand(Card card) {
-        hand.add(card);
+        player.drawCard(deck);
     }
 
     public boolean isHitPossible() {
-        return (calculateTotalScore() < GameConstant.BUST_SCORE);
+        return player.isHitPossible(GameConstant.BUST_SCORE);
     }
 
     public int calculateTotalScore() {
-        int totalScore = hand.stream()
-                .mapToInt(Card::getScore)
-                .sum();
-        long aceCount = countAce();
-        while(aceCount > 0 && totalScore >= GameConstant.BUST_SCORE ) {
-            totalScore -= GameConstant.ACE_EXTRA_SCORE;
-            aceCount --;
-        }
-        return totalScore;
+        return player.calculateTotalScore();
     }
 
-    private long countAce() {
-        return hand.stream()
-                .filter(this::isAce)
-                .count();
-    }
-
-    private boolean isAce(Card card) {
-        return card.getDenomination().equals("A");
+    public boolean isBlackjack() {
+        return player.isBlackjack();
     }
 
     public String getName() {
@@ -55,6 +37,6 @@ public class Player {
     }
 
     public ArrayList<Card> getHand() {
-        return hand;
+        return player.getHand();
     }
 }

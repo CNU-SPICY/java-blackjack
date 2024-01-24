@@ -13,6 +13,7 @@ public class InputView {
         String input = sc.next();
         List<String> names = Arrays.stream(input.split(","))
                 .collect(Collectors.toList());
+        System.out.println();
         return names;
     }
 
@@ -23,5 +24,12 @@ public class InputView {
             return true;
         }
         return false;
+    }
+
+    public int getBetAmount(String playerName) {
+        System.out.println(playerName + "의 배팅 금액은?");
+        int betAmount = sc.nextInt();
+        System.out.println();
+        return betAmount;
     }
 }
