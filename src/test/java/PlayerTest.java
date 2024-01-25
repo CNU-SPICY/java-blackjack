@@ -8,6 +8,9 @@ import src.main.java.domain.player.Player;
 import src.main.java.domain.card.Card;
 import src.main.java.domain.card.Suit;
 
+import java.util.List;
+import java.util.Map;
+
 class PlayerTest {
 
     private Player player;
@@ -28,6 +31,23 @@ class PlayerTest {
         // Then
         assertEquals(1, player.getHand().size());
         assertEquals(card, player.getHand().get(0));
+    }
+
+    @Test
+    void testGetHandDetails() {
+        // Given
+        player.receiveCard(new Card(Suit.HEART, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "10"));
+
+        // When
+        Map<String, List<String>> handDetails = player.getHandDetails();
+
+        // Then
+        assertNotNull(handDetails);
+        assertTrue(handDetails.containsKey("하트"));
+        assertTrue(handDetails.containsKey("스페이드"));
+        assertEquals(List.of("A"), handDetails.get("하트"));
+        assertEquals(List.of("10"), handDetails.get("스페이드"));
     }
 
     @Test
