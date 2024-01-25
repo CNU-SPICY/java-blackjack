@@ -47,4 +47,13 @@ public class OutputView {
     public static void displayPlayerWins(String playerName, int wins, int losses, int draws) {
         System.out.println(playerName + ": " + wins + "승 " + losses + "패 " + draws + "무");
     }
+
+    public static void displayDealerGain(int money) {
+        System.out.println("\n최종 수익");
+        System.out.println("딜러: " + money);
+    }
+
+    public static void displayPlayerGain(String playerName, int money) {
+        System.out.println(playerName + ": " + money);
+    }
 }

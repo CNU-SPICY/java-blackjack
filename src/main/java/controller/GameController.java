@@ -12,11 +12,19 @@ public class GameController {
         final var players = new Players(playersNames);
         final var dealer = new Dealer();
 
+        startBet(players);
         startGame(players, dealer);
         playPlayersRounds(players);
         playDealerTurn(players, dealer);
         determineWinners(players, dealer);
         displayResults(players, dealer);
+    }
+
+    private void startBet(Players players) {
+        for (Player player : players.getPlayers()) {
+            int betMoney = InputView.askStake(player.getName());
+            player.bet(betMoney);
+        }
     }
 
     private void startGame(Players players, Dealer dealer) {
@@ -73,9 +81,9 @@ public class GameController {
     }
 
     private void displayFinalWins(Players players, Dealer dealer) {
-        OutputView.displayDealerWins(dealer.getWins(), dealer.getLosses(), dealer.getDraws());
+        OutputView.displayDealerGain(dealer.getProfit());;
         for (Player player : players.getPlayers()) {
-            OutputView.displayPlayerWins(player.getName(), player.getWins(), player.getLosses(), player.getDraws());
+            OutputView.displayPlayerGain(player.getName(), player.getProfit());
         }
     }
 }

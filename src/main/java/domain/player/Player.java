@@ -1,8 +1,6 @@
 package src.main.java.domain.player;
 
 import src.main.java.domain.card.Card;
-import src.main.java.domain.card.Rank;
-import src.main.java.domain.card.Suit;
 import src.main.java.domain.player.result.DrawCount;
 import src.main.java.domain.player.result.LossCount;
 import src.main.java.domain.player.result.WinCount;
@@ -18,6 +16,8 @@ public class Player {
     private WinCount wins;
     private LossCount losses;
     private DrawCount draws;
+    private Profit profit;
+    private BetMoney betMoney;
 
     public Player(String name) {
         this.name = name;
@@ -25,6 +25,12 @@ public class Player {
         this.wins = new WinCount();
         this.losses = new LossCount();
         this.draws = new DrawCount();
+        this.profit = new Profit();
+        this.betMoney = new BetMoney(0);
+    }
+
+    public void bet(int stake) {
+        this.betMoney = new BetMoney(stake);
     }
 
     public void receiveCard(Card card) {
@@ -62,6 +68,10 @@ public class Player {
         return score;
     }
 
+    public boolean isBlackJack() {
+        return hand.size() == 2 && calculateScore() == 21;
+    }
+
     public String getName() {
         return name;
     }
@@ -78,6 +88,10 @@ public class Player {
         draws.increment();
     }
 
+    public void earnMoney(int earnedMoney) { profit.earn(earnedMoney); }
+
+    public void loseMoney(int lostMoney) { profit.lose(lostMoney); }
+
     public int getWins() {
         return wins.getCount();
     }
@@ -89,4 +103,8 @@ public class Player {
     public int getDraws() {
         return draws.getCount();
     }
+
+    public int getProfit() { return profit.getProfit(); }
+
+    public int getBetMoney() { return betMoney.getAmount(); }
 }

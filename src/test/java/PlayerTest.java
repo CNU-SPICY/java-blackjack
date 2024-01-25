@@ -145,4 +145,48 @@ class PlayerTest {
         assertEquals(1, player.getLosses());
         assertEquals(1, player.getDraws());
     }
+
+    @Test
+    void testLoseMoney() {
+        // When
+        player.loseMoney(100);
+
+        // Then
+        assertEquals(-100, player.getProfit());
+    }
+
+    @Test
+    void testEarnMoney() {
+        // When
+        player.earnMoney(100);
+
+        // Then
+        assertEquals(100, player.getProfit());
+    }
+
+    @Test
+    void testIsBlackJackWhenBlackJack() {
+        // Given
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "Q"));
+
+        // When
+        boolean isBlackJack = player.isBlackJack();
+
+        // Then
+        assertTrue(isBlackJack);
+    }
+
+    @Test
+    void testIsBackJackWhenNoBlackJack() {
+        // Given
+        player.receiveCard(new Card(Suit.CLUB, "A"));
+        player.receiveCard(new Card(Suit.SPADE, "5"));
+
+        // When
+        boolean isBlackJack = player.isBlackJack();
+
+        // Then
+        assertFalse(isBlackJack);
+    }
 }
