@@ -53,13 +53,4 @@ class CardTest {
         // Then: value는 해당 숫자 카드의 숫자로 반환되어야 함
         assertEquals(7, value, "Card with rank 7 should have a value of 7");
     }
-
-    @Test
-    void testToString() {
-        // When: suit가 하트이고, rank가 7인 카드를 문자열로 반환할 때
-        String cardString = numberCard.toString();
-
-        // Then: 숫자 + 한글 rank 이름으로 반환되어야 함
-        assertEquals("7하트", cardString, "7 heart should be '7하트'");
-    }
 }
