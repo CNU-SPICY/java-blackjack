@@ -1,4 +1,4 @@
-package src.main.java.domain.player;
+package src.main.java.domain.player.money;
 
 public class BetMoney {
     private int amount;

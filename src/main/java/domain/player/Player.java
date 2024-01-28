@@ -1,6 +1,8 @@
 package src.main.java.domain.player;
 
 import src.main.java.domain.card.Card;
+import src.main.java.domain.player.money.BetMoney;
+import src.main.java.domain.player.money.Profit;
 import src.main.java.domain.player.result.DrawCount;
 import src.main.java.domain.player.result.LossCount;
 import src.main.java.domain.player.result.WinCount;
