@@ -120,6 +120,21 @@ class PlayersTest {
         assertEquals(150, player.getProfit()); // Player wins 1.5 times bet
     }
 
+    @Test
+    void testWhenDraw() {
+        // Given
+        Player player = players.getPlayers().get(0);
+        player.bet(100);
+        giveCardsToPlayer(player, new Card(Suit.HEART, "A"), new Card(Suit.SPADE, "K"));
+        giveCardsToDealer(dealer, new Card(Suit.CLUB, "A"), new Card(Suit.DIAMOND, "K"));
+
+        // When
+        players.determineWinners(dealer);
+
+        // Then
+        assertEquals(0, player.getProfit());
+    }
+
     private void giveCardsToPlayer(Player player, Card... cards) {
         for (Card card : cards) {
             player.receiveCard(card);

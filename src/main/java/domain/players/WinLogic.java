@@ -48,7 +48,6 @@ public class WinLogic {
     private void processDraw(Player player, Dealer dealer) {
         dealer.incrementDraws();
         player.incrementDraws();
-        player.earnMoney(player.getBetMoney());
     }
 
     private void playerGetStake(Player player, Dealer dealer) {
