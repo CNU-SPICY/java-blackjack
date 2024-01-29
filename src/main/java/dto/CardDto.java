@@ -1,11 +1,11 @@
 package dto;
 
-public class CardInfo {
+public class CardDto {
 
     private String cardRank;
     private String cardSuit;
 
-    public CardInfo(String cardRank, String cardSuit) {
+    public CardDto(String cardRank, String cardSuit) {
         this.cardRank = cardRank;
         this.cardSuit = cardSuit;
     }

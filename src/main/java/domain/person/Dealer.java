@@ -1,76 +1,83 @@
 package domain.person;
 
-import domain.cards.Deck;
-import domain.cards.OwnCards;
-import domain.logics.Score;
-import domain.logics.WinLogic;
-import domain.person.wrapper.NameWrapper;
-import dto.CardInfo;
-import dto.DealerInfo;
+import domain.cards.Card;
+import domain.logics.BettingLogic;
+import dto.CardDto;
+import dto.DealerDto;
 import java.util.List;
+import java.util.Map;
 
 public class Dealer {
 
-    private final OwnCards ownCards = new OwnCards();
-    private final WinLogic winLogic = new WinLogic();
-    private final Score score = new Score();
-    private final NameWrapper name;
+    private static final String DEALER_NAME = "딜러";
+    private static final int GET_MORE_CARD_CONDITION = 16;
+    private final Participant participant;
+    private Money money;
 
-    public Dealer(NameWrapper name) {
-        this.name = name;
+    private Dealer(final Participant participant) {
+        this.participant = participant;
+        this.money = Money.zero();
     }
 
-    public void setFirstCards(Deck deck) {
-        ownCards.getRandomTwoCards(deck);
+    public static Dealer create() {
+        return new Dealer(new Participant(DEALER_NAME));
+    }
+
+    public boolean canPickCard() {
+        return getSumOfCards() <= GET_MORE_CARD_CONDITION;
+    }
+
+    public void setFirstCards(Card firstCard, Card secondCard) {
+        participant.setFirstCards(firstCard, secondCard);
     }
 
     public String getName() {
-        return name.getName();
+        return participant.getName();
+    }
+
+    public void pickCard(Card card) {
+        participant.pickCard(card);
+    }
+
+    public List<CardDto> getOwnCardsRankAndSuit() {
+        return participant.getOwnCardsRankAndSuit();
     }
 
     public int getSumOfCards() {
-        return ownCards.getSumOfCards();
+        return participant.getSumOfCards();
     }
 
-    public void pickCard(Deck deck) {
-        ownCards.addCard(deck);
+    public boolean isBust() {
+        return participant.isBust();
     }
 
-    public List<CardInfo> getOwnCardsRankAndSuit() {
-        return ownCards.getRankAndSuit();
+    public boolean isBlackJack() {
+        return participant.isBlackJack();
     }
 
-    public void fightEveryPlayer(Players players) {
+    public void fightBeforeDistribution(Players players) {
         for (Player player : players.getPlayers()) {
-            winLogic.battle(this, player);
+            BettingLogic.battleBeforeDistribution(this, player);
         }
     }
 
-    public DealerInfo getDealerInfo() {
-        return new DealerInfo(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
+    public void fightEveryPlayer(Players players, Map<Player, Money> initPlayersBettingInfo) {
+        BettingLogic.battle(this, players, initPlayersBettingInfo);
     }
 
-    public void increaseWinCount() {
-        score.increaseWinCount();
+    public void earnMoney(Money addedMoney) {
+        money = money.add(addedMoney);
     }
 
-    public void increaseDrawCount() {
-        score.increaseDrawCount();
+    public void loseMoney(Money subtractedMoney) {
+        money = money.subtract(subtractedMoney);
     }
 
-    public void increaseLoseCount() {
-        score.increaseLoseCout();
+    public DealerDto getDealerDto() {
+        return new DealerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards(), getMoney());
     }
 
-    public int getWinCount() {
-        return score.getWinCount();
-    }
-
-    public int getDrawCount() {
-        return score.getDrawCount();
-    }
-
-    public int getLoseCount() {
-        return score.getLoseCount();
+    public double getMoney() {
+        return money.getMoney();
     }
 }

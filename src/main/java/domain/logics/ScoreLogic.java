@@ -3,7 +3,7 @@ package domain.logics;
 import domain.cards.Card;
 import java.util.List;
 
-public class SumLogic {
+public class ScoreLogic {
 
     private static final int MIN_ACE_VALUE = 1;
     private static final int MAX_ACE_VALUE = 11;
@@ -65,5 +65,13 @@ public class SumLogic {
             aceIsEleven += MAX_ACE_VALUE;
         }
         return sum + aceIsOne + aceIsEleven;
+    }
+
+    public boolean isBust(int sumOfCards) {
+        return sumOfCards > STANDARD_NUMBER;
+    }
+
+    public boolean isBlackJack(int sumOfCards) {
+        return sumOfCards == STANDARD_NUMBER;
     }
 }

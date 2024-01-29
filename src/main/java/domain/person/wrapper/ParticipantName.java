@@ -1,21 +1,26 @@
 package domain.person.wrapper;
 
-public class NameWrapper {
+public class ParticipantName {
 
     private final String name;
 
-    public NameWrapper(String name) {
-        validate(name);
+    private ParticipantName(final String name) {
         this.name = name;
     }
 
-    private void validate(String name) {
+    public static ParticipantName create(final String name) {
+        validate(name);
+        return new ParticipantName(name);
+    }
+
+
+    private static void validate(String name) {
         if (isBlank(name)) {
             throw new IllegalArgumentException("이름은 공백이거나, NULL 값이 될 수 없습니다.");
         }
     }
 
-    private boolean isBlank(String name) {
+    private static boolean isBlank(String name) {
         return name == null || name.trim().isEmpty();
     }
 

@@ -1,66 +1,78 @@
 package domain.person;
 
-import domain.cards.Deck;
-import domain.cards.OwnCards;
-import domain.logics.Score;
-import domain.person.wrapper.NameWrapper;
-import dto.CardInfo;
-import dto.PlayerInfo;
+import domain.cards.Card;
+import domain.logics.EarnMoneyLogic;
+import dto.CardDto;
+import dto.PlayerDto;
 import java.util.List;
 
 public class Player {
 
-    private final OwnCards ownCards = new OwnCards();
-    private final Score score = new Score();
-    private final NameWrapper name;
+    private final Participant participant;
 
-    public Player(NameWrapper name) {
-        this.name = name;
+    private Money money;
+
+    private Player(final Participant participant) {
+        this.participant = participant;
     }
 
-    public void setFirstCards(Deck deck) {
-        ownCards.getRandomTwoCards(deck);
+    public static Player create(final String name) {
+        return new Player(new Participant(name));
+    }
+
+    public void betting(final Money money) {
+        this.money = money;
+    }
+
+    public void setFirstCards(Card firstCard, Card secondCard) {
+        participant.setFirstCards(firstCard, secondCard);
     }
 
     public String getName() {
-        return name.getName();
+        return participant.getName();
     }
 
-    public void pickCard(Deck deck) {
-        ownCards.addCard(deck);
+    public void pickCard(Card card) {
+        participant.pickCard(card);
     }
 
-    public List<CardInfo> getOwnCardsRankAndSuit() {
-        return ownCards.getRankAndSuit();
+    public List<CardDto> getOwnCardsRankAndSuit() {
+        return participant.getOwnCardsRankAndSuit();
     }
 
     public int getSumOfCards() {
-        return ownCards.getSumOfCards();
+        return participant.getSumOfCards();
     }
 
-    public void increaseWinCount() {
-        score.increaseWinCount();
+    public boolean isBust() {
+        return participant.isBust();
     }
 
-    public void increaseDrawCount() {
-        score.increaseDrawCount();
+    public boolean isBlackJack() {
+        return participant.isBlackJack();
     }
 
-    public void increaseLoseCount() {
-        score.increaseLoseCout();
+    public void earnMoney() {
+        money = EarnMoneyLogic.WIN.calculateMoney(money);
     }
 
-    public int getBattleResult() {
-        if (score.getWinCount() == 1) {
-            return 1;
-        }
-        if (score.getLoseCount() == 1) {
-            return -1;
-        }
-        return 0;
+    public void loseMoney() {
+        money = EarnMoneyLogic.LOSE.calculateMoney(money);
     }
 
-    public PlayerInfo getPlayerInfo() {
-        return new PlayerInfo(getName(), getOwnCardsRankAndSuit(), getSumOfCards());
+    public void bonusMoney() {
+        money = EarnMoneyLogic.BONUS.calculateMoney(money);
+    }
+
+    public PlayerDto getPlayerInfo() {
+        return new PlayerDto(getName(), getOwnCardsRankAndSuit(), getSumOfCards(), getMoney());
+    }
+
+    public void resetMoney(Money initMoney) {
+        money = initMoney;
+    }
+
+    public double getMoney() {
+        return money.getMoney();
     }
 }

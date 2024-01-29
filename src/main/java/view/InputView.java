@@ -22,4 +22,11 @@ public class InputView {
         InputCardConditionValidator.validate(input);
         return input.equals("y");
     }
+
+    public static double askPlayerBetAmount(String playerName) {
+        System.out.println(playerName + "의 배팅 금액은?");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine().trim().toLowerCase();
+        return Double.parseDouble(input);
+    }
 }

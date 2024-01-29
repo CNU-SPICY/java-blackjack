@@ -1,84 +1,79 @@
 package view;
 
-import dto.CardInfo;
-import dto.DealerInfo;
-import dto.PlayerInfo;
+import dto.CardDto;
+import dto.DealerDto;
+import dto.PlayerDto;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OutputView {
 
-    public static void showDividePlayerCards(DealerInfo dealerInfo, List<PlayerInfo> playerInfos) {
-        System.out.println("\n" + dealerInfo.getDealerName() + "와 " + getPlayersName(playerInfos) + "에게 2장을 나누었습니다.");
-        showDealerCard(dealerInfo.getDealerName(), dealerInfo.getDealerCards());
-        showPlayersCards(playerInfos);
+    public static void showDividePlayerCards(DealerDto dealerDto, List<PlayerDto> playerDtos) {
+        System.out.println("\n" + dealerDto.getDealerName() + "와 " + getPlayersName(playerDtos) + "에게 2장을 나누었습니다.");
+        showDealerCard(dealerDto.getDealerName(), dealerDto.getDealerCards());
+        showPlayersCards(playerDtos);
         System.out.println();
     }
 
-    private static String getPlayersName(List<PlayerInfo> playerInfos) {
+    private static String getPlayersName(List<PlayerDto> playerDtos) {
         List<String> playerNames = new ArrayList<>();
-        for (PlayerInfo playerInfo : playerInfos) {
-            playerNames.add(playerInfo.getPlayerName());
+        for (PlayerDto playerDto : playerDtos) {
+            playerNames.add(playerDto.getPlayerName());
         }
         return String.join(",", playerNames);
     }
 
-    private static String cardSpliter(List<CardInfo> cards) {
+    private static String cardSpliter(List<CardDto> cards) {
         List<String> resultFormat = new ArrayList<>();
-        for (CardInfo card : cards) {
+        for (CardDto card : cards) {
             resultFormat.add(card.getCardRank() + card.getCardSuit());
         }
         return String.join(", ", resultFormat);
     }
 
-    private static void showDealerCard(String dealerName, List<CardInfo> dealerOwnCards) {
+    private static void showDealerCard(String dealerName, List<CardDto> dealerOwnCards) {
         String hideDealerCard = cardSpliter(dealerOwnCards).split(",")[0].trim();
         System.out.println(dealerName + ": " + hideDealerCard);
     }
 
-    public static void showPlayersCards(List<PlayerInfo> playerInfos) {
-        for (PlayerInfo playerInfo : playerInfos) {
-            showPlayerCard(playerInfo);
+    public static void showPlayersCards(List<PlayerDto> playerDtos) {
+        for (PlayerDto playerDto : playerDtos) {
+            showPlayerCard(playerDto);
         }
     }
 
-    public static void showPlayerCard(PlayerInfo playerInfo) {
-        System.out.println(playerInfo.getPlayerName() + ": " + cardSpliter(playerInfo.getPlayerCards()));
+    public static void showPlayerCard(PlayerDto playerDto) {
+        System.out.println(playerDto.getPlayerName() + ": " + cardSpliter(playerDto.getPlayerCards()));
     }
 
     public static void confirmDealerRecivedCard() {
         System.out.println("딜러는 16이하라 한장의 카드를 더 받았습니다.");
     }
 
-    public static void showTotalScore(DealerInfo dealerInfo, List<PlayerInfo> playerInfos) {
+    public static void showTotalScore(DealerDto dealerDto, List<PlayerDto> playerDtos) {
         System.out.println();
-        System.out.println(dealerInfo.getDealerName() + ": " + cardSpliter(dealerInfo.getDealerCards()) + " - 결과: "
-                + dealerInfo.getSumOfCards());
-
-        for (PlayerInfo playerInfo : playerInfos) {
-            showPlayerCardWithResult(playerInfo);
+        System.out.println(dealerDto.getDealerName() + ": " + cardSpliter(dealerDto.getDealerCards()) + " - 결과: "
+                + dealerDto.getSumOfCards());
+        for (PlayerDto playerDto : playerDtos) {
+            showPlayerCardWithResult(playerDto);
         }
     }
 
-    private static void showPlayerCardWithResult(PlayerInfo playerInfo) {
-        System.out.println(playerInfo.getPlayerName() + ": " + cardSpliter(playerInfo.getPlayerCards()) + " - 결과: "
-                + playerInfo.getSumOfCards());
+    private static void showPlayerCardWithResult(PlayerDto playerDto) {
+        System.out.println(playerDto.getPlayerName() + ": " + cardSpliter(playerDto.getPlayerCards()) + " - 결과: "
+                + playerDto.getSumOfCards());
     }
 
-    public static void showDealerWinAndLoseResult(int winCount, int loseCount, int drawCount) {
-        System.out.println(
-                "딜러: " + winCount + "승 " + loseCount + "패 " + drawCount + "무");
+
+    public static void showTotalMoney(List<PlayerDto> playersDto, DealerDto dealerDto) {
+        System.out.println("\n## 최종 수익");
+        System.out.println(dealerDto.getDealerName() + ": " + dealerDto.getMoney());
+        for (PlayerDto playerDto : playersDto) {
+            showPlayerToTalMoney(playerDto);
+        }
     }
 
-    public static void showPlayerWinAndLoseResult(String playerName, int battleResult) {
-        if (battleResult == 1) {
-            System.out.println(playerName + ": " + "승");
-            return;
-        }
-        if (battleResult == -1) {
-            System.out.println(playerName + ": " + "패");
-            return;
-        }
-        System.out.println(playerName + ": " + "무");
+    private static void showPlayerToTalMoney(PlayerDto playerDto) {
+        System.out.println(playerDto.getPlayerName() + ": " + playerDto.getMoney());
     }
 }

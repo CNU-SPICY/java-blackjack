@@ -1,7 +1,6 @@
 package domain.person;
 
-import domain.person.wrapper.NameWrapper;
-import dto.PlayerInfo;
+import dto.PlayerDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,18 +9,22 @@ public class Players {
 
     private final List<Player> players;
 
-    public Players(List<String> playerNames) {
+    private Players(final List<String> playerNames) {
         players = playerNames.stream()
-                .map(playerName -> new Player(new NameWrapper(playerName)))
+                .map(Player::create)
                 .collect(Collectors.toList());
+    }
+
+    public static Players create(final List<String> playerNames) {
+        return new Players(playerNames);
     }
 
     public List<Player> getPlayers() {
         return players;
     }
 
-    public List<PlayerInfo> getPlayersInfo() {
-        List<PlayerInfo> allPlayersInfo = new ArrayList<>();
+    public List<PlayerDto> getPlayersDto() {
+        List<PlayerDto> allPlayersInfo = new ArrayList<>();
         for (Player player : players) {
             allPlayersInfo.add(player.getPlayerInfo());
         }

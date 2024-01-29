@@ -2,70 +2,71 @@ package controller;
 
 import domain.cards.Deck;
 import domain.person.Dealer;
+import domain.person.Money;
 import domain.person.Player;
 import domain.person.Players;
-import domain.person.wrapper.NameWrapper;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
 public class BlackjackController {
 
-    private static final String DEALER_NAME = "딜러";
-    private static final int GET_MORE_CARD_CONDITION = 16;
-    private final Players players;
-    private final Dealer dealer;
-    private final Deck deck;
-
-    public BlackjackController(List<String> playerNames) {
-        deck = new Deck();
-        players = new Players(playerNames);
-        dealer = new Dealer(new NameWrapper(DEALER_NAME));
-    }
-
     public void start() {
-        divideFirstCards();
-        distributeCardsToPlayers();
-        checkDealerCard();
-        OutputView.showTotalScore(dealer.getDealerInfo(), players.getPlayersInfo());
-        dealer.fightEveryPlayer(players);
-        showWinAndLoseResult();
+        final var playerNames = InputView.inputPlayerNames();
+        Deck deck = new Deck();
+        Players players = Players.create(playerNames);
+        Dealer dealer = Dealer.create();
+        var initPlayersBettingInfo = initPlayersBettingInfo(players);
+        divideFirstCards(deck, dealer, players);
+        bettleBeforeDistribution(dealer, players);
+        distributeCardsToPlayers(deck, dealer, players);
+        checkDealerCard(deck, dealer);
+        OutputView.showTotalScore(dealer.getDealerDto(), players.getPlayersDto());
+        dealer.fightEveryPlayer(players, initPlayersBettingInfo);
+        showFinalProfit(players, dealer);
     }
 
-    private void divideFirstCards() {
-        dealer.setFirstCards(deck);
-        getPlayers().forEach(player -> player.setFirstCards(deck));
+    private Map<Player, Money> initPlayersBettingInfo(Players players) {
+        Map<Player, Money> initBettingInfo = new HashMap<>();
+        for (Player player : players.getPlayers()) {
+            Money bettingMoney = Money.create(InputView.askPlayerBetAmount(player.getName()));
+            player.betting(bettingMoney);
+            initBettingInfo.put(player, bettingMoney);
+        }
+        return initBettingInfo;
     }
 
-    private void distributeCardsToPlayers() {
-        OutputView.showDividePlayerCards(dealer.getDealerInfo(), players.getPlayersInfo());
-        getPlayers().forEach(this::distributeCardsToPlayer);
+    private void divideFirstCards(Deck deck, Dealer dealer, Players players) {
+        dealer.setFirstCards(deck.getRandomCard(), deck.getRandomCard());
+        players.getPlayers().forEach(player -> player.setFirstCards(deck.getRandomCard(), deck.getRandomCard()));
     }
 
-    private void distributeCardsToPlayer(Player player) {
+    private void bettleBeforeDistribution(Dealer dealer, Players players) {
+        dealer.fightBeforeDistribution(players);
+    }
+
+    private void distributeCardsToPlayers(Deck deck, Dealer dealer, Players players) {
+        OutputView.showDividePlayerCards(dealer.getDealerDto(), players.getPlayersDto());
+        players.getPlayers().forEach(player -> distributeCardsToPlayer(deck, player));
+    }
+
+    private void distributeCardsToPlayer(Deck deck, Player player) {
         while (InputView.getCardCondition(player.getPlayerInfo().getPlayerName())) {
-            player.pickCard(deck);
+            player.pickCard(deck.getRandomCard());
             OutputView.showPlayerCard(player.getPlayerInfo());
         }
         OutputView.showPlayerCard(player.getPlayerInfo());
     }
 
-    private void checkDealerCard() {
-        int sumOfDealerCards = dealer.getSumOfCards();
-        if (sumOfDealerCards <= GET_MORE_CARD_CONDITION) {
-            dealer.pickCard(deck);
+    private void checkDealerCard(Deck deck, Dealer dealer) {
+        if (dealer.canPickCard()) {
+            dealer.pickCard(deck.getRandomCard());
             OutputView.confirmDealerRecivedCard();
         }
     }
 
-    private List<Player> getPlayers() {
-        return players.getPlayers();
-    }
-
-    private void showWinAndLoseResult() {
-        OutputView.showDealerWinAndLoseResult(dealer.getWinCount(), dealer.getLoseCount(), dealer.getDrawCount());
-        for (Player player : players.getPlayers()) {
-            OutputView.showPlayerWinAndLoseResult(player.getName(), player.getBattleResult());
-        }
+    private void showFinalProfit(Players players, Dealer dealer) {
+        OutputView.showTotalMoney(players.getPlayersDto(), dealer.getDealerDto());
     }
 }

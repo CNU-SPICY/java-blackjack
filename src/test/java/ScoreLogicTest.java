@@ -3,31 +3,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import domain.cards.Card;
 import domain.cards.constant.CardEnums.CardRank;
 import domain.cards.constant.CardEnums.CardSuit;
-import domain.logics.Score;
-import domain.logics.SumLogic;
+import domain.logics.ScoreLogic;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class LogicTest {
-
-    @DisplayName("Score가 올바르게 증가하는 지 테스트")
-    @Test
-    void properIncreaseScoreTest() {
-        // given
-        Score score = new Score();
-
-        // when
-        score.increaseWinCount();
-        score.increaseLoseCout();
-        score.increaseDrawCount();
-
-        // then
-        assertThat(score.getWinCount()).isEqualTo(1);
-        assertThat(score.getDrawCount()).isEqualTo(1);
-        assertThat(score.getLoseCount()).isEqualTo(1);
-    }
+public class ScoreLogicTest {
 
     @DisplayName("ACE가 포함된, 값을 더하는 로직 테스트")
     @Test
@@ -38,8 +20,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(21);
@@ -55,8 +37,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(21);
@@ -72,8 +54,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(21);
@@ -89,8 +71,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(18);
@@ -106,8 +88,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(20);
@@ -123,8 +105,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(13);
@@ -141,8 +123,8 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3, card4);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(31);
@@ -158,10 +140,41 @@ public class LogicTest {
         List<Card> ownCards = Arrays.asList(card1, card2, card3);
 
         // when
-        SumLogic sumLogic = new SumLogic();
-        int sum = sumLogic.applyLogic(ownCards);
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sum = scoreLogic.applyLogic(ownCards);
 
         // then
         assertThat(sum).isEqualTo(15);
+    }
+
+    @DisplayName("Bust 메서드 테스트")
+    @Test
+    void bustTest() {
+        // given
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sumOfCards = 23;
+        int sumOfCards2 = 20;
+
+        // when
+        boolean result = scoreLogic.isBust(sumOfCards);
+        boolean result2 = scoreLogic.isBust(sumOfCards2);
+
+        // then
+        assertThat(result).isEqualTo(true);
+        assertThat(result2).isEqualTo(false);
+    }
+
+    @DisplayName("BlackJack 메서드 테스트")
+    @Test
+    void blackJackTest() {
+        // given
+        ScoreLogic scoreLogic = new ScoreLogic();
+        int sumOfCards = 21;
+
+        // when
+        boolean result = scoreLogic.isBlackJack(sumOfCards);
+
+        // then
+        assertThat(result).isEqualTo(true);
     }
 }
