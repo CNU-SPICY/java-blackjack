@@ -1,92 +1,92 @@
 package src.main.java.domain.player;
 
 import src.main.java.domain.card.Card;
-import src.main.java.domain.card.Rank;
-import src.main.java.domain.card.Suit;
-import src.main.java.domain.player.result.DrawCount;
-import src.main.java.domain.player.result.LossCount;
-import src.main.java.domain.player.result.WinCount;
+import src.main.java.domain.player.management.CardManagement;
+import src.main.java.domain.player.management.MoneyManagement;
+import src.main.java.domain.player.management.ResultManagement;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Player {
-    private String name;
-    private List<Card> hand;
-    private WinCount wins;
-    private LossCount losses;
-    private DrawCount draws;
+    private final String name;
+    private CardManagement cardManagement;
+    private ResultManagement resultManagement;
+    private MoneyManagement moneyManagement;
 
     public Player(String name) {
         this.name = name;
-        this.hand = new ArrayList<>();
-        this.wins = new WinCount();
-        this.losses = new LossCount();
-        this.draws = new DrawCount();
+        this.cardManagement = new CardManagement();
+        this.resultManagement = new ResultManagement();
+        this.moneyManagement = new MoneyManagement();
     }
 
     public void receiveCard(Card card) {
-        hand.add(card);
-    }
-
-    public List<Card> getHand() {
-        return hand;
+        cardManagement.receiveCard(card);
     }
 
     public Map<String, List<String>> getHandDetails() {
-        Map<String, List<String>> handDetails = new LinkedHashMap<>();
-        for (Card card : hand) {
-            String suitName = card.getSuit().getName();
-            handDetails.computeIfAbsent(suitName, k -> new ArrayList<>())
-                    .add(card.getRank().toString());
-        }
-        return handDetails;
+        return cardManagement.getHandDetails();
+    }
+
+    public List<Card> getHand() {
+        return cardManagement.getHand();
     }
 
     public int calculateScore() {
-        int score = 0;
-        int numAces = 0;
+        return cardManagement.calculateScore();
+    }
 
-        for (Card card : hand) {
-            score += card.getValue();
-            if (card.getValue() == 1) {
-                numAces++;
-            }
-        }
-        while (numAces > 0 && score <= 11) {
-            score += 10;
-            numAces--;
-        }
-        return score;
+    public boolean isBlackJack() {
+        return cardManagement.isBlackJack();
+    }
+
+    public void bet(int amount) {
+        moneyManagement.bet(amount);
+    }
+
+    public void earnMoney(int amount) {
+        moneyManagement.earn(amount);
+    }
+
+    public void loseMoney(int amount) {
+        moneyManagement.lose(amount);
+    }
+
+    public int getBetMoney() {
+        return moneyManagement.getBetMoney();
+    }
+
+    public int getProfit() {
+        return moneyManagement.getProfit();
+    }
+
+    public void incrementWins() {
+        resultManagement.incrementWins();
+    }
+
+    public void incrementLosses() {
+        resultManagement.incrementLosses();
+    }
+
+    public void incrementDraws() {
+        resultManagement.incrementDraws();
+    }
+
+    public int getWins() {
+        return resultManagement.getWins();
+    }
+
+    public int getLosses() {
+        return resultManagement.getLosses();
+    }
+
+    public int getDraws() {
+        return resultManagement.getDraws();
     }
 
     public String getName() {
         return name;
-    }
-
-    public void incrementWins() {
-        wins.increment();
-    }
-
-    public void incrementLosses() {
-        losses.increment();
-    }
-
-    public void incrementDraws() {
-        draws.increment();
-    }
-
-    public int getWins() {
-        return wins.getCount();
-    }
-
-    public int getLosses() {
-        return losses.getCount();
-    }
-
-    public int getDraws() {
-        return draws.getCount();
     }
 }

@@ -2,6 +2,7 @@ package src.main.java.view;
 
 import src.main.java.view.validation.AskGetMoreValidation;
 import src.main.java.view.validation.GetPlayersNamesValidation;
+import src.main.java.view.validation.AskStakeValidation;
 
 import java.util.Scanner;
 
@@ -21,5 +22,12 @@ public class InputView {
         String reply = scanner.nextLine();
         AskGetMoreValidation.validate(reply);
         return reply.equals("y");
+    }
+
+    public static int askStake(String playerName) {
+        System.out.println(playerName + "의 베팅 금액은?");
+        int stake = Integer.parseInt(scanner.nextLine());
+        AskStakeValidation.validate(stake);
+        return stake;
     }
 }

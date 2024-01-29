@@ -5,6 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Card {
+    private static final String ACE = "A";
+    private static final String KING = "K";
+    private static final String QUEEN = "Q";
+    private static final String JACK = "J";
+    private static final int MIN_RANK = 2;
+    private static final int MAX_RANK = 10;
+
     private Suit suit;
     private Rank rank;
 
@@ -15,10 +22,10 @@ public class Card {
 
     public int getValue() {
         String rankValue = rank.toString();
-        if ("A".equals(rankValue)) {
-            return 1; // 에이스의 디폹트값을 1로 설정
+        if (ACE.equals(rankValue)) {
+            return 1; // 에이스의 디폴트 값 설정
         }
-        if ("K".equals(rankValue) || "Q".equals(rankValue) || "J".equals(rankValue)) {
+        if (KING.equals(rankValue) || QUEEN.equals(rankValue) || JACK.equals(rankValue)) {
             return 10;
         }
         return Integer.parseInt(rankValue);
@@ -27,16 +34,20 @@ public class Card {
     public static List<Card> initializeDeck() {
         List<Card> newDeck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
-            for (int i = 2; i <= 10; i++) {
-                newDeck.add(new Card(suit, String.valueOf(i)));
-            }
-            newDeck.add(new Card(suit, "A"));
-            newDeck.add(new Card(suit, "K"));
-            newDeck.add(new Card(suit, "Q"));
-            newDeck.add(new Card(suit, "J"));
+            addAllCardsForSuit(newDeck, suit);
         }
         Collections.shuffle(newDeck);
         return newDeck;
+    }
+
+    private static void addAllCardsForSuit(List<Card> deck, Suit suit) {
+        for (int i = MIN_RANK; i <= MAX_RANK; i++) {
+            deck.add(new Card(suit, String.valueOf(i)));
+        }
+        deck.add(new Card(suit, ACE));
+        deck.add(new Card(suit, KING));
+        deck.add(new Card(suit, QUEEN));
+        deck.add(new Card(suit, JACK));
     }
 
     public Rank getRank() {

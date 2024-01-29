@@ -11,7 +11,6 @@ public class OutputView {
         System.out.println("\n딜러와 " + String.join(", ", playerNames) + "에게 2장을 나누었습니다.");
     }
 
-
     public static String formatCards(Map<String, List<String>> handDetails) {
         String cardsInHand = handDetails.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream().map(rank -> rank + entry.getKey()))
@@ -47,5 +46,14 @@ public class OutputView {
 
     public static void displayPlayerWins(String playerName, int wins, int losses, int draws) {
         System.out.println(playerName + ": " + wins + "승 " + losses + "패 " + draws + "무");
+    }
+
+    public static void displayDealerGain(int money) {
+        System.out.println("\n최종 수익");
+        System.out.println("딜러: " + money);
+    }
+
+    public static void displayPlayerGain(String playerName, int money) {
+        System.out.println(playerName + ": " + money);
     }
 }

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import src.main.java.domain.card.Card;
+import src.main.java.domain.card.Suit;
 import src.main.java.domain.player.Dealer;
 import src.main.java.domain.player.Player;
 import src.main.java.domain.players.Players;
@@ -75,16 +76,74 @@ class PlayersTest {
     }
 
     @Test
-    void testDetermineWinners() {
+    void testPlayerNormalWin() {
         // Given
-        players.startGame(dealer);
         Player player = players.getPlayers().get(0);
+        player.bet(100);
+        giveCardsToPlayer(player, new Card(Suit.HEART, "10"), new Card(Suit.SPADE, "9"));
+        giveCardsToDealer(dealer, new Card(Suit.CLUB, "8"), new Card(Suit.DIAMOND, "7"));
 
         // When
         players.determineWinners(dealer);
 
         // Then
-        assertTrue(player.getWins() >= 0 && player.getLosses() >= 0 && player.getDraws() >= 0);
-        assertTrue(dealer.getWins() >= 0 && dealer.getLosses() >= 0 && dealer.getDraws() >= 0);
+        assertEquals(100, player.getProfit()); // Player wins bet, earns double
+    }
+
+    @Test
+    void testPlayerLose() {
+        // Given
+        Player player = players.getPlayers().get(0);
+        player.bet(100);
+        giveCardsToPlayer(player, new Card(Suit.HEART, "8"), new Card(Suit.SPADE, "7"));
+        giveCardsToDealer(dealer, new Card(Suit.CLUB, "10"), new Card(Suit.DIAMOND, "9"));
+
+        // When
+        players.determineWinners(dealer);
+
+        // Then
+        assertEquals(-100, player.getProfit());
+    }
+
+    @Test
+    void testPlayerBlackjackWin() {
+        // Given
+        Player player = players.getPlayers().get(0);
+        player.bet(100);
+        giveCardsToPlayer(player, new Card(Suit.HEART, "A"), new Card(Suit.SPADE, "K"));
+        giveCardsToDealer(dealer, new Card(Suit.CLUB, "9"), new Card(Suit.DIAMOND, "8"));
+
+        // When
+        players.determineWinners(dealer);
+
+        // Then
+        assertEquals(150, player.getProfit()); // Player wins 1.5 times bet
+    }
+
+    @Test
+    void testWhenDraw() {
+        // Given
+        Player player = players.getPlayers().get(0);
+        player.bet(100);
+        giveCardsToPlayer(player, new Card(Suit.HEART, "A"), new Card(Suit.SPADE, "K"));
+        giveCardsToDealer(dealer, new Card(Suit.CLUB, "A"), new Card(Suit.DIAMOND, "K"));
+
+        // When
+        players.determineWinners(dealer);
+
+        // Then
+        assertEquals(0, player.getProfit());
+    }
+
+    private void giveCardsToPlayer(Player player, Card... cards) {
+        for (Card card : cards) {
+            player.receiveCard(card);
+        }
+    }
+
+    private void giveCardsToDealer(Dealer dealer, Card... cards) {
+        for (Card card : cards) {
+            dealer.receiveCard(card);
+        }
     }
 }

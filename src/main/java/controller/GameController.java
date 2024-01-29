@@ -3,6 +3,8 @@ package src.main.java.controller;
 import src.main.java.domain.player.Dealer;
 import src.main.java.domain.player.Player;
 import src.main.java.domain.players.Players;
+import src.main.java.dto.DealerDTO;
+import src.main.java.dto.PlayerDTO;
 import src.main.java.view.InputView;
 import src.main.java.view.OutputView;
 
@@ -12,11 +14,19 @@ public class GameController {
         final var players = new Players(playersNames);
         final var dealer = new Dealer();
 
+        startBet(players);
         startGame(players, dealer);
         playPlayersRounds(players);
         playDealerTurn(players, dealer);
         determineWinners(players, dealer);
         displayResults(players, dealer);
+    }
+
+    private void startBet(Players players) {
+        for (Player player : players.getPlayers()) {
+            int betMoney = InputView.askStake(player.getName());
+            player.bet(betMoney);
+        }
     }
 
     private void startGame(Players players, Dealer dealer) {
@@ -58,24 +68,37 @@ public class GameController {
         }
     }
 
-    private void displayResults(Players players, Dealer dealer) {
-        String cardsOfDealer = OutputView.formatCards(dealer.getHandDetails());
-        OutputView.displayDealerResult(cardsOfDealer, dealer.calculateScore());
-        for (Player player : players.getPlayers()) {
-            String cardsOfPlayer = OutputView.formatCards(player.getHandDetails());
-            OutputView.displayPlayerResult(player.getName(), cardsOfPlayer, player.calculateScore());
-        }
-        displayFinalWins(players, dealer);
-    }
-
     private void determineWinners(Players players, Dealer dealer) {
         players.determineWinners(dealer);
     }
 
-    private void displayFinalWins(Players players, Dealer dealer) {
-        OutputView.displayDealerWins(dealer.getWins(), dealer.getLosses(), dealer.getDraws());
+
+    private void displayResults(Players players, Dealer dealer) {
+        DealerDTO dealerDTO = new DealerDTO(dealer.getHandDetails(), dealer.calculateScore(), dealer.getProfit());
+        OutputView.displayDealerResult(OutputView.formatCards(dealerDTO.getHandDetails()), dealerDTO.getScore());
+
         for (Player player : players.getPlayers()) {
-            OutputView.displayPlayerWins(player.getName(), player.getWins(), player.getLosses(), player.getDraws());
+            PlayerDTO playerDTO = new PlayerDTO(
+                    player.getName(),
+                    player.getHandDetails(),
+                    player.calculateScore(),
+                    player.getProfit()
+            );
+            OutputView.displayPlayerResult(playerDTO.getName(), OutputView.formatCards(playerDTO.getHandDetails()), playerDTO.getScore());
+        }
+        displayFinalWins(players, dealerDTO);
+    }
+
+    private void displayFinalWins(Players players, DealerDTO dealerDTO) {
+        OutputView.displayDealerGain(dealerDTO.getProfit());
+        for (Player player : players.getPlayers()) {
+            PlayerDTO playerDTO = new PlayerDTO(
+                    player.getName(),
+                    player.getHandDetails(),
+                    player.calculateScore(),
+                    player.getProfit()
+            );
+            OutputView.displayPlayerGain(playerDTO.getName(), playerDTO.getProfit());
         }
     }
 }
