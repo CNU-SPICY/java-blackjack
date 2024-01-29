@@ -1,7 +1,7 @@
-package blackjack.domain;
+package blackjack.domain.card;
 
 public class CardData {
-    public static enum Denomination {
+    public enum Denomination {
         ACE("A", 11),
         TWO("2", 2),
         THREE("3", 3),

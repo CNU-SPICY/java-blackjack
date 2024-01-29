@@ -1,23 +1,12 @@
-package blackjack.domain;
+package blackjack.domain.person;
 
+import blackjack.domain.card.Card;
+import blackjack.domain.card.Deck;
+import blackjack.domain.GameConstant;
 import java.util.ArrayList;
 
-public class Player {
-    private final String name;
-    private final ArrayList<Card> hand;
-
-    public Player(String name) {
-        this.name = name;
-        this.hand = new ArrayList<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
+public class Person {
+    private final ArrayList<Card> hand = new ArrayList<>();
 
     public void initDeal(Deck deck) {
         drawCard(deck);
@@ -32,8 +21,8 @@ public class Player {
         hand.add(card);
     }
 
-    public boolean isHitPossible() {
-        return (calculateTotalScore() < GameConstant.BUST_SCORE);
+    public boolean isHitPossible(int score) {
+        return (calculateTotalScore() < score);
     }
 
     public int calculateTotalScore() {
@@ -41,7 +30,7 @@ public class Player {
                 .mapToInt(Card::getScore)
                 .sum();
         long aceCount = countAce();
-        while(aceCount > 0 && totalScore >= GameConstant.BUST_SCORE ) {
+        while(aceCount > 0 && totalScore >= GameConstant.BUST_SCORE) {
             totalScore -= GameConstant.ACE_EXTRA_SCORE;
             aceCount --;
         }
@@ -56,5 +45,15 @@ public class Player {
 
     private boolean isAce(Card card) {
         return card.getDenomination().equals("A");
+    }
+
+    public boolean isBlackjack() {
+        boolean score = (calculateTotalScore() == GameConstant.BLACKJACK_SCORE);
+        boolean count = (hand.size() == 2);
+        return (score && count);
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
     }
 }

@@ -1,39 +1,43 @@
 package blackjack.domain;
 
+import blackjack.domain.person.Name;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Result {
-    private int dealerWinCount = 0;
-    private int dealerPushCount = 0;
-    private int dealerLoseCount = 0;
-    private final Map<String, String> playerResults = new HashMap<>();
-    public int getDealerWinCount() {
-        return dealerWinCount;
+    private final Map<Name, Integer> playerAmounts = new HashMap<>();
+    private int dealerAmount = 0;
+
+    public void addBetAmount(Name name, int betAmount) {
+        playerAmounts.put(name, betAmount);
     }
 
-    public int getDealerPushCount() {
-        return dealerPushCount;
-    }
-
-    public int getDealerLoseCount() {
-        return dealerLoseCount;
-    }
-
-    public Map<String, String> getPlayerResults() {
-        return playerResults;
-    }
-
-    public void addPlayerResult(String name, String result) {
-        playerResults.put(name, result);
-        if(result == "승") {
-            dealerLoseCount ++;
+    public void updateBetAmount(Name name, String result) {
+        int playerAmount = playerAmounts.get(name);
+        if(Objects.equals(result, GameConstant.WIN)) {
+            dealerAmount -= playerAmount;
             return;
         }
-        if(result == "패") {
-            dealerWinCount ++;
+        if(Objects.equals(result, GameConstant.LOSE)) {
+            dealerAmount += playerAmount;
+            playerAmounts.put(name, -playerAmount);
             return;
         }
-        dealerPushCount ++;
+        if(Objects.equals(result, GameConstant.BLACKJACK)) {
+            int blackjackAmount =  (int) (playerAmount * GameConstant.BLACKJACK_ODDS);
+            dealerAmount -= blackjackAmount;
+            playerAmounts.put(name, blackjackAmount);
+            return;
+        }
+        playerAmounts.put(name, 0);
+    }
+
+    public int getDealerAmount() {
+        return dealerAmount;
+    }
+
+    public Map<Name, Integer> getPlayerResults() {
+        return playerAmounts;
     }
 }
