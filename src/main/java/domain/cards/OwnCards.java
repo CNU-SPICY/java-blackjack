@@ -19,13 +19,13 @@ public class OwnCards {
         return new OwnCards();
     }
 
-    public void getRandomTwoCards(Deck deck) {
-        addCard(deck);
-        addCard(deck);
+    public void getRandomTwoCards(Card firstCard, Card secondCard) {
+        addCard(firstCard);
+        addCard(secondCard);
     }
 
-    public void addCard(Deck deck) {
-        ownCards.add(deck.getRandomCard());
+    public void addCard(Card card) {
+        ownCards.add(card);
     }
 
     public List<Card> getOwnCards() {

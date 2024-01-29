@@ -1,6 +1,6 @@
 package domain.person;
 
-import domain.cards.Deck;
+import domain.cards.Card;
 import domain.cards.OwnCards;
 import domain.person.wrapper.ParticipantName;
 import dto.CardDto;
@@ -21,12 +21,12 @@ public class Participant {
         return new Participant(name);
     }
 
-    public void setFirstCards(Deck deck) {
-        ownCards.getRandomTwoCards(deck);
+    public void setFirstCards(Card firstCard, Card secondCard) {
+        ownCards.getRandomTwoCards(firstCard, secondCard);
     }
 
-    public void pickCard(Deck deck) {
-        ownCards.addCard(deck);
+    public void pickCard(Card card) {
+        ownCards.addCard(card);
     }
 
     public List<CardDto> getOwnCardsRankAndSuit() {

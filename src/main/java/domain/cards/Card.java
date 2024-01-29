@@ -13,10 +13,6 @@ public class Card {
         this.cardRank = cardRank;
     }
 
-    public String getCardFullName() {
-        return cardRank.getRankName() + cardSuit.getSuitName();
-    }
-
     public String getCardRank() {
         return cardRank.getRankName();
     }

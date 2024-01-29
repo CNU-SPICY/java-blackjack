@@ -38,8 +38,8 @@ public class BlackjackController {
     }
 
     private void divideFirstCards(Deck deck, Dealer dealer, Players players) {
-        dealer.setFirstCards(deck);
-        players.getPlayers().forEach(player -> player.setFirstCards(deck));
+        dealer.setFirstCards(deck.getRandomCard(), deck.getRandomCard());
+        players.getPlayers().forEach(player -> player.setFirstCards(deck.getRandomCard(), deck.getRandomCard()));
     }
 
     private void bettleBeforeDistribution(Dealer dealer, Players players) {
@@ -53,7 +53,7 @@ public class BlackjackController {
 
     private void distributeCardsToPlayer(Deck deck, Player player) {
         while (InputView.getCardCondition(player.getPlayerInfo().getPlayerName())) {
-            player.pickCard(deck);
+            player.pickCard(deck.getRandomCard());
             OutputView.showPlayerCard(player.getPlayerInfo());
         }
         OutputView.showPlayerCard(player.getPlayerInfo());
@@ -61,7 +61,7 @@ public class BlackjackController {
 
     private void checkDealerCard(Deck deck, Dealer dealer) {
         if (dealer.canPickCard()) {
-            dealer.pickCard(deck);
+            dealer.pickCard(deck.getRandomCard());
             OutputView.confirmDealerRecivedCard();
         }
     }

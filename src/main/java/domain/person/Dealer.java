@@ -1,6 +1,6 @@
 package domain.person;
 
-import domain.cards.Deck;
+import domain.cards.Card;
 import domain.logics.BettingLogic;
 import dto.CardDto;
 import dto.DealerDto;
@@ -27,16 +27,16 @@ public class Dealer {
         return getSumOfCards() <= GET_MORE_CARD_CONDITION;
     }
 
-    public void setFirstCards(Deck deck) {
-        participant.setFirstCards(deck);
+    public void setFirstCards(Card firstCard, Card secondCard) {
+        participant.setFirstCards(firstCard, secondCard);
     }
 
     public String getName() {
         return participant.getName();
     }
 
-    public void pickCard(Deck deck) {
-        participant.pickCard(deck);
+    public void pickCard(Card card) {
+        participant.pickCard(card);
     }
 
     public List<CardDto> getOwnCardsRankAndSuit() {
