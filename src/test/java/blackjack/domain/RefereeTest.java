@@ -3,6 +3,7 @@ package blackjack.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import blackjack.domain.card.Deck;
+import blackjack.domain.wrapper.PlayerName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class RefereeTest {
     void setUp() {
         deck = new Deck();
         dealer = new Dealer(deck);
-        player = new Player("pobi");
+        player = new Player(new PlayerName("pobi"));
         player.addBetting(10);
     }
 

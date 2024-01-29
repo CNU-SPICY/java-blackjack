@@ -2,6 +2,7 @@ package blackjack.domain;
 
 import blackjack.domain.card.Deck;
 import blackjack.domain.util.RandomGenerator;
+import blackjack.domain.wrapper.PlayerName;
 import java.util.stream.IntStream;
 
 public class Dealer extends Player {
@@ -13,7 +14,7 @@ public class Dealer extends Player {
     private final Deck deck;
 
     public Dealer(Deck deck) {
-        super(DEALER_NAME);
+        super(new PlayerName(DEALER_NAME));
         this.deck = deck;
     }
 

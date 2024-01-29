@@ -3,16 +3,17 @@ package blackjack.domain;
 import blackjack.domain.card.Card;
 import blackjack.domain.card.Deck;
 import blackjack.domain.card.PlayerCards;
+import blackjack.domain.wrapper.PlayerName;
 import java.util.List;
 
 public class Player {
 
-    private final String name;
+    private final PlayerName playerName;
     private final PlayerCards cards;
     private final Account account;
 
-    public Player(String name) {
-        this.name = name;
+    public Player(PlayerName playerName) {
+        this.playerName = playerName;
         this.cards = new PlayerCards();
         this.account = new Account();
     }
@@ -42,7 +43,7 @@ public class Player {
     }
 
     public String getName() {
-        return name;
+        return playerName.getName();
     }
 
     public List<Card> getCards() {
