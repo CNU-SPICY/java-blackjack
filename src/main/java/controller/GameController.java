@@ -3,8 +3,8 @@ package src.main.java.controller;
 import src.main.java.domain.player.Dealer;
 import src.main.java.domain.player.Player;
 import src.main.java.domain.players.Players;
-import src.main.java.dto.DealerInfo;
-import src.main.java.dto.PlayerInfo;
+import src.main.java.dto.DealerDTO;
+import src.main.java.dto.PlayerDTO;
 import src.main.java.view.InputView;
 import src.main.java.view.OutputView;
 
@@ -74,31 +74,31 @@ public class GameController {
 
 
     private void displayResults(Players players, Dealer dealer) {
-        DealerInfo dealerInfo = new DealerInfo(dealer.getHandDetails(), dealer.calculateScore(), dealer.getProfit());
-        OutputView.displayDealerResult(OutputView.formatCards(dealerInfo.getHandDetails()), dealerInfo.getScore());
+        DealerDTO dealerDTO = new DealerDTO(dealer.getHandDetails(), dealer.calculateScore(), dealer.getProfit());
+        OutputView.displayDealerResult(OutputView.formatCards(dealerDTO.getHandDetails()), dealerDTO.getScore());
 
         for (Player player : players.getPlayers()) {
-            PlayerInfo playerInfo = new PlayerInfo(
+            PlayerDTO playerDTO = new PlayerDTO(
                     player.getName(),
                     player.getHandDetails(),
                     player.calculateScore(),
                     player.getProfit()
             );
-            OutputView.displayPlayerResult(playerInfo.getName(), OutputView.formatCards(playerInfo.getHandDetails()), playerInfo.getScore());
+            OutputView.displayPlayerResult(playerDTO.getName(), OutputView.formatCards(playerDTO.getHandDetails()), playerDTO.getScore());
         }
-        displayFinalWins(players, dealerInfo);
+        displayFinalWins(players, dealerDTO);
     }
 
-    private void displayFinalWins(Players players, DealerInfo dealerInfo) {
-        OutputView.displayDealerGain(dealerInfo.getProfit());
+    private void displayFinalWins(Players players, DealerDTO dealerDTO) {
+        OutputView.displayDealerGain(dealerDTO.getProfit());
         for (Player player : players.getPlayers()) {
-            PlayerInfo playerInfo = new PlayerInfo(
+            PlayerDTO playerDTO = new PlayerDTO(
                     player.getName(),
                     player.getHandDetails(),
                     player.calculateScore(),
                     player.getProfit()
             );
-            OutputView.displayPlayerGain(playerInfo.getName(), playerInfo.getProfit());
+            OutputView.displayPlayerGain(playerDTO.getName(), playerDTO.getProfit());
         }
     }
 }

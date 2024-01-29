@@ -1,23 +1,17 @@
 package src.main.java.dto;
 
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 
-public class PlayerInfo {
-    private String name;
+public class DealerDTO {
     private Map<String, List<String>> handDetails;
     private int score;
     private int profit;
 
-    public PlayerInfo(String name, Map<String, List<String>> handDetails, int score, int profit) {
-        this.name = name;
+    public DealerDTO(Map<String, List<String>> handDetails, int score, int profit) {
         this.handDetails = handDetails;
         this.score = score;
         this.profit = profit;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Map<String, List<String>> getHandDetails() {
