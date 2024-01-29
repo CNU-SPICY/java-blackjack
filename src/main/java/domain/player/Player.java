@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Player {
-    private String name;
+    private final String name;
     private CardManagement cardManagement;
     private ResultManagement resultManagement;
     private MoneyManagement moneyManagement;
