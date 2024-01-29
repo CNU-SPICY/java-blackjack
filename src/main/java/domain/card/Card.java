@@ -34,16 +34,20 @@ public class Card {
     public static List<Card> initializeDeck() {
         List<Card> newDeck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
-            for (int i = MIN_RANK; i <= MAX_RANK; i++) {
-                newDeck.add(new Card(suit, String.valueOf(i)));
-            }
-            newDeck.add(new Card(suit, ACE));
-            newDeck.add(new Card(suit, KING));
-            newDeck.add(new Card(suit, QUEEN));
-            newDeck.add(new Card(suit, JACK));
+            addAllCardsForSuit(newDeck, suit);
         }
         Collections.shuffle(newDeck);
         return newDeck;
+    }
+
+    private static void addAllCardsForSuit(List<Card> deck, Suit suit) {
+        for (int i = MIN_RANK; i <= MAX_RANK; i++) {
+            deck.add(new Card(suit, String.valueOf(i)));
+        }
+        deck.add(new Card(suit, ACE));
+        deck.add(new Card(suit, KING));
+        deck.add(new Card(suit, QUEEN));
+        deck.add(new Card(suit, JACK));
     }
 
     public Rank getRank() {
