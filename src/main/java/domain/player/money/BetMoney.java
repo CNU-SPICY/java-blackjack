@@ -1,7 +1,7 @@
 package src.main.java.domain.player.money;
 
 public class BetMoney {
-    private int amount;
+    private final int amount;
 
     public BetMoney(int amount) {
         this.amount = amount;
@@ -9,9 +9,5 @@ public class BetMoney {
 
     public int getAmount() {
         return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 }
