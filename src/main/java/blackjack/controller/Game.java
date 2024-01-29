@@ -25,7 +25,7 @@ public class Game {
     }
 
     public void bet(Player player) {
-        int betAmount = inputView.getBetAmount(player.getName());
+        int betAmount = inputView.getBetAmount(player.getName().getName());
         result.addBetAmount(player.getName(), betAmount);
     }
 
@@ -51,7 +51,7 @@ public class Game {
     }
 
     public boolean playerHit(Player player) {
-        boolean hitDecision = inputView.getHitDecision(player.getName());
+        boolean hitDecision = inputView.getHitDecision(player.getName().getName());
         if(hitDecision) {
             player.drawCard(deck);
         }

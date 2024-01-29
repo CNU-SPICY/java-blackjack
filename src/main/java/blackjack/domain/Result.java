@@ -1,29 +1,31 @@
 package blackjack.domain;
 
+import blackjack.domain.person.Name;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Result {
-    private final Map<String, Integer> playerAmounts = new HashMap<>();
+    private final Map<Name, Integer> playerAmounts = new HashMap<>();
     private int dealerAmount = 0;
 
-    public void addBetAmount(String name, int betAmount) {
+    public void addBetAmount(Name name, int betAmount) {
         playerAmounts.put(name, betAmount);
     }
 
-    public void updateBetAmount(String name, String result) {
-        int amount = playerAmounts.get(name);
-        if(result == GameConstant.WIN) {
-            dealerAmount -= amount;
+    public void updateBetAmount(Name name, String result) {
+        int playerAmount = playerAmounts.get(name);
+        if(Objects.equals(result, GameConstant.WIN)) {
+            dealerAmount -= playerAmount;
             return;
         }
-        if(result == GameConstant.LOSE) {
-            dealerAmount += amount;
-            playerAmounts.put(name, -amount);
+        if(Objects.equals(result, GameConstant.LOSE)) {
+            dealerAmount += playerAmount;
+            playerAmounts.put(name, -playerAmount);
             return;
         }
-        if(result == GameConstant.BLACKJACK) {
-            int blackjackAmount =  (int) (amount * GameConstant.BLACKJACK_ODDS);
+        if(Objects.equals(result, GameConstant.BLACKJACK)) {
+            int blackjackAmount =  (int) (playerAmount * GameConstant.BLACKJACK_ODDS);
             dealerAmount -= blackjackAmount;
             playerAmounts.put(name, blackjackAmount);
             return;
@@ -35,7 +37,7 @@ public class Result {
         return dealerAmount;
     }
 
-    public Map<String, Integer> getPlayerResults() {
+    public Map<Name, Integer> getPlayerResults() {
         return playerAmounts;
     }
 }

@@ -6,33 +6,33 @@ import blackjack.domain.GameConstant;
 import java.util.ArrayList;
 
 public class Dealer {
-    private final Person dealer = new Person();
+    private final Person person = new Person();
 
     public void initDeal(Deck deck) {
-        dealer.initDeal(deck);
+        person.initDeal(deck);
     }
 
     public void drawCard(Deck deck) {
-        dealer.drawCard(deck);
+        person.drawCard(deck);
     }
 
     public void addCardToHand(Card card) {
-        dealer.addCardToHand(card);
+        person.addCardToHand(card);
     }
 
     public boolean isHitPossible() {
-        return dealer.isHitPossible(GameConstant.DEALER_STAND_SCORE);
+        return person.isHitPossible(GameConstant.DEALER_STAND_SCORE);
     }
 
     public int calculateTotalScore() {
-        return dealer.calculateTotalScore();
+        return person.calculateTotalScore();
     }
 
     public boolean isBlackjack() {
-        return dealer.isBlackjack();
+        return person.isBlackjack();
     }
 
     public ArrayList<Card> getHand() {
-        return dealer.getHand();
+        return person.getHand();
     }
 }

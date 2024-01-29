@@ -2,6 +2,7 @@ package blackjack.view;
 
 import blackjack.domain.*;
 import blackjack.domain.person.Dealer;
+import blackjack.domain.person.Name;
 import blackjack.domain.person.Player;
 import java.util.ArrayList;
 import java.util.Map;
@@ -72,9 +73,9 @@ public class OutputView {
     }
 
     private void printPlayersResult(Result result) {
-        Map<String, Integer> playersResult = result.getPlayerResults();
-        for (Map.Entry<String, Integer> entry : playersResult.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+        Map<Name, Integer> playersResult = result.getPlayerResults();
+        for (Map.Entry<Name, Integer> entry : playersResult.entrySet()) {
+            System.out.println(entry.getKey().getName() + ": " + entry.getValue());
         }
     }
 

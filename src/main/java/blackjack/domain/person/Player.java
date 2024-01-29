@@ -7,37 +7,37 @@ import java.util.ArrayList;
 
 public class Player {
     private final Name name;
-    private final Person player;
+    private final Person person;
 
     public Player(String name) {
         this.name = new Name(name);
-        player = new Person();
+        person = new Person();
     }
 
     public void initDeal(Deck deck) {
-        player.initDeal(deck);
+        person.initDeal(deck);
     }
 
     public void drawCard(Deck deck) {
-        player.drawCard(deck);
+        person.drawCard(deck);
     }
 
     public void addCardToHand(Card card) {
-        player.addCardToHand(card);
+        person.addCardToHand(card);
     }
 
     public boolean isHitPossible() {
-        return player.isHitPossible(GameConstant.BUST_SCORE);
+        return person.isHitPossible(GameConstant.BUST_SCORE);
     }
 
     public int calculateTotalScore() {
-        return player.calculateTotalScore();
+        return person.calculateTotalScore();
     }
 
     public String decidePlayerResult(Dealer dealer) {
         int dealerScore = dealer.calculateTotalScore();
-        int playerScore = player.calculateTotalScore();
-        if (player.isBlackjack() && !dealer.isBlackjack()) {
+        int playerScore = person.calculateTotalScore();
+        if (person.isBlackjack() && !dealer.isBlackjack()) {
             return GameConstant.BLACKJACK;
         }
         if (playerScore >= GameConstant.BUST_SCORE) {
@@ -56,14 +56,14 @@ public class Player {
     }
 
     public boolean isBlackjack() {
-        return player.isBlackjack();
+        return person.isBlackjack();
     }
 
-    public String getName() {
-        return name.getName();
+    public Name getName() {
+        return name;
     }
 
     public ArrayList<Card> getHand() {
-        return player.getHand();
+        return person.getHand();
     }
 }
